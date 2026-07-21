@@ -4,8 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BLINK — Create Impossible</title>
-<meta name="description" content="Blink — AI advertising studio. Cinematic film, VFX, product visualization, motion & bespoke characters. Sulaymaniyah." />
+<meta name="description" content="Blink — advertising studio. Cinematic film, VFX, product visualization, motion & bespoke characters. Sulaymaniyah." />
 <meta name="theme-color" content="#070707" />
+<!-- Open Graph / social share -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="BLINK" />
+<meta property="og:title" content="BLINK — Create Impossible" />
+<meta property="og:description" content="World-class advertising, film & VFX studio. Cinematic film, VFX, product visualization & bespoke brand characters. Sulaymaniyah." />
+<meta property="og:image" content="assets/work-iphone.jpg" />
+<meta property="og:image:alt" content="BLINK cinematic render" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="BLINK — Create Impossible" />
+<meta name="twitter:description" content="World-class advertising, film & VFX studio. Sulaymaniyah." />
+<meta name="twitter:image" content="assets/work-iphone.jpg" />
 <link rel="icon" href="assets/logo.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -246,11 +257,11 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
   letter-spacing:.005em;color:#fff;line-height:1.15;}
 [dir=rtl] .cell .cap{text-align:right;}
 /* 12-col spans + aspect ratios */
-.c-3{grid-column:span 3}.c-4{grid-column:span 4}.c-5{grid-column:span 5}.c-7{grid-column:span 7}
+.c-3{grid-column:span 3}.c-4{grid-column:span 4}.c-5{grid-column:span 5}.c-7{grid-column:span 7}.c-12{grid-column:span 12}
 .r-a{aspect-ratio:16/10}.r-b{aspect-ratio:4/5}.r-c{aspect-ratio:1}
 @media(max-width:1024px){
   .grid{grid-template-columns:repeat(6,1fr);}
-  .c-7,.c-5{grid-column:span 6;}.c-4{grid-column:span 3;}.c-3{grid-column:span 3;}
+  .c-7,.c-5,.c-12{grid-column:span 6;}.c-4{grid-column:span 3;}.c-3{grid-column:span 3;}
   .c-7.r-a,.c-5.r-a{aspect-ratio:16/9;}
 }
 @media(max-width:620px){
@@ -366,7 +377,7 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
     <div class="hero-top"><div class="kicker" data-reveal data-i18n="hero.kicker">Blink — For Advertising</div></div>
     <div class="hero-btm">
       <h1 class="d1" data-reveal data-i18n="hero.h1">Create Impossible.</h1>
-      <p class="sub d2" data-reveal data-i18n="hero.sub">World-class AI advertising, film &amp; VFX.</p>
+      <p class="sub d2" data-reveal data-i18n="hero.sub">World-class advertising, film &amp; VFX.</p>
     </div>
   </section>
 
@@ -377,7 +388,7 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
     <div class="wrap center-copy">
       <div class="kicker" data-reveal data-i18n="films.kicker">Cinematic Production</div>
       <h2 class="d1" data-reveal data-i18n="films.h2">Films.</h2>
-      <p class="sub d2" data-reveal data-i18n="films.sub">Cinema-quality AI productions.</p>
+      <p class="sub d2" data-reveal data-i18n="films.sub">Cinema-quality productions.</p>
     </div>
   </section>
 
@@ -391,13 +402,13 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
     </div>
   </section>
 
-  <!-- 3 · AI MEETS CINEMA (iPhone render) -->
+  <!-- 3 · CRAFT MEETS CINEMA (iPhone render) -->
   <section data-i="3">
     <div class="media" data-par="0.15"><img class="cover" src="assets/work-iphone.jpg" alt="iPhone 17 Pro — Blink render" decoding="async" /></div>
     <div class="scrim bottom"></div>
     <div class="wrap">
       <div class="kicker" data-reveal data-i18n="cinema.kicker">Product Visualization</div>
-      <h2 class="d1" data-reveal data-i18n="cinema.h2">AI Meets<br>Cinema.</h2>
+      <h2 class="d1" data-reveal data-i18n="cinema.h2">Craft Meets<br>Cinema.</h2>
     </div>
   </section>
 
@@ -418,20 +429,22 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
       <p class="sub d1" data-reveal data-i18n="work.sub">Brands people stop scrolling for.</p>
     </div>
     <div class="grid">
-      <figure class="cell c-7 r-a" data-reveal="clip"><img class="cover" src="assets/work-iphone.jpg" alt="" loading="lazy" decoding="async"><figcaption class="cap"><i>01 — Apple</i><b>Cinematic Poster</b></figcaption></figure>
-      <figure class="cell c-5 r-a d1" data-reveal="clip"><video class="cover" data-src="assets/work1.mp4" data-start="8" muted playsinline preload="metadata"></video><figcaption class="cap"><i>02 — Ford</i><b>Automotive Film</b></figcaption></figure>
+      <figure class="cell c-7 r-a" data-reveal="clip"><img class="cover" src="assets/work-iphone.jpg" alt="Apple — cinematic poster render by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>01 — Apple</i><b>Cinematic Poster</b></figcaption></figure>
+      <figure class="cell c-5 r-a d1" data-reveal="clip"><video class="cover" aria-label="Ford — automotive film by Blink" data-src="assets/work1.mp4" data-start="8" muted playsinline preload="metadata"></video><figcaption class="cap"><i>02 — Ford</i><b>Automotive Film</b></figcaption></figure>
 
-      <figure class="cell c-4 r-b" data-reveal="clip"><img class="cover" src="assets/work-rolex.jpg" alt="" loading="lazy" decoding="async"><figcaption class="cap"><i>03 — Rolex</i><b>Luxury Render</b></figcaption></figure>
-      <figure class="cell c-4 r-b d1" data-reveal="clip"><video class="cover" data-src="assets/work2.mp4" data-start="3" muted playsinline preload="metadata"></video><figcaption class="cap"><i>04 — Product</i><b>Hyper-Motion</b></figcaption></figure>
-      <figure class="cell c-4 r-b d2" data-reveal="clip"><video class="cover" data-src="assets/work3.mp4" data-start="1.5" muted playsinline preload="metadata"></video><figcaption class="cap"><i>05 — VFX</i><b>Composite</b></figcaption></figure>
+      <figure class="cell c-4 r-b" data-reveal="clip"><img class="cover" src="assets/work-rolex.jpg" alt="Rolex — luxury watch product render by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>03 — Rolex</i><b>Luxury Render</b></figcaption></figure>
+      <figure class="cell c-4 r-b d1" data-reveal="clip"><video class="cover" aria-label="Product hyper-motion film by Blink" data-src="assets/work2.mp4" data-start="3" muted playsinline preload="metadata"></video><figcaption class="cap"><i>04 — Product</i><b>Hyper-Motion</b></figcaption></figure>
+      <figure class="cell c-4 r-b d2" data-reveal="clip"><video class="cover" aria-label="VFX composite by Blink" data-src="assets/work3.mp4" data-start="1.5" muted playsinline preload="metadata"></video><figcaption class="cap"><i>05 — VFX</i><b>Composite</b></figcaption></figure>
 
-      <figure class="cell c-4 r-c" data-reveal="clip"><img class="cover" src="assets/work-muse.jpg" alt="" loading="lazy" decoding="async"><figcaption class="cap"><i>06 — Muse</i><b>Beverage</b></figcaption></figure>
-      <figure class="cell c-4 r-c d1" data-reveal="clip"><img class="cover" src="assets/work-pizza.jpg" alt="" loading="lazy" decoding="async"><figcaption class="cap"><i>07 — Haji</i><b>Brand Character</b></figcaption></figure>
-      <figure class="cell c-4 r-c d2" data-reveal="clip"><video class="cover" data-src="assets/work4.mp4" data-start="3" muted playsinline preload="metadata"></video><figcaption class="cap"><i>08 — Social</i><b>Kinetic Edit</b></figcaption></figure>
+      <figure class="cell c-4 r-c" data-reveal="clip"><img class="cover" src="assets/work-muse.jpg" alt="Muse — beverage brand campaign by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>06 — Muse</i><b>Beverage</b></figcaption></figure>
+      <figure class="cell c-4 r-c d1" data-reveal="clip"><img class="cover" src="assets/work-pizza.jpg" alt="Haji — bespoke brand character by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>07 — Haji</i><b>Brand Character</b></figcaption></figure>
+      <figure class="cell c-4 r-c d2" data-reveal="clip"><video class="cover" aria-label="Social kinetic edit by Blink" data-src="assets/work4.mp4" data-start="3" muted playsinline preload="metadata"></video><figcaption class="cap"><i>08 — Social</i><b>Kinetic Edit</b></figcaption></figure>
 
-      <figure class="cell c-4 r-a" data-reveal="clip"><video class="cover" data-src="assets/films-trex.mp4" data-start="4" muted playsinline preload="metadata"></video><figcaption class="cap"><i>09 — Film</i><b>Haji vs T-Rex</b></figcaption></figure>
-      <figure class="cell c-4 r-a d1" data-reveal="clip"><img class="cover" src="assets/work-ford.jpg" alt="" loading="lazy" decoding="async"><figcaption class="cap"><i>10 — Ford</i><b>Studio Key Art</b></figcaption></figure>
-      <figure class="cell c-4 r-a d2" data-reveal="clip"><img class="cover" src="assets/work-zero.jpg" alt="" loading="lazy" decoding="async"><figcaption class="cap"><i>11 — Zero</i><b>FMCG Packaging</b></figcaption></figure>
+      <figure class="cell c-4 r-a" data-reveal="clip"><video class="cover" aria-label="Haji vs T-Rex — cinematic film by Blink" data-src="assets/films-trex.mp4" data-start="4" muted playsinline preload="metadata"></video><figcaption class="cap"><i>09 — Film</i><b>Haji vs T-Rex</b></figcaption></figure>
+      <figure class="cell c-4 r-a d1" data-reveal="clip"><img class="cover" src="assets/work-ford.jpg" alt="Ford — automotive studio key art by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>10 — Ford</i><b>Studio Key Art</b></figcaption></figure>
+      <figure class="cell c-4 r-a d2" data-reveal="clip"><img class="cover" src="assets/work-zero.jpg" alt="Zero — FMCG packaging design by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>11 — Zero</i><b>FMCG Packaging</b></figcaption></figure>
+
+      <figure class="cell c-12 r-a" data-reveal="clip"><video class="cover" aria-label="Toyota — automotive film in 4K by Blink" data-src="assets/Toyota_web.mp4" data-start="2" muted playsinline preload="metadata"></video><figcaption class="cap"><i>12 — Toyota</i><b>Automotive Film · 4K</b></figcaption></figure>
     </div>
   </section>
 
@@ -608,10 +621,10 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
   const LANG={
     en:{ code:'EN', dots:['Home','Films','Reel','Cinema','Motion','Work','VFX','Cast','Contact'],
       'nav.work':'Work','nav.contact':'Contact','nav.start':'Start',
-      'hero.kicker':'Blink — For Advertising','hero.h1':'Create Impossible.','hero.sub':'World-class AI advertising, film &amp; VFX.',
-      'films.kicker':'Cinematic Production','films.h2':'Films.','films.sub':'Cinema-quality AI productions.',
+      'hero.kicker':'Blink — For Advertising','hero.h1':'Create Impossible.','hero.sub':'World-class advertising, film &amp; VFX.',
+      'films.kicker':'Cinematic Production','films.h2':'Films.','films.sub':'Cinema-quality productions.',
       'reel.kicker':'Reel · 2026','reel.h2':'Ideas Become<br>Reality.',
-      'cinema.kicker':'Product Visualization','cinema.h2':'AI Meets<br>Cinema.',
+      'cinema.kicker':'Product Visualization','cinema.h2':'Craft Meets<br>Cinema.',
       'motion.kicker':'Hyper-Motion','motion.h2':'Motion<br>That Sells.',
       'work.h2':'Selected Work.','work.sub':'Brands people stop scrolling for.',
       'vfx.kicker':'VFX &amp; Compositing','vfx.h2':'Beyond<br>Reality.','vfx.sub':'The impossible, shot-in-camera.',
@@ -626,10 +639,10 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
       'cta':'Start a Project','city':'Sulaymaniyah','scroll':'SCROLL' },
     ku:{ code:'KU', dots:['ماڵەوە','فیلم','ڕیل','سینەما','جووڵە','کار','ئێفێکت','کارەکتەر','پەیوەندی'],
       'nav.work':'کارەکان','nav.contact':'پەیوەندی','nav.start':'دەستپێبکە',
-      'hero.kicker':'بلینک — بۆ ڕیکلام','hero.h1':'مەحاڵ دروست بکە.','hero.sub':'ڕیکلام، فیلم و ئێفێکتی ئاستی جیهانی بە زیرەکیی دەستکرد.',
-      'films.kicker':'بەرهەمهێنانی سینەمایی','films.h2':'فیلمەکان.','films.sub':'بەرهەمی زیرەکیی دەستکرد بە کوالیتیی سینەما.',
+      'hero.kicker':'بلینک — بۆ ڕیکلام','hero.h1':'مەحاڵ دروست بکە.','hero.sub':'ڕیکلام، فیلم و ئێفێکتی ئاستی جیهانی.',
+      'films.kicker':'بەرهەمهێنانی سینەمایی','films.h2':'فیلمەکان.','films.sub':'بەرهەم بە کوالیتیی سینەما.',
       'reel.kicker':'ڕیل · ٢٠٢٦','reel.h2':'بیرۆکەکان دەبنە<br>ڕاستی.',
-      'cinema.kicker':'پیشاندانی بەرهەم','cinema.h2':'زیرەکی تێکەڵ<br>بە سینەما.',
+      'cinema.kicker':'پیشاندانی بەرهەم','cinema.h2':'داهێنان تێکەڵ<br>بە سینەما.',
       'motion.kicker':'جووڵەی بەرز','motion.h2':'جووڵەیەک<br>کە دەفرۆشێت.',
       'work.h2':'هەڵبژاردەی کار.','work.sub':'براندەکانێک کە خەڵک بۆیان دەوەستن.',
       'vfx.kicker':'ئێفێکت و کۆمپۆزیتینگ','vfx.h2':'لەودیوی<br>ڕاستی.','vfx.sub':'مەحاڵ، بە کامێرا گیراو.',
@@ -644,10 +657,10 @@ section .wrap .kicker,section .wrap h1,section .wrap h2,section .wrap .sub,
       'cta':'پڕۆژەیەک دەستپێبکە','city':'سلێمانی','scroll':'بۆ خوارەوە' },
     ar:{ code:'AR', dots:['الرئيسية','أفلام','ريل','سينما','حركة','أعمال','مؤثرات','شخصيات','تواصل'],
       'nav.work':'أعمالنا','nav.contact':'تواصل','nav.start':'ابدأ',
-      'hero.kicker':'بلينك — للإعلان','hero.h1':'اِصنع المستحيل.','hero.sub':'إعلانات وأفلام ومؤثرات بصرية بالذكاء الاصطناعي بمستوى عالمي.',
-      'films.kicker':'إنتاج سينمائي','films.h2':'أفلام.','films.sub':'إنتاجات بالذكاء الاصطناعي بجودة سينمائية.',
+      'hero.kicker':'بلينك — للإعلان','hero.h1':'اِصنع المستحيل.','hero.sub':'إعلانات وأفلام ومؤثرات بصرية بمستوى عالمي.',
+      'films.kicker':'إنتاج سينمائي','films.h2':'أفلام.','films.sub':'إنتاجات بجودة سينمائية.',
       'reel.kicker':'ريل · ٢٠٢٦','reel.h2':'الأفكار تُصبح<br>واقعاً.',
-      'cinema.kicker':'تصوير المنتجات','cinema.h2':'الذكاء الاصطناعي<br>يلتقي السينما.',
+      'cinema.kicker':'تصوير المنتجات','cinema.h2':'الإبداع<br>يلتقي السينما.',
       'motion.kicker':'حركة فائقة','motion.h2':'حركةٌ<br>تبيع.',
       'work.h2':'أعمال مختارة.','work.sub':'علامات تجارية تُوقف التمرير.',
       'vfx.kicker':'مؤثرات بصرية ودمج','vfx.h2':'ما وراء<br>الواقع.','vfx.sub':'المستحيل، مُصوَّر بالكاميرا.',
