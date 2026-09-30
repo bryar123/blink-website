@@ -1,24 +1,32 @@
-# BLINK — editorial film studio
+# BLINK — film studio
 
-This redesign uses the UI/UX Pro Max skill's `creative agency cinematic portfolio` design-system search as guidance. The matched direction combines scroll storytelling, asymmetric portfolio layouts, and Archivo / Space Grotesk typography. BLINK's existing orange identity takes precedence over the generator's generic pink/cyan palette. Existing smooth scrolling and autoplay remain product requirements.
+## Direction
 
-## Visual system
+The footage is the opening statement. A full-viewport film stage uses a single left-aligned headline, a showreel action, three selectable previews, and a pause control. Neutral gallery surfaces give the actual work its color. Orange is reserved for interaction emphasis and contact actions.
 
-- Warm ivory `#f1efe7`, ink `#181917`, orange `#ee5125`.
-- Dark orange `#bd3712` for large colored text on ivory; ink text on orange buttons.
-- Archivo for bold display typography; Space Grotesk for body and controls; Noto Kufi Arabic for Arabic and Kurdish.
-- Flat rectangular controls, crisp rules, asymmetric layouts, no decorative glass surfaces.
-- Media keeps its native proportions in the gallery and fullscreen viewer. Showcase panels may crop intentionally; the viewer exposes the complete artwork.
-- Spacious sections with responsive horizontal padding and a consistent fixed navigation bar.
+## Reference decisions
 
-## Page and interaction structure
+- [Impeccable](https://github.com/pbakaus/impeccable): distill repeated presentation into a shorter path from watching work to making contact. Keep existing behavior intact.
+- [Awesome DESIGN.md](https://github.com/voltagent/awesome-design-md): its Runway reference informed media-led hierarchy and readable viewing/reading surfaces. This is inspiration, not an implementation of Runway's identity.
+- [Taste Skill](https://github.com/Leonxlnx/taste-skill): the existing-project redesign guidance informed clearer interaction states, responsive proportions, active navigation, and removal of repetitive sections.
+- [Microsoft Playwright CLI](https://github.com/microsoft/playwright-cli): used for browser interaction checks, mobile sizing, screenshots, and playback verification.
+- The installed frontend-design skill informed a single characteristic opening moment, quieter labels, and removal of decorative project numbering.
 
-Hero with autoplay film → filterable portfolio → cinematic capability showcases → characters → contact and project brief.
+## Tokens and layout
 
-Retain muted viewport autoplay, a user-controlled film pause button, smooth wheel navigation, native touch momentum, fullscreen viewing with sound, keyboard dismissal and focus restoration, portfolio filters, all three languages, and both contact numbers. Decorative motion respects reduced-motion preferences; film playback remains available and independently controllable.
+- Film ink `#181a19`; gallery white `#f4f4f1`; studio gray `#e6e8e1`; orange `#ed643d`; body gray `#5b615b`.
+- Archivo display and Space Grotesk body. Noto Kufi Arabic for Arabic and Kurdish. Body copy stays comfortably under 65 characters per line.
+- Controls: 5–6 px corners, artwork: 8 px, form surface: 10 px. Circular project-open and viewer controls signify viewing actions.
+- Header: 76 px desktop, 72 px mobile, with active-location indication. Dark over footage; light over content.
+- Gallery keeps intrinsic media proportions. Capability tabs consolidate five repeated sections into one accessible chapter.
+- One entrance animation on the opening title; user-triggered feedback elsewhere. Reduced-motion preferences disable decorative motion.
 
-The inquiry form prepares an email draft. It does not submit data to a server or claim a message has been sent.
+## Behavior to preserve
 
-## Verification targets
+Muted viewport autoplay, independent pause/resume, eased wheel scrolling, native touch momentum, modal viewing with sound, keyboard dismissal and restored focus, category filters, three languages, and both phone numbers.
 
-Check 375, 768, 1024, and 1440 px widths, English/Arabic/Kurdish, long form input, semantic filter states, keyboard focus, visible video playback, pause/resume, modal navigation, and overflow. Preserve 44 px control targets and sufficient contrast on each section theme.
+Project inquiries retain the chosen project's title. The form prepares an email draft for review; it does not send messages or claim a submission was made. Viewer loading failures explain recovery without exposing implementation details.
+
+## Verification
+
+Check desktop, tablet, phone, all three languages, hero scene switching, pause/resume, studio keyboard tabs, filter states, viewer navigation/error states, inquiry context, and overflow. Keep all interactive targets at least 44 px high.
