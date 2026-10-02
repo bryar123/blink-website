@@ -4,7 +4,7 @@
 
 The footage is the opening statement. A full-viewport film stage opens with JAUNT, with selectable character and automotive previews. A clear work action leads into the portfolio. Neutral gallery surfaces give the actual work its color. Orange is reserved for interaction emphasis and contact actions.
 
-The previous page design is restored. Only the “Step inside” curved exhibition is retained from the immersive experiment. It sits before Selected Work and shows six real portfolio projects. Scroll vertically through it, swipe horizontally on a touchscreen, or drag with a mouse. The original hero, navigation, Haji character chapter, gallery and contact section retain their previous design.
+The previous page design is restored. Only the “Step inside” curved exhibition is retained from the immersive experiment. It sits before Selected Work and includes all 40 portfolio works. The hero and main Work links enter this exhibition, while a visible grid shortcut opens the original gallery. Scroll vertically through it, swipe horizontally on a touchscreen, or drag with a mouse. The original hero, navigation styling, Haji character chapter, gallery and contact section retain their previous design.
 
 ## Reference decisions
 
@@ -23,11 +23,11 @@ The previous page design is restored. Only the “Step inside” curved exhibiti
 - Two featured landscape films introduce the gallery. The remaining work keeps its intrinsic proportions, including complete, uncropped posters. Quiet format and duration labels distinguish films from artwork.
 - Filters cover all work, films, posters, products, VFX, and characters. The initial selection shows 12 works; subsequent fixed batches keep all 40 accessible without moving earlier columns. The viewer navigates the entire selected category. A nearby control pauses or resumes previews.
 - Capability tabs consolidate four repeated sections into one accessible chapter.
-- The exhibition camera follows scrolling and horizontal dragging. Swipes snap to a project; vertical gestures remain native page scrolling. Gesture direction follows the page language. Reduced-motion and data-saving preferences start with ordinary image links that also support native horizontal swiping on touch devices.
+- The exhibition camera follows scrolling and horizontal dragging. Swipes snap to a project; vertical gestures remain native page scrolling. Gesture direction follows the page language. Motion starts on as explicitly requested by the site owner, including on devices with a reduced-motion preference. A visitor can reduce exhibition motion and the explicit choice is saved locally. Films/posters filters and a native work selector make the complete collection reachable without scrolling through every item. The static alternative also supports native horizontal swiping on touch devices.
 
 ## Behavior to preserve
 
-Muted viewport previews, independent pause/resume, eased wheel scrolling, native touch momentum, modal viewing with sound, keyboard dismissal and restored focus, category filters, three languages, and both phone numbers. Reduced-motion and data-saving preferences start with still posters and an explicit play option.
+Muted viewport previews, independent pause/resume, eased wheel scrolling, native touch momentum, modal viewing with sound, keyboard dismissal and restored focus, category filters, three languages, and both phone numbers. Outside the exhibition, reduced-motion and data-saving preferences still start with still posters and an explicit play option. Data-saving mode keeps the exhibition interactive using still images, without automatically fetching its video previews.
 
 Project inquiries retain the chosen project's title and let visitors remove that reference. Changing a reference or form field invalidates any older draft. The form prepares an email draft for review; it does not send messages or claim a submission was made. Viewer loading failures explain recovery and offer a retry. Dialog focus stays inside the viewer; Escape restores the triggering link. Language and studio controls support keyboard navigation in both reading directions.
 
@@ -43,9 +43,9 @@ Check desktop, tablet, phone, all three languages, hero scene switching, pause/r
 
 ## Exhibition implementation
 
-Run `npm ci` and `npm run build` after changing `src/experience.js`. The checked-in bundle in `assets/experience/experience.js` includes Three.js and GSAP; serving the site requires no package installation or CDN. Styling lives in `assets/experience/experience.css`. `selection.json` chooses six existing catalog projects; rebuild after changing it.
+Run `npm ci` and `npm run build` after changing `src/experience.js`. The checked-in bundle in `assets/experience/experience.js` includes Three.js and GSAP; serving the site requires no package installation or CDN. Styling lives in `assets/experience/experience.css`. `selection.json` chooses the first six featured projects; the remaining catalog projects follow automatically. The full catalog is bundled at build time. Rebuild after changing either input. `scripts/build-gallery.py` also renders all 40 ordinary exhibition links so the fallback stays complete.
 
-The single WebGL exhibition renders only near the viewport. Background tabs and an open media viewer suspend rendering. Device pixel ratio is capped, one exhibition video preview plays at a time, and full films remain on demand. Context loss and unsupported WebGL expose ordinary links. Reduced-motion visitors start without a WebGL context. A control inside the exhibition enables or reduces its motion independently.
+The single WebGL exhibition renders only near the viewport. Background tabs and an open media viewer suspend rendering. Device pixel ratio is capped, seven screens are recycled around the current position, and only nine nearby poster textures are retained. One exhibition video preview plays at a time, and full films remain on demand. Long selector jumps go directly to the chosen work. The scroll distance scales with the selected collection, and the grid shortcut remains available throughout. Context loss and unsupported WebGL expose ordinary links. Visitors who explicitly saved motion off start without a WebGL context. The independent motion control remembers that choice; the operating-system preference does not disable this exhibition automatically.
 
 Pointer gestures work independently of viewport width, including tablets and touch laptops. Horizontal gestures capture the pointer after determining its direction; vertical gestures remain browser-controlled. Tap and drag are distinguished to prevent a swipe from opening a project. The eye portal, scroll-film sequence, generated landscape and Roj are no longer part of the page or runtime.
 
@@ -53,7 +53,7 @@ Pointer gestures work independently of viewport width, including tablets and tou
 
 Source inspection corrected four older landscape films that had been marked as portrait. The former “Baking Film” is CLEAR home care, and the Toyota source is 1880 × 1080, so its gallery title no longer claims 4K.
 
-Local verification on October 3, 2026: every gallery film was played in Chrome; all 40 viewer sources, category counts, pagination, focus restoration, inquiry drafts, hero scenes, and studio keyboard tabs were checked. Layouts were exercised at 320, 390, 768, 1024, 1440, and 1920 pixels in English, Kurdish, and Arabic. Reduced-motion browsing fetched no video until explicit playback. Local checks do not publish the site.
+Local verification on October 3, 2026: every gallery film was played in Chrome; all 40 viewer sources, category counts, pagination, focus restoration, inquiry drafts, hero scenes, and studio keyboard tabs were checked. Layouts were exercised at 320, 390, 768, 1024, 1440, and 1920 pixels in English, Kurdish, and Arabic. Browsing with reduced system motion and exhibition motion explicitly off fetched no video until explicit playback. Local checks do not publish the site.
 
 The removed `cinema.mp4` film and its derived reel are excluded from the page and media catalog. Its hero preview, watch action, and studio tab were removed together; the 40 gallery works are unaffected. Source and derivative files remain on disk.
 

@@ -480,7 +480,7 @@ to{opacity:1;transform:none}
 </head>
 <body>
 <a class="skip-link" href="#work" data-go="5" data-i18n="skip.work">Skip to work</a>
-<noscript><style>#loader,.work-tools,.work-footer,.scene-selector,.motion-toggle,.lang,.studio-tabs,.exhibit-motion,.exhibit-gesture{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
+<noscript><style>#loader,.work-tools,.work-footer,.scene-selector,.motion-toggle,.lang,.studio-tabs,.exhibit-motion,.exhibit-gesture,.exhibit-browse{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
 
 <!-- LOADER -->
 <div id="loader"><img class="mk" src="assets/site/logo-mark.webp" width="180" height="158" alt="BLINK" /><div class="bar"><i></i></div></div>
@@ -492,7 +492,7 @@ to{opacity:1;transform:none}
 <nav class="glass" id="mainNav" data-i18n-aria="aria.nav" aria-label="Main navigation">
   <a class="nav-logo" href="#hero" data-go="0"><img src="assets/site/eye-mark.webp" width="160" height="96" alt="" /><span>BLINK</span></a>
   <div class="nav-right">
-    <a class="lnk" href="#work" data-go="5" data-i18n="nav.work">Work</a>
+    <a class="lnk" href="#exhibition" data-go="9" data-i18n="nav.work">Work</a>
     <a class="lnk" href="#studio" data-go="1" data-i18n="nav.studio">Studio</a>
     <div class="lang" id="lang">
       <button class="lang-btn" id="langBtn" data-i18n-aria="aria.language" aria-haspopup="menu" aria-expanded="false" aria-label="Change language">
@@ -525,24 +525,62 @@ to{opacity:1;transform:none}
       <video class="cover hero-scene" data-scene="film" aria-label="Dara — The Funfair Adventure" data-src="assets/portfolio/dara-funfair-preview.mp4" poster="assets/portfolio/dara-funfair.webp" muted playsinline preload="none" hidden></video>
       <video class="cover hero-scene" data-scene="auto" aria-label="Toyota automotive film" data-src="assets/portfolio/toyota-preview.mp4" poster="assets/portfolio/toyota.webp" muted playsinline preload="none" hidden></video>
     </div>
-    <div class="hero-heading"><p class="hero-eyebrow" data-i18n="hero.eyebrow">Creative studio / Sulaymaniyah</p><h1 data-i18n="hero.h1">Create<br>Impossible.</h1><div class="hero-aside"><p class="sub" data-i18n="hero.sub">Advertising films, brand imagery and character stories.</p><div class="hero-actions"><a class="cta hero-work" href="#work" data-go="5"><span data-i18n="explore.work">Explore the work</span><span aria-hidden="true">↘</span></a></div></div></div>
+    <div class="hero-heading"><p class="hero-eyebrow" data-i18n="hero.eyebrow">Creative studio / Sulaymaniyah</p><h1 data-i18n="hero.h1">Create<br>Impossible.</h1><div class="hero-aside"><p class="sub" data-i18n="hero.sub">Advertising films, brand imagery and character stories.</p><div class="hero-actions"><a class="cta hero-work" href="#exhibition" data-go="9"><span data-i18n="explore.work">Explore the work</span><span aria-hidden="true">↘</span></a></div></div></div>
     <div class="hero-bottom"><div class="scene-selector" data-i18n-aria="aria.scenes" role="group" aria-label="Choose a preview"><button data-show-scene="latest" aria-pressed="true" data-i18n="scene.latest">Latest / JAUNT</button><button data-show-scene="film" aria-pressed="false" data-i18n="scene.film">Film</button><button data-show-scene="auto" aria-pressed="false" data-i18n="scene.auto">Automotive</button></div><button class="motion-toggle" id="motionToggle" aria-pressed="false" data-i18n="pause.films">Pause films</button></div>
   </section>
 
   <section id="exhibition" data-i="9" class="exhibition-section" aria-labelledby="exhibitionTitle">
     <div class="exhibition-sticky">
-      <div class="exhibition-heading"><div><p class="experience-eyebrow" data-exp-i18n="exhibit.kicker">A different perspective</p><h2 id="exhibitionTitle" data-exp-i18n="exhibit.title">Step inside<br>the work.</h2></div><a class="experience-link" href="#work" data-go="5" data-exp-i18n="exhibit.skip">Browse all 40 works</a><button id="exhibitMotion" class="exhibit-motion" type="button" aria-pressed="false" data-exp-i18n="motion.off">Reduce motion</button></div>
+      <div class="exhibition-heading"><div><p class="experience-eyebrow" data-exp-i18n="exhibit.kicker">A different perspective</p><h2 id="exhibitionTitle" data-exp-i18n="exhibit.title">Step inside<br>the work.</h2></div><a class="experience-link" href="#work" data-go="5" data-exp-i18n="exhibit.skip">View the grid ↗</a><button id="exhibitMotion" class="exhibit-motion" type="button" data-exp-i18n="motion.off">Reduce motion</button></div>
+      <div class="exhibit-browse">
+        <div class="exhibit-filters" id="exhibitFilters" role="group" aria-label="Choose a work format"><button type="button" data-exhibit-filter="all" aria-pressed="true">All work 40</button><button type="button" data-exhibit-filter="film" aria-pressed="false">Films 25</button><button type="button" data-exhibit-filter="poster" aria-pressed="false">Posters 15</button></div>
+        <select id="exhibitJump" class="exhibit-jump" aria-label="Jump to a work"></select>
+      </div>
       <div class="exhibition-world" id="exhibitionWorld" aria-hidden="true"></div>
-      <div class="exhibit-fallback"><a class="exhibit-item" href="assets/portfolio/jaunt.mp4" data-exhibit="jaunt"><img src="assets/portfolio/jaunt.webp" alt="" width="1920" height="1080" loading="lazy"><span>JAUNT — One Beat</span></a>
-<a class="exhibit-item" href="assets/Dara’s TikTak Superhero Adventure.png" data-exhibit="tiktak-superhero"><img src="assets/portfolio/tiktak-superhero.webp" alt="" width="1122" height="1402" loading="lazy"><span>TikTak — Superhero Adventure</span></a>
-<a class="exhibit-item" href="assets/portfolio/blood-orange-summer.mp4" data-exhibit="blood-orange-summer"><img src="assets/portfolio/blood-orange-summer.webp" alt="" width="1280" height="720" loading="lazy"><span>Blood Orange — A Taste of Summer</span></a>
-<a class="exhibit-item" href="assets/portfolio/blink-watch.mp4" data-exhibit="blink-watch"><img src="assets/portfolio/blink-watch.webp" alt="" width="720" height="1280" loading="lazy"><span>BLINK — A Moment in Time</span></a>
-<a class="exhibit-item" href="assets/portfolio/toyota.mp4" data-exhibit="toyota"><img src="assets/portfolio/toyota.webp" alt="" width="1880" height="1080" loading="lazy"><span>Toyota — Automotive Film</span></a>
-<a class="exhibit-item" href="assets/portfolio/dara-funfair.mp4" data-exhibit="dara-funfair"><img src="assets/portfolio/dara-funfair.webp" alt="" width="1920" height="1080" loading="lazy"><span>Dara — The Funfair Adventure</span></a></div>
+      <div class="exhibit-fallback"><a class="exhibit-item" href="assets/portfolio/jaunt.mp4" data-exhibit="jaunt"><img src="assets/portfolio/jaunt.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">JAUNT — One Beat</span></a>
+<a class="exhibit-item" href="assets/Dara’s TikTak Superhero Adventure.png" data-exhibit="tiktak-superhero"><img src="assets/portfolio/tiktak-superhero.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"><span dir="auto">TikTak — Superhero Adventure</span></a>
+<a class="exhibit-item" href="assets/portfolio/blood-orange-summer.mp4" data-exhibit="blood-orange-summer"><img src="assets/portfolio/blood-orange-summer.webp" alt="" width="1280" height="720" loading="lazy" decoding="async"><span dir="auto">Blood Orange — A Taste of Summer</span></a>
+<a class="exhibit-item" href="assets/portfolio/blink-watch.mp4" data-exhibit="blink-watch"><img src="assets/portfolio/blink-watch.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">BLINK — A Moment in Time</span></a>
+<a class="exhibit-item" href="assets/portfolio/toyota.mp4" data-exhibit="toyota"><img src="assets/portfolio/toyota.webp" alt="" width="1880" height="1080" loading="lazy" decoding="async"><span dir="auto">Toyota — Automotive Film</span></a>
+<a class="exhibit-item" href="assets/portfolio/dara-funfair.mp4" data-exhibit="dara-funfair"><img src="assets/portfolio/dara-funfair.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Dara — The Funfair Adventure</span></a>
+<a class="exhibit-item" href="assets/portfolio/zero-lemon.mp4" data-exhibit="zero-lemon"><img src="assets/portfolio/zero-lemon.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Zero — Lemon in Motion</span></a>
+<a class="exhibit-item" href="assets/portfolio/blood-orange-rhythm.mp4" data-exhibit="blood-orange-rhythm"><img src="assets/portfolio/blood-orange-rhythm.webp" alt="" width="1280" height="720" loading="lazy" decoding="async"><span dir="auto">Blood Orange — Find Your Rhythm</span></a>
+<a class="exhibit-item" href="assets/Dara with TikTak snacks, cozy room.png" data-exhibit="tiktak-cozy"><img src="assets/portfolio/tiktak-cozy.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"><span dir="auto">TikTak — A Little Everyday Joy</span></a>
+<a class="exhibit-item" href="assets/portfolio/panda.mp4" data-exhibit="panda"><img src="assets/portfolio/panda.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Panda — The Perfect Crunch</span></a>
+<a class="exhibit-item" href="assets/Warm Kitchen Rice Celebration.png" data-exhibit="zero-rice-poster"><img src="assets/portfolio/zero-rice-poster.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"><span dir="auto">Zero Rice — Made for Sharing</span></a>
+<a class="exhibit-item" href="assets/Dara’s TikTak Hero Transformation.png" data-exhibit="dara-transformation"><img src="assets/portfolio/dara-transformation.webp" alt="" width="1672" height="941" loading="lazy" decoding="async"><span dir="auto">Dara — Hero Transformation</span></a>
+<a class="exhibit-item" href="assets/Warm family moments, crispy cheese puffs.png" data-exhibit="tiktak-family"><img src="assets/portfolio/tiktak-family.webp" alt="" width="1672" height="941" loading="lazy" decoding="async"><span dir="auto">TikTak — Family Moments</span></a>
+<a class="exhibit-item" href="assets/TikTak Cheese Crunch in Motion.png" data-exhibit="tiktak-crunch"><img src="assets/portfolio/tiktak-crunch.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"><span dir="auto">TikTak — Cheese Crunch</span></a>
+<a class="exhibit-item" href="assets/portfolio/zero-rice.mp4" data-exhibit="zero-rice"><img src="assets/portfolio/zero-rice.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Zero — Every Grain</span></a>
+<a class="exhibit-item" href="assets/dara.png" data-exhibit="dara-character"><img src="assets/portfolio/dara-character.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"><span dir="auto">Dara — Everyday Hero</span></a>
+<a class="exhibit-item" href="assets/portfolio/dara-snack.mp4" data-exhibit="dara-snack"><img src="assets/portfolio/dara-snack.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Dara — Snack Break</span></a>
+<a class="exhibit-item" href="assets/portfolio/gundakam.mp4" data-exhibit="gundakam"><img src="assets/portfolio/gundakam.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Gundakam — A Fresh Perspective</span></a>
+<a class="exhibit-item" href="assets/portfolio/energy.mp4" data-exhibit="energy"><img src="assets/portfolio/energy.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Energy — Electric Red</span></a>
+<a class="exhibit-item" href="assets/portfolio/ceylon-tea.mp4" data-exhibit="ceylon-tea"><img src="assets/portfolio/ceylon-tea.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Ceylon Tea — The Golden Pour</span></a>
+<a class="exhibit-item" href="assets/portfolio/hes-clean.mp4" data-exhibit="hes-clean"><img src="assets/portfolio/hes-clean.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">HES — A Brighter Clean</span></a>
+<a class="exhibit-item" href="assets/portfolio/dara-monster.mp4" data-exhibit="dara-monster"><img src="assets/portfolio/dara-monster.webp" alt="" width="480" height="854" loading="lazy" decoding="async"><span dir="auto">Dara — The Jelly Monster</span></a>
+<a class="exhibit-item" href="assets/portfolio/dara-city.mp4" data-exhibit="dara-city"><img src="assets/portfolio/dara-city.webp" alt="" width="480" height="854" loading="lazy" decoding="async"><span dir="auto">Dara — City Adventure</span></a>
+<a class="exhibit-item" href="assets/monster.png" data-exhibit="jelly-monster"><img src="assets/portfolio/jelly-monster.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"><span dir="auto">The Jelly Monster</span></a>
+<a class="exhibit-item" href="assets/tiktak.png" data-exhibit="tiktak-pack"><img src="assets/portfolio/tiktak-pack.webp" alt="" width="1094" height="1438" loading="lazy" decoding="async"><span dir="auto">TikTak — Meet the Pack</span></a>
+<a class="exhibit-item" href="assets/portfolio/saffron.mp4" data-exhibit="saffron"><img src="assets/portfolio/saffron.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Saffron — The Café Ritual</span></a>
+<a class="exhibit-item" href="assets/portfolio/vista.mp4" data-exhibit="vista"><img src="assets/portfolio/vista.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Vista — Space to Breathe</span></a>
+<a class="exhibit-item" href="assets/portfolio/clear.mp4" data-exhibit="clear"><img src="assets/portfolio/clear.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">CLEAR — A Fresh Start</span></a>
+<a class="exhibit-item" href="assets/portfolio/automotive-detail.mp4" data-exhibit="automotive-detail"><img src="assets/portfolio/automotive-detail.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Automotive — In Every Detail</span></a>
+<a class="exhibit-item" href="assets/work-iphone.jpg" data-exhibit="iphone"><img src="assets/portfolio/iphone.webp" alt="" width="2752" height="1536" loading="lazy" decoding="async"><span dir="auto">Apple — Cinematic Poster</span></a>
+<a class="exhibit-item" href="assets/portfolio/ford-film.mp4" data-exhibit="ford-film"><img src="assets/portfolio/ford-film.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Ford — Built for the Journey</span></a>
+<a class="exhibit-item" href="assets/work-rolex.jpg" data-exhibit="rolex"><img src="assets/portfolio/rolex.webp" alt="" width="736" height="920" loading="lazy" decoding="async"><span dir="auto">Rolex — Luxury in Detail</span></a>
+<a class="exhibit-item" href="assets/portfolio/hyper-motion.mp4" data-exhibit="hyper-motion"><img src="assets/portfolio/hyper-motion.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Product — Hyper-Motion</span></a>
+<a class="exhibit-item" href="assets/portfolio/vfx-composite.mp4" data-exhibit="vfx-composite"><img src="assets/portfolio/vfx-composite.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">VFX — Composite</span></a>
+<a class="exhibit-item" href="assets/work-muse.jpg" data-exhibit="muse"><img src="assets/portfolio/muse.webp" alt="" width="736" height="981" loading="lazy" decoding="async"><span dir="auto">Muse — Color &amp; Flavor</span></a>
+<a class="exhibit-item" href="assets/work-pizza.jpg" data-exhibit="haji-character"><img src="assets/portfolio/haji-character.webp" alt="" width="1792" height="2400" loading="lazy" decoding="async"><span dir="auto">Haji — Brand Character</span></a>
+<a class="exhibit-item" href="assets/portfolio/kinetic.mp4" data-exhibit="kinetic"><img src="assets/portfolio/kinetic.webp" alt="" width="1280" height="720" loading="lazy" decoding="async"><span dir="auto">Social — Kinetic Edit</span></a>
+<a class="exhibit-item" href="assets/portfolio/haji-trex.mp4" data-exhibit="haji-trex"><img src="assets/portfolio/haji-trex.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Haji vs T-Rex</span></a>
+<a class="exhibit-item" href="assets/work-ford.jpg" data-exhibit="ford-poster"><img src="assets/portfolio/ford-poster.webp" alt="" width="736" height="920" loading="lazy" decoding="async"><span dir="auto">Ford — Studio Key Art</span></a>
+<a class="exhibit-item" href="assets/work-zero.jpg" data-exhibit="zero-pack"><img src="assets/portfolio/zero-pack.webp" alt="" width="768" height="1344" loading="lazy" decoding="async"><span dir="auto">Zero — Packaging Study</span></a></div>
       <p class="exhibit-gesture" data-exp-i18n="exhibit.gesture">Scroll to explore · Swipe or drag sideways</p>
       <div class="exhibition-bottom">
         <div class="exhibit-caption"><span id="exhibitCategory"></span><button id="exhibitOpen" type="button" dir="auto">JAUNT — One Beat <span aria-hidden="true">↗</span></button></div>
-        <div class="exhibit-controls"><button id="exhibitPrev" class="icon-button" type="button" aria-label="Previous work">←</button><span id="exhibitPosition" aria-live="polite">1 / 6</span><button id="exhibitNext" class="icon-button" type="button" aria-label="Next work">→</button></div>
+        <div class="exhibit-controls"><button id="exhibitPrev" class="icon-button" type="button" aria-label="Previous work">←</button><span id="exhibitPosition" aria-live="polite">1 / 40</span><button id="exhibitNext" class="icon-button" type="button" aria-label="Next work">→</button></div>
       </div>
       <div class="exhibition-track" aria-hidden="true"><span></span></div>
     </div>
@@ -1034,7 +1072,7 @@ to{opacity:1;transform:none}
 
     // hero mark: JS only takes over the fade once you begin leaving (lets the CSS intro play)
     document.getElementById('mainNav').classList.toggle('over-film',sections.some(section=>['hero','exhibition'].includes(section.id)&&target+86>=section.offsetTop&&target+86<section.offsetTop+section.offsetHeight));
-    document.querySelectorAll('nav [data-go]').forEach(link=>{const section=sections.find(s=>s.dataset.i===link.dataset.go);const active=section&&target+160>=section.offsetTop&&target+160<section.offsetTop+section.offsetHeight;if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
+    document.querySelectorAll('nav [data-go]').forEach(link=>{const section=sections.find(s=>s.dataset.i===link.dataset.go);const active=(section?.id==='exhibition'?sections.filter(s=>['exhibition','work'].includes(s.id)):[section]).some(s=>s&&target+160>=s.offsetTop&&target+160<s.offsetTop+s.offsetHeight);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
 
     // subtle parallax — transform only, and only on media within ~1 viewport
     for(const p of pars){ if(reduceMotion) continue; const rel=(smooth-p._top)/H; if(rel<-1.15||rel>1.15) continue;

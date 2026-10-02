@@ -1,37 +1,30 @@
-# BLINK restoration and swipe validation
+# Expanded scrolling portfolio validation
 
-Checked locally on October 3, 2026. The previous page was restored from `.codex-review/immersive/index-before.html`, retaining only the Step inside exhibition from the rejected redesign. Nothing was published.
+Checked on October 3, 2026. The restored page design remains intact; the Step inside exhibition now covers all 40 works (25 films and 15 posters/artworks). Primary Work links enter the exhibition; the original gallery remains one click away.
 
-## Results
+## Current checks
 
 | Coverage | Result |
 | --- | ---: |
-| Full portfolio regression | 238 passed |
-| Restoration, 3D exhibition and native touch input | 75 passed |
+| Full portfolio and media regression | 238 passed |
+| Complete scroll selection, restoration and native touch input | 109 passed |
+| Motion defaults, persistence, filtering, work selection, texture allocation, responsive accessibility and fallbacks | 100 passed |
 | Short and landscape viewport controls | 6 passed |
-| Exact restoration comparison | 9 passed |
-| Asset integrity | 508 passed |
+| Preserved sections, base stylesheet and navigation styling | 6 comparisons passed |
+| Cloudflare production package | 128 files; largest 22.88 MiB |
 
-The original hero, work, character and contact markup, main stylesheet and navigation match the saved previous version exactly. The exhibition and its isolated integration events are the only retained additions. The eye portal, Roj, generated landscape and scroll-film sequence were removed from the page and runtime. Rejected source and generated assets remain recoverable in `.codex-review/rejected-immersive/`.
+The 238-check regression opened all 40 media sources and played all 25 films. Filters, pagination, inquiry drafts, media retry, viewer keyboard focus, hero scenes, studio tabs and layouts at six widths in English, Kurdish and Arabic passed. The ordinary hero/gallery still respect system reduced motion; the no-video test explicitly pauses the exhibition.
 
-## Touch and exhibition checks
+Native Chromium touch input verified horizontal swiping, reverse swiping, boundaries and native vertical scrolling at 390-, 1024- and 1440-pixel widths in all three languages. Mouse dragging and keyboard project navigation also passed. These are emulated device tests, not physical-device testing.
 
-Horizontal input was tested with Chromium touch events on emulated 390-, 1024- and 1440-pixel touch devices, independently of screen-width detection. In English, Kurdish and Arabic, swiping advances and reverses the exhibition, snaps to a project, clamps at both ends, and does not open the viewer accidentally. Vertical swipes remain native page scrolling. Right-to-left languages reverse the exhibition arrangement and horizontal gesture direction.
+Fresh visitors start with exhibition motion enabled, including when system reduced motion is requested. Explicit off/on choices survive reload. All 40 projects are reachable through scrolling and the native selector; filters expose 25 films and 15 posters. Static links cover every work when motion, JavaScript or WebGL is unavailable. Data-saving mode keeps 3D active without fetching preview videos.
 
-Desktop scroll selection, mouse dragging, opening a project, Escape and focus restoration passed. Reduced-motion visitors receive six ordinary links in a natively swipeable strip. Explicitly enabling and reducing exhibition motion works. WebGL failure exposes the ordinary links.
+Seven recycled screens avoid overlaps around a forty-item circle. GPU texture allocation stayed bounded while visiting every project. Portraits are fitted between the controls. Responsive checks caught and fixed Kurdish filter overflow at 320 pixels. Compact views at 586x678, 844x390 and 1024x600 retain usable controls. Final tested states had no unexpected browser exceptions, broken assets or automated axe violations. Automated accessibility checks are not certification.
 
-A real touch-input test found that moving capture from the canvas to its container ended the gesture early. Ignoring the canvas's bubbled capture-loss event fixed it. Compact layouts at 586×678, 844×390 and 1024×600 keep controls inside the viewport; the next button advances exactly one project without scrolling itself into view first.
+The exact Kurdish contact correction, both phone numbers and the exclusion of cinema.mp4/studio-reel remain intact. No user source media changed. The hero, original work grid, studio, character and contact content, base stylesheet and navigation styling were compared against the restored version; only the intended primary Work destinations differ.
 
-## Preserved behavior
+## Evidence
 
-All 40 gallery sources loaded; all 25 films played. Filters, pagination, inquiries, keyboard interaction, media retry, navigation anchors and six responsive widths passed the existing regression suite. The final tested states had no unexpected browser exceptions, failed HTTP responses or automated axe violations. Automated checks are not a complete accessibility certification.
+Current receipts and screenshots: `.codex-review/expanded-exhibition/` and `.codex-review/immersive/expanded-regression/`. Short-viewport receipts: `.codex-review/restored-exhibition/short-viewport.json`. Prior restoration and immersive reports describe earlier versions.
 
-Both phone numbers remain intact. The exact Kurdish phrase `ئەوەی تری بۆئێمە جێبهێڵە` is preserved. `cinema.mp4` and `studio-reel` remain excluded. Original user media was not changed or moved.
-
-`npm run build` and `git diff --check` passed. Asset integrity was rerun after archiving rejected assets.
-
-## Evidence and limits
-
-Current evidence is in `.codex-review/restored-exhibition/` and `.codex-review/immersive/restored-regression/`. Asset results are in `.codex-review/asset-checks.json`. Previous immersive audit reports describe the rejected version and are historical only.
-
-Tests cover local Chrome, emulated touch devices and the in-app preview. Physical devices, Safari and production hosting remain unverified. `DESIGN.md` and `assets/experience/ASSETS.md` document the retained implementation.
+`npm run build:pages` and `git diff --check` passed. The deployment target remains exactly https://blink-website-1qs.pages.dev/. Physical devices and Safari are not verified.

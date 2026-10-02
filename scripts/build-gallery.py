@@ -55,5 +55,12 @@ text = page.read_text(encoding='utf-8')
 assert '<!-- PORTFOLIO:START -->' in text, 'Gallery markers not found'
 text = re.sub(r'<!-- PORTFOLIO:START -->.*?<!-- PORTFOLIO:END -->', lambda _: markup, text, flags=re.S)
 text = re.sub(r'(<span id="workCount">)\d+', lambda m: m[1]+str(len(projects)), text)
+# Keep the no-JavaScript exhibition complete and in the same order as the 3D gallery.
+featured = json.loads((ROOT / 'assets/experience/selection.json').read_text(encoding='utf-8'))
+ids = {p['id'] for p in featured}
+ordered = [next(p for p in projects if p['id'] == f['id']) for f in featured]
+ordered += [p for p in projects if p['id'] not in ids]
+fallback = '\n'.join(f'<a class="exhibit-item" href="{esc(p["full"])}" data-exhibit="{esc(p["id"])}"><img src="{esc(p["thumbnail"])}" alt="" width="{p["width"]}" height="{p["height"]}" loading="lazy" decoding="async"><span dir="auto">{esc(p["title"])}</span></a>' for p in ordered)
+text = re.sub(r'(<div class="exhibit-fallback">).*?(</div>)', lambda m: m[1]+fallback+m[2], text, count=1, flags=re.S)
 page.write_text(text, encoding='utf-8')
 print(f'Rendered {len(projects)} projects ({sum(p["video"] for p in projects)} films).')

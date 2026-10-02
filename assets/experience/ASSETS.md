@@ -1,9 +1,13 @@
 # Step inside exhibition assets
 
-The exhibition uses six existing portfolio works from `selection.json`. It does not add generated artwork or replace any of the 40 gallery projects. The curved screens display existing thumbnails; only the focused film uses a video preview. Opening a project uses the original full media viewer.
+The exhibition presents all 40 approved portfolio works: 25 films and 15 posters/artworks. `selection.json` defines the six opening works; `assets/portfolio.json` supplies current metadata and every remaining work. It adds no generated artwork. Opening a project uses the existing full media viewer.
 
-The rejected eye portal, Roj, landscape and scroll-film sequence are no longer loaded. Their generated assets, frame sequence, prior source and provenance were preserved under the ignored `.codex-review/rejected-immersive/` recovery directory. Original user media was not moved or changed.
+The camera-relative curved arrangement reuses seven screens. Only nine nearby poster textures are cached, with obsolete loads disposed. A single focused video uses its silent preview; full films load on demand. Data-saving mode uses still textures. Portraits fit the space between the controls without cropping.
 
-Three.js 0.186.1 and GSAP 3.15.0 are bundled locally into `experience.js`; no CDN is required. `experience.js.LEGAL.txt` preserves bundled notices. `THREE-LICENSE.txt` contains the Three.js license. GSAP's standard license is linked from its bundled notices and at https://gsap.com/standard-license. Exact versions are in the root package lock.
+Motion starts on, including for a system reduced-motion preference, at the owner's explicit request. The motion control saves a visitor's deliberate choice in `blink-exhibition-motion`. Turning it off restores ordinary links to all works, with native horizontal swiping on touch devices. Unsupported WebGL and disabled JavaScript retain those links. The static markup is maintained by `scripts/build-gallery.py`.
 
-Edit `src/experience.js` or `selection.json`, then run `npm run build`. The checked-in bundle can be served as a static file. Styles are scoped to the exhibition in `experience.css`.
+All / Films / Posters filters, a native work selector, previous/next buttons, horizontal swiping, mouse dragging, and vertical scrolling browse the collection. Controls are localized in English, Kurdish and Arabic. Horizontal input and screen arrangement follow the page's reading direction.
+
+The rejected eye portal, Roj, landscape and scroll-film sequence are not loaded. Their recovery files remain in the ignored `.codex-review/rejected-immersive/` directory. `cinema.mp4` and its derivatives remain excluded.
+
+Build with `npm run build`; package the public website with `npm run build:pages`. The production address remains exactly https://blink-website-1qs.pages.dev/.
