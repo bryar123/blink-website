@@ -182,6 +182,7 @@ function buildExhibition(){
  let loadedCenter=-1;
  surface.update=(time,dt)=>{
   exhibitAngle=reduced?exhibitTarget:lerp(exhibitAngle,exhibitTarget,1-Math.exp(-dt*8));
+  if(Math.abs(exhibitAngle-exhibitTarget)<.001)exhibitAngle=exhibitTarget;
   surface.animate=Math.abs(exhibitAngle-exhibitTarget)>.001||!video.paused;
   const center=Math.round(exhibitAngle/.58),dir=direction();
   const fov=mobileQuery.matches?(innerHeight<760?68:58):(innerHeight<760?56:48);
@@ -196,7 +197,7 @@ function buildExhibition(){
    }
    const angle=(index*.58-exhibitAngle)*dir;card.group.position.set(Math.sin(angle)*8,-.12,-Math.cos(angle)*8);card.group.rotation.y=-angle;
    const focus=1-THREE.MathUtils.smoothstep(Math.abs(index-exhibitAngle/.58),.08,1.1);
-   const fitted=Math.min(1.3,frameHeight/(card.screen.scale.y*pixelsPerUnit),surface.container.clientWidth*.92/(card.screen.scale.x*pixelsPerUnit));
+   const fitted=Math.min(mobileQuery.matches?1.3:1.75,frameHeight/(card.screen.scale.y*pixelsPerUnit),surface.container.clientWidth*.92/(card.screen.scale.x*pixelsPerUnit));
    card.group.scale.setScalar(fitted*lerp(.62,1,focus));
    const poster=posters.get(p.id)?.texture||null;applyMap(card.screen.material,index===videoIndex&&videoTexture?videoTexture:poster);applyMap(card.reflection.material,poster);
    for(const mat of [card.screen.material,card.reflection.material]){
@@ -218,18 +219,56 @@ function writeProgress(value){
  setExhibitProgress(value);
 }
 let navigation={progress:0};
+let alignTimer=0,wheelDestination=null,navigationTarget=null,wheelAnchor=0,lastWheelTime=0,pointerHeld=false,touchInput=false;
+function cancelAlignment(){clearTimeout(alignTimer);wheelDestination=null;navigationTarget=null;gsap.killTweensOf(navigation);}
 function selectIndex(index){
+ cancelAlignment();dispatchEvent(new Event('blink:scroll-control'));
  index=clamp(index,0,selection.length-1);const value=index/(selection.length-1),jump=Math.abs(index-currentProject)>3;
+ navigationTarget=value;
  gsap.killTweensOf(navigation);navigation.progress=exhibitProgress;
  // Long jumps go straight to the work instead of racing through the entire collection.
  if(jump)exhibitAngle=value*(selection.length-1)*.58;
- gsap.to(navigation,{progress:value,duration:reduced||jump?0:.35,ease:'power2.out',onUpdate:()=>writeProgress(navigation.progress)});
+ gsap.to(navigation,{progress:value,duration:reduced||jump?0:.5,ease:'power3.out',onUpdate:()=>writeProgress(navigation.progress)});
 }
+const finePointer=matchMedia('(any-pointer: fine)');
+function insideExhibition(){return trigger&&!reduced&&!$('viewer').open&&scroller.scrollTop>=trigger.start-1&&scroller.scrollTop<=trigger.end+1;}
+// Own wheel easing only while the exhibition is pinned; normal page scrolling can exit either end.
+scroller.addEventListener('wheel',event=>{
+ if(event.ctrlKey||event.target.closest('input,textarea,select')||!insideExhibition()){cancelAlignment();return;}
+ const horizontal=Math.abs(event.deltaX)>Math.abs(event.deltaY);
+ const delta=(horizontal?event.deltaX*direction():event.deltaY)*(event.deltaMode===1?20:event.deltaMode===2?scroller.clientHeight:1);
+ if(!delta)return;
+ touchInput=false;
+ if((exhibitProgress<.0001&&delta<0)||(exhibitProgress>.9999&&delta>0)){cancelAlignment();return;}
+ event.preventDefault();event.stopImmediatePropagation();dispatchEvent(new Event('blink:scroll-control'));
+ const now=performance.now();
+ if(wheelDestination===null||now-lastWheelTime>240){wheelDestination=gsap.isTweening(navigation)&&navigationTarget!==null?navigationTarget:exhibitProgress;wheelAnchor=Math.round(wheelDestination*(selection.length-1));}
+ navigationTarget=null;
+ lastWheelTime=now;clearTimeout(alignTimer);gsap.killTweensOf(navigation);
+ wheelDestination=clamp(wheelDestination+delta*.65/(trigger.end-trigger.start));
+ navigation.progress=exhibitProgress;
+ gsap.to(navigation,{progress:wheelDestination,duration:.28,ease:'power2.out',onUpdate:()=>writeProgress(navigation.progress)});
+ alignTimer=setTimeout(()=>{
+  const position=wheelDestination*(selection.length-1);let index=Math.round(position);
+  // A deliberate wheel notch advances even when resistance leaves it just short of halfway.
+  if(index===wheelAnchor&&Math.abs(position-wheelAnchor)>.18)index+=Math.sign(position-wheelAnchor);
+  selectIndex(index);
+ },180);
+},{capture:true,passive:false});
+scroller.addEventListener('scroll',()=>{
+ if(pointerHeld||touchInput||!finePointer.matches||!insideExhibition()||wheelDestination!==null||gsap.isTweening(navigation))return;
+ clearTimeout(alignTimer);
+ alignTimer=setTimeout(()=>{if(!insideExhibition())return;const position=exhibitProgress*(selection.length-1);if(Math.abs(position-Math.round(position))>.006)selectIndex(Math.round(position));},240);
+},{passive:true});
+addEventListener('blink:page-navigation',cancelAlignment);
+addEventListener('pointerdown',event=>{pointerHeld=true;touchInput=event.pointerType==='touch';cancelAlignment();},{capture:true,passive:true});
+for(const type of ['pointerup','pointercancel'])addEventListener(type,()=>{pointerHeld=false;},{capture:true,passive:true});
+addEventListener('keydown',()=>{touchInput=false;cancelAlignment();},{capture:true,passive:true});
 function populateJump(){
  $('exhibitJump').replaceChildren(...selection.map((p,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=`${String(index+1).padStart(2,'0')} — ${p.title}`;return option;}));
 }
 function selectFilter(value){
- if(filter===value)return;filter=value;gsap.killTweensOf(navigation);
+ if(filter===value)return;filter=value;cancelAlignment();
  selection=allProjects.filter(p=>filter==='all'||(filter==='film'?p.video:!p.video));
  $('exhibitFilters').querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.exhibitFilter===filter)));
  const ids=new Set(selection.map(p=>p.id));root.querySelectorAll('[data-exhibit]').forEach(link=>link.hidden=!ids.has(link.dataset.exhibit));
@@ -289,6 +328,7 @@ $('exhibitJump').addEventListener('change',event=>selectIndex(Number(event.targe
 $('exhibitFilters').querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>selectFilter(button.dataset.exhibitFilter)));
 $('exhibitOpen').addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();selectIndex(currentProject+(e.key==='ArrowRight'?1:-1)*direction());}});
 function setupScroll(){
+ cancelAlignment();
  trigger?.kill();trigger=null;
  root.style.setProperty('--exhibit-distance',`${(selection.length-1)*clamp(innerHeight*.25,200,260)}px`);
  root.classList.toggle('is-scrollable',!reduced&&root.classList.contains('has-webgl'));

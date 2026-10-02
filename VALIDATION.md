@@ -1,6 +1,12 @@
 # Expanded scrolling portfolio validation
 
-## Center-focus refinement — latest validation
+## Desktop zoom and magnetic scrolling — latest validation
+
+Twenty-two wheel checks passed with system reduced motion on and off: individual forward/reverse notches, small trackpad bursts, immediate direction changes, scrollbar settling, both page exits, navigation interrupting a pending snap, and Kurdish/Arabic vertical scrolling. Additional checks cover separated mouse notches, horizontal wheel direction in all three languages, and a 1366x768 laptop viewport. Six short-viewport checks passed. The exhibition keeps continuous movement during input and eases to the selected work when input stops.
+
+Desktop controls are more compact to give the enlarged artwork actual space. Full artwork remains visible within its corrected aspect ratio. Evidence: `.codex-review/magnetic-gallery/`.
+
+## Center-focus refinement — preceding validation
 
 The centered work grows within safe stage bounds; side works smoothly shrink, dim and blur with distance. Eighteen rendered states covering landscape video, portrait artwork, corrected portrait films and the final item were checked at 1440x1000, 390x844 and 844x390. No JavaScript or WebGL shader errors occurred. Screenshots are in `.codex-review/focus-gallery/`. Source media, aspect metadata, and interactions are unchanged.
 
@@ -44,3 +50,5 @@ Current receipts and screenshots: `.codex-review/expanded-exhibition/` and `.cod
 `npm run build:pages` and `git diff --check` passed. The deployment target remains exactly https://blink-website-1qs.pages.dev/. Physical devices and Safari are not verified.
 
 The 109-check exhibition and native-touch suite also passed after the focus refinement, including all 40 scroll positions and English/Kurdish/Arabic touch navigation.
+
+The 109-check gallery/touch suite passed with magnetic scrolling enabled, retaining all 40 scroll positions and native swipes on phones, tablets and touch laptops.

@@ -1025,6 +1025,7 @@ to{opacity:1;transform:none}
     scroller.scrollTop=wheelPosition;
     wheelRAF=requestAnimationFrame(wheelStep);
   }
+  addEventListener('blink:scroll-control',stopScroll);
   scroller.addEventListener('wheel',e=>{
     if(viewer.open || e.target.closest('input,textarea,select') || reduceMotion || e.ctrlKey || Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
     if(!e.deltaY) return;
@@ -1036,6 +1037,7 @@ to{opacity:1;transform:none}
   },{passive:false});
   ['touchstart','pointerdown','keydown'].forEach(type=>window.addEventListener(type,stopScroll,{passive:true}));
   function animateTo(top){
+    dispatchEvent(new Event('blink:page-navigation'));
     stopScroll();
     top=clamp(top,0,maxScroll());
     if(reduceMotion){scroller.scrollTop=top;kick();return;}

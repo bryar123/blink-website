@@ -98,3 +98,13 @@
  .exhibit-item{flex:0 0 min(78%,340px);scroll-snap-align:center}.exhibit-item img{height:280px}
  .exhibition-section.has-webgl:not(.is-reduced) .exhibit-fallback{display:none}
 }
+/* Desktop controls form a compact header, leaving more height for the focused artwork. */
+@media(min-width:1025px) and (min-height:521px){
+ .has-webgl:not(.is-reduced) .exhibition-heading{padding-inline-end:350px}
+ .has-webgl:not(.is-reduced) .exhibition-heading h2{font-size:clamp(28px,4vh,40px);line-height:1.08;max-width:13ch}
+ .has-webgl:not(.is-reduced) .exhibition-heading .experience-eyebrow{margin-bottom:10px}
+ .has-webgl:not(.is-reduced) .exhibit-browse{top:38px;width:320px;max-width:320px}
+ .has-webgl:not(.is-reduced) .exhibit-filters button{padding-inline:10px;font-size:11px}
+ .has-webgl:not(.is-reduced) .exhibit-motion{inset-inline-end:350px;inset-inline-start:auto}
+ [dir=rtl] .has-webgl:not(.is-reduced) .exhibition-heading h2{font-size:clamp(26px,3.6vh,34px);line-height:1.35}
+}
