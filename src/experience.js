@@ -32,6 +32,8 @@ function translate(){
  $('exhibitMotion').textContent=text(reduced?'motion.on':'motion.off');
  $('exhibitFilters').setAttribute('aria-label',text('filters'));
  $('exhibitJump').setAttribute('aria-label',text('jump'));
+ const skipLabel=({en:'Skip to selected work',ku:'بڕۆ بۆ کارە هەڵبژێردراوەکان',ar:'انتقل إلى الأعمال المختارة'})[lang]||'Skip to selected work';
+ $('exhibitSkip').setAttribute('aria-label',skipLabel);$('exhibitSkip').title=skipLabel;
  $('exhibitFilters').querySelectorAll('button').forEach(button=>{const key=button.dataset.exhibitFilter,count=allProjects.filter(p=>key==='all'||(key==='film'?p.video:!p.video)).length;button.textContent=`${text(key)} ${count}`;});
  requestRefresh();wake();
 }

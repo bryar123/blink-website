@@ -108,3 +108,23 @@
  .has-webgl:not(.is-reduced) .exhibit-motion{inset-inline-end:350px;inset-inline-start:auto}
  [dir=rtl] .has-webgl:not(.is-reduced) .exhibition-heading h2{font-size:clamp(26px,3.6vh,34px);line-height:1.35}
 }
+/* Reserve the center of the footer for an exit, clear of the artwork and navigation. */
+.exhibition-section.has-webgl:not(.is-reduced) .exhibition-bottom{display:grid;grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);gap:24px}
+.exhibit-caption{min-width:0}
+.exhibit-caption>button{max-width:100%}
+.exhibit-controls{justify-self:end}
+.exhibit-skip{display:grid;place-items:center;width:52px;height:52px;border:1px solid #849298;border-radius:50%;background:linear-gradient(145deg,#334047e6,#151d24ed);color:#edf0ee;box-shadow:0 4px 20px #0005;backdrop-filter:blur(12px);text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s}
+.exhibit-skip svg{transition:transform .2s}
+.exhibit-skip:hover{background:#35464f;border-color:#edf0ee;box-shadow:0 4px 24px #0008}
+.exhibit-skip:hover svg{transform:translateY(3px)}
+.exhibit-skip:focus-visible{outline:3px solid #ed643d;outline-offset:5px}
+@media(max-width:767px) and (min-height:521px){
+ .exhibition-section.has-webgl:not(.is-reduced) .exhibition-bottom{grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);column-gap:12px;row-gap:12px;align-items:center}
+ .exhibit-caption{grid-column:1/-1;grid-row:1}
+ .exhibit-skip{grid-column:2;grid-row:2}
+ .exhibit-controls{display:contents}
+ #exhibitPrev{grid-column:1;grid-row:2;justify-self:start}
+ #exhibitNext{grid-column:3;grid-row:2;justify-self:end}
+ #exhibitPosition{grid-column:3;grid-row:2;justify-self:start}
+}
+@media(prefers-reduced-motion:reduce){.exhibit-skip,.exhibit-skip svg{transition:none}.exhibit-skip:hover svg{transform:none}}
