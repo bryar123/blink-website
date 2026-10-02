@@ -60,3 +60,5 @@ The removed `cinema.mp4` film and its derived reel are excluded from the page an
 Optimized interface and section imagery lives in `assets/site`; the originals remain untouched. Off-screen images load lazily. Gallery video cards have an explicit still image and intrinsic dimensions before a preview loads. Capability links lead directly to matching gallery filters.
 
 The restored page and retained exhibition were checked with the full portfolio regression and dedicated touch-input tests. See `VALIDATION.md` for current results and verification scope.
+
+The exhibition now emphasizes the centered work with up to 30% enlargement, constrained to the available width and height so artwork is not cropped. Neighbouring screens scale down, dim, and receive progressive Gaussian texture blur. Focus follows the continuous scroll position in both reading directions, and the centered texture remains unblurred. Video colour-space handling and the corrected source display ratios are preserved.

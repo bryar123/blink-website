@@ -80,6 +80,30 @@ class Surface{
 }
 function material(color,roughness=.45,metalness=0){return new THREE.MeshStandardMaterial({color,roughness,metalness});}
 function mesh(geometry,mat,parent,position=[0,0,0],scale=[1,1,1]){const m=new THREE.Mesh(geometry,mat);m.position.set(...position);m.scale.set(...scale);parent.add(m);return m;}
+function focusedMaterial(options){
+ const mat=new THREE.MeshBasicMaterial(options);
+ const blur={value:0},texel={value:new THREE.Vector2(1/1280,1/720)};
+ mat.userData.focusBlur=blur;mat.userData.focusTexel=texel;
+ mat.onBeforeCompile=shader=>{
+  shader.uniforms.focusBlur=blur;shader.uniforms.focusTexel=texel;
+  shader.fragmentShader='uniform float focusBlur;\nuniform vec2 focusTexel;\n'+shader.fragmentShader;
+  const sampling=`vec4 sampledDiffuseColor = texture2D( map, vMapUv );
+   if (focusBlur > 0.01) {
+    vec2 d = focusTexel * focusBlur * 0.5;
+    sampledDiffuseColor = vec4(0.0);
+    for (int x=-2; x<=2; x++) {
+     float wx = x==0 ? 6.0 : (abs(x)==1 ? 4.0 : 1.0);
+     for (int y=-2; y<=2; y++) {
+      float wy = y==0 ? 6.0 : (abs(y)==1 ? 4.0 : 1.0);
+      sampledDiffuseColor += texture2D(map,vMapUv+vec2(float(x),float(y))*d)*(wx*wy/256.0);
+     }
+    }
+   }`;
+  // Retain Three's video colour-space decoding and its normal material pipeline.
+  shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',THREE.ShaderChunk.map_fragment.replace('vec4 sampledDiffuseColor = texture2D( map, vMapUv );',sampling));
+ };
+ mat.customProgramCacheKey=()=> 'blink-focus-v1';return mat;
+}
 
 let exhibitSurface,exhibitAngle=0,exhibitTarget=0;
 function setExhibitProgress(value){
@@ -105,8 +129,8 @@ function buildExhibition(){
  for(let i=0;i<7;i++){
   const group=new THREE.Group();surface.scene.add(group);
   const frame=mesh(new THREE.BoxGeometry(1,1,.055),cardMaterial,group,[0,0,-.04]);
-  const screen=mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({color:0x34414b}),group);
-  const reflection=mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({color:0x607581,transparent:true,opacity:.08}),group);
+  const screen=mesh(new THREE.PlaneGeometry(1,1),focusedMaterial({color:0x34414b}),group);
+  const reflection=mesh(new THREE.PlaneGeometry(1,1),focusedMaterial({color:0x607581,transparent:true,opacity:.08}),group);
   cards.push({group,frame,screen,reflection,index:-1});
  }
  function applyMap(mat,map){if(mat.map===map)return;mat.map=map;mat.color.set(map?0xffffff:0x34414b);mat.needsUpdate=true;}
@@ -171,8 +195,15 @@ function buildExhibition(){
     card.frame.scale.set(w+.07,h+.07,1);card.screen.scale.set(w,h,1);card.reflection.scale.set(w,-h,1);card.reflection.position.set(0,-h-.14,-.01);
    }
    const angle=(index*.58-exhibitAngle)*dir;card.group.position.set(Math.sin(angle)*8,-.12,-Math.cos(angle)*8);card.group.rotation.y=-angle;
-   card.group.scale.setScalar(Math.min(1,frameHeight/(card.screen.scale.y*pixelsPerUnit)));
+   const focus=1-THREE.MathUtils.smoothstep(Math.abs(index-exhibitAngle/.58),.08,1.1);
+   const fitted=Math.min(1.3,frameHeight/(card.screen.scale.y*pixelsPerUnit),surface.container.clientWidth*.92/(card.screen.scale.x*pixelsPerUnit));
+   card.group.scale.setScalar(fitted*lerp(.62,1,focus));
    const poster=posters.get(p.id)?.texture||null;applyMap(card.screen.material,index===videoIndex&&videoTexture?videoTexture:poster);applyMap(card.reflection.material,poster);
+   for(const mat of [card.screen.material,card.reflection.material]){
+    const media=mat.map?.image,w=media?.videoWidth||media?.width||p.width,h=media?.videoHeight||media?.height||p.height;
+    mat.userData.focusTexel.value.set(1/w,1/h);mat.userData.focusBlur.value=(1-focus)*12;
+    if(mat.map)mat.color.setScalar(lerp(.55,1,focus));
+   }
   });
   surface.camera.position.set(0,.25+frameOffset/pixelsPerUnit+smoothPointer.y*.09,-1.8);
   surface.camera.lookAt(0,-.12+frameOffset/pixelsPerUnit,-8);

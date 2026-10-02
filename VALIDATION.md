@@ -1,6 +1,10 @@
 # Expanded scrolling portfolio validation
 
-## Aspect-ratio correction — latest validation
+## Center-focus refinement — latest validation
+
+The centered work grows within safe stage bounds; side works smoothly shrink, dim and blur with distance. Eighteen rendered states covering landscape video, portrait artwork, corrected portrait films and the final item were checked at 1440x1000, 390x844 and 844x390. No JavaScript or WebGL shader errors occurred. Screenshots are in `.codex-review/focus-gallery/`. Source media, aspect metadata, and interactions are unchanged.
+
+## Aspect-ratio correction — preceding validation
 
 Saffron, Vista, CLEAR and Automotive detail are 9:16 display-format videos stored as 1920x1080 pixels with an 81:256 sample aspect ratio. Studio motion uses 2304x2160 pixels with a 135:256 sample aspect ratio. The previous conversion incorrectly discarded those ratios, stretching all five derivatives. Full films, previews and thumbnails were regenerated from untouched originals with square pixels and the correct 9:16 display ratio. Catalog dimensions, gallery markup and the bundled exhibition metadata now match.
 
@@ -38,3 +42,5 @@ The exact Kurdish contact correction, both phone numbers and the exclusion of ci
 Current receipts and screenshots: `.codex-review/expanded-exhibition/` and `.codex-review/immersive/expanded-regression/`. Short-viewport receipts: `.codex-review/restored-exhibition/short-viewport.json`. Prior restoration and immersive reports describe earlier versions.
 
 `npm run build:pages` and `git diff --check` passed. The deployment target remains exactly https://blink-website-1qs.pages.dev/. Physical devices and Safari are not verified.
+
+The 109-check exhibition and native-touch suite also passed after the focus refinement, including all 40 scroll positions and English/Kurdish/Arabic touch navigation.
