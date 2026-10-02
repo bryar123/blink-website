@@ -1,0 +1,10 @@
+{
+  "name": "blink-portfolio",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/experience.js --bundle --minify --format=esm --target=es2022 --outfile=assets/experience/experience.js --legal-comments=linked",
+    "build:gallery": "python scripts/build-gallery.py"
+  },
+  "dependencies": { "three": "0.186.1", "gsap": "3.15.0" },
+  "devDependencies": { "esbuild": "0.28.2" }
+}

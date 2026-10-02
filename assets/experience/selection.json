@@ -1,0 +1,118 @@
+[
+  {
+    "id": "jaunt",
+    "source": "assets/Seedance 2 0 - Referenceuse The Exact Jaunt Portable Speaker As The Only Product Reference  Preserve 4K(1).mp4",
+    "title": "JAUNT — One Beat",
+    "category": "Audio / Product film",
+    "categories": [
+      "film",
+      "product"
+    ],
+    "width": 1920,
+    "height": 1080,
+    "video": true,
+    "new": true,
+    "duration": 15.061,
+    "full": "assets/portfolio/jaunt.mp4",
+    "preview": "assets/portfolio/jaunt-preview.mp4",
+    "thumbnail": "assets/portfolio/jaunt.webp",
+    "posterTime": 10.8,
+    "previewStart": 8.561
+  },
+  {
+    "id": "tiktak-superhero",
+    "source": "assets/Dara’s TikTak Superhero Adventure.png",
+    "title": "TikTak — Superhero Adventure",
+    "category": "TikTak / Character poster",
+    "categories": [
+      "poster",
+      "character",
+      "product"
+    ],
+    "width": 1122,
+    "height": 1402,
+    "video": false,
+    "new": true,
+    "full": "assets/Dara’s TikTak Superhero Adventure.png",
+    "thumbnail": "assets/portfolio/tiktak-superhero.webp"
+  },
+  {
+    "id": "blood-orange-summer",
+    "source": "assets/Seedance 2_0 - 15-Second Premium Lifestyle Soda Commercial_ Emotional Summer Energy_ Ultra-Photoreal.mp4",
+    "title": "Blood Orange — A Taste of Summer",
+    "category": "Beverage / Lifestyle film",
+    "categories": [
+      "film",
+      "product"
+    ],
+    "width": 1280,
+    "height": 720,
+    "video": true,
+    "new": true,
+    "duration": 15.069002,
+    "full": "assets/portfolio/blood-orange-summer.mp4",
+    "preview": "assets/portfolio/blood-orange-summer-preview.mp4",
+    "thumbnail": "assets/portfolio/blood-orange-summer.webp",
+    "posterTime": 11.8,
+    "previewStart": 8.569
+  },
+  {
+    "id": "blink-watch",
+    "source": "assets/Seedance 2_0 - Create a premium cinematic luxury watch advertisement for a brand called BLINK_Use th.mp4",
+    "title": "BLINK — A Moment in Time",
+    "category": "Watches / Product film",
+    "categories": [
+      "film",
+      "product"
+    ],
+    "width": 720,
+    "height": 1280,
+    "video": true,
+    "new": true,
+    "duration": 15.069002,
+    "full": "assets/portfolio/blink-watch.mp4",
+    "preview": "assets/portfolio/blink-watch-preview.mp4",
+    "thumbnail": "assets/portfolio/blink-watch.webp",
+    "posterTime": 6.8,
+    "previewStart": 6.8
+  },
+  {
+    "id": "toyota",
+    "source": "assets/Toyota_web.mp4",
+    "title": "Toyota — Automotive Film",
+    "category": "Automotive / Brand film",
+    "categories": [
+      "film"
+    ],
+    "width": 1880,
+    "height": 1080,
+    "video": true,
+    "new": false,
+    "duration": 78.4,
+    "full": "assets/portfolio/toyota.mp4",
+    "preview": "assets/portfolio/toyota-preview.mp4",
+    "thumbnail": "assets/portfolio/toyota.webp",
+    "posterTime": 12,
+    "previewStart": 12
+  },
+  {
+    "id": "dara-funfair",
+    "source": "assets/2.mp4",
+    "title": "Dara — The Funfair Adventure",
+    "category": "TikTak / Animated film",
+    "categories": [
+      "film",
+      "character"
+    ],
+    "width": 1920,
+    "height": 1080,
+    "video": true,
+    "new": true,
+    "duration": 30.05,
+    "full": "assets/portfolio/dara-funfair.mp4",
+    "preview": "assets/portfolio/dara-funfair-preview.mp4",
+    "thumbnail": "assets/portfolio/dara-funfair.webp",
+    "posterTime": 14,
+    "previewStart": 14
+  }
+]

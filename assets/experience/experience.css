@@ -1,0 +1,76 @@
+/* The retained Step inside exhibition; the rest of the site uses its original design. */
+.exhibition-section{--experience-ink:#101316;--experience-paper:#edf0ee}
+.experience-eyebrow{font-size:13px;line-height:1.5;margin-bottom:20px}
+.experience-link{display:inline-flex;align-items:center;min-height:44px;font-size:13px;text-underline-offset:7px}
+.exhibition-section{background:var(--experience-ink);color:var(--experience-paper);padding:0!important}
+.exhibition-sticky{position:relative;isolation:isolate;min-height:720px;padding:72px var(--pad-x) 40px;overflow:hidden}
+.exhibition-heading{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:start;gap:30px;pointer-events:none}
+.exhibition-heading a{pointer-events:auto;color:#edf0ee}.exhibition-heading h2{font-size:clamp(42px,5vw,76px);max-width:12ch;line-height:1.02}
+.exhibition-heading .experience-eyebrow{color:#bcc7ca}
+.exhibition-world{position:absolute;inset:0;z-index:-1;opacity:0}
+.exhibit-fallback{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:40px 0}
+.exhibit-item{color:#edf0ee;text-decoration:none;font-size:14px;line-height:1.5;display:block}
+.exhibit-item img{width:100%;height:220px;object-fit:contain;background:#1d2429;margin-bottom:12px;border-radius:6px}
+.exhibition-bottom{display:none}
+.exhibition-track{display:none;position:absolute;bottom:0;left:0;right:0;height:2px;background:#394148}
+.exhibition-track span{display:block;height:100%;width:100%;background:#ed643d;transform:scaleX(var(--exhibit-progress,0));transform-origin:left}
+.exhibition-section.has-webgl .exhibit-fallback{display:none}
+.exhibition-section.has-webgl .exhibition-world{opacity:1}
+.exhibition-section.has-webgl .exhibition-sticky{height:calc(100svh - 76px);min-height:660px;padding-top:38px}
+.exhibition-section.has-webgl .exhibition-bottom{display:flex;position:absolute;bottom:36px;inset-inline:var(--pad-x);justify-content:space-between;gap:24px;align-items:end;z-index:3}
+.exhibition-section.has-webgl .exhibition-track{display:block}
+.exhibit-caption>span{display:block;font-size:12px;color:#c3cdd0;margin-bottom:10px}
+.exhibit-caption>button{background:none;border:0;color:inherit;font-family:var(--ff-display);font-size:clamp(20px,2.5vw,35px);line-height:1.3;letter-spacing:-.03em;min-height:48px;text-align:start;max-width:32ch}
+.exhibit-caption>button:hover{text-decoration:underline;text-underline-offset:7px}
+.exhibit-controls{display:flex;gap:16px;align-items:center;flex-shrink:0}.exhibit-controls span{font-size:12px;font-variant-numeric:tabular-nums;min-width:32px;text-align:center}
+#exhibitPosition{direction:ltr}
+.exhibit-controls button{color:#edf0ee;border-color:#637077;background:#171f24}
+.exhibition-section.has-webgl.is-scrollable{height:340svh}
+.exhibition-section.has-webgl.is-scrollable .exhibition-sticky{position:sticky;top:76px}
+
+.exhibition-world{touch-action:pan-y pinch-zoom;cursor:grab;user-select:none;-webkit-user-select:none}
+.exhibition-world.is-dragging{cursor:grabbing}
+.exhibition-world canvas{display:block;width:100%;height:100%;touch-action:pan-y pinch-zoom}
+.exhibit-motion{position:absolute;right:var(--pad-x);top:88px;min-height:44px;background:none;border:0;border-bottom:1px solid #727f84;color:#edf0ee;font-size:12px;pointer-events:auto}
+.exhibit-gesture{display:none;font-size:11px;color:#c3cdd0;position:absolute;bottom:116px;inset-inline:var(--pad-x);pointer-events:none}
+.has-webgl:not(.is-reduced) .exhibit-gesture{display:block}
+.exhibition-section.is-reduced .exhibition-world,.exhibition-section.is-reduced .exhibition-bottom,.exhibition-section.is-reduced .exhibition-track{display:none}
+.exhibition-section.is-reduced .exhibit-fallback{display:grid}
+.exhibition-section.is-reduced .exhibition-sticky{height:auto;min-height:0;padding-bottom:40px}
+[dir=rtl] .exhibit-controls button{transform:scaleX(-1)}
+[dir=rtl] .exhibit-caption>button,[dir=rtl] .exhibit-item{font-family:var(--ff-sans)}
+[dir=rtl] .exhibition-heading h2{letter-spacing:0;line-height:1.5;font-size:clamp(42px,5.5vw,88px)}
+[dir=rtl] .exhibit-motion{right:auto;left:var(--pad-x)}
+@media(max-width:1024px){.exhibition-heading h2{font-size:52px}.exhibit-caption>button{max-width:24ch}.exhibit-fallback{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:767px){
+ .exhibition-heading{display:block}.exhibition-heading h2{font-size:40px;max-width:10ch}.exhibition-heading .experience-link{position:absolute;right:0;top:-6px;max-width:10ch;text-align:end;font-size:11px}.exhibition-heading .experience-eyebrow{margin-bottom:10px;max-width:20ch;font-size:11px}
+ .exhibition-section.has-webgl .exhibition-sticky{height:calc(100svh - 72px);min-height:640px;padding:32px 20px 24px}.exhibition-section.has-webgl.is-scrollable{height:270svh}.exhibition-section.has-webgl.is-scrollable .exhibition-sticky{top:72px}
+ .exhibition-section.has-webgl .exhibition-bottom{bottom:25px;inset-inline:20px;display:block}.exhibit-caption>span{font-size:11px}.exhibit-caption>button{font-size:22px;max-width:30ch}.exhibit-controls{margin-top:14px;justify-content:flex-end;gap:12px}.exhibit-controls button{width:44px;height:44px}.exhibit-fallback{gap:20px}.exhibit-item{font-size:12px}.exhibit-item img{height:180px}.exhibition-sticky{padding:40px 20px}
+ .exhibit-motion{top:70px;right:20px;font-size:11px}.exhibit-gesture{bottom:172px;inset-inline:20px;font-size:10px}
+ .exhibition-section.is-reduced .exhibition-sticky{height:auto;min-height:0;padding-bottom:32px}.exhibition-section.is-reduced .exhibition-bottom{display:none}
+ [dir=rtl] .exhibition-heading h2{font-size:32px;max-width:14ch;line-height:1.45}
+ [dir=rtl] .exhibition-heading .experience-link{right:auto;left:0}[dir=rtl] .exhibit-motion{right:auto;left:20px}
+}
+/* Native horizontal swiping also works when motion, WebGL or JavaScript is unavailable. */
+@media(max-height:760px){
+ .exhibition-section.has-webgl .exhibition-sticky{min-height:0;padding-top:22px}
+ .exhibition-heading h2,[dir=rtl] .exhibition-heading h2{font-size:30px;line-height:1.15;max-width:15ch}
+ .exhibition-heading .experience-eyebrow{font-size:10px;margin-bottom:8px}
+ .exhibition-section.has-webgl .exhibition-bottom{bottom:16px}
+ .exhibit-caption>button{font-size:20px;min-height:40px}.exhibit-caption>span{margin-bottom:4px}
+ .exhibit-controls{margin-top:6px}.exhibit-gesture{bottom:150px}
+ .exhibit-motion{top:64px;font-size:10px}
+}
+@media(max-height:520px){
+ .exhibition-heading h2,[dir=rtl] .exhibition-heading h2{font-size:24px;line-height:1.15}
+ .exhibition-heading .experience-eyebrow,.exhibition-section.has-webgl .exhibit-gesture{display:none}
+ .exhibit-motion{top:52px}.exhibition-section.has-webgl .exhibition-bottom{display:flex;align-items:end;gap:20px}
+ .exhibit-caption>button{font-size:17px;min-height:36px}.exhibit-caption>span{font-size:10px}
+ .exhibit-controls{margin-top:0}.exhibit-controls button{width:44px;height:44px}
+ .exhibition-section.is-reduced .exhibition-bottom{display:none}
+}
+@media(any-pointer:coarse),(max-width:767px){
+ .exhibit-fallback,.exhibition-section.is-reduced .exhibit-fallback{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;touch-action:pan-x pan-y pinch-zoom;padding-bottom:22px}
+ .exhibit-item{flex:0 0 min(78%,340px);scroll-snap-align:center}.exhibit-item img{height:280px}
+ .exhibition-section.has-webgl:not(.is-reduced) .exhibit-fallback{display:none}
+}

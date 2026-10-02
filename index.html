@@ -10,17 +10,17 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="BLINK" />
 <meta property="og:title" content="BLINK — Create Impossible" />
-<meta property="og:description" content="World-class advertising, film & VFX studio. Cinematic film, VFX, product visualization & bespoke brand characters. Sulaymaniyah." />
+<meta property="og:description" content="Advertising films, product visuals, posters and character stories by BLINK. Sulaymaniyah." />
 <meta property="og:image" content="assets/work-iphone.jpg" />
 <meta property="og:image:alt" content="BLINK cinematic render" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="BLINK — Create Impossible" />
-<meta name="twitter:description" content="World-class advertising, film & VFX studio. Sulaymaniyah." />
+<meta name="twitter:description" content="Advertising films, posters and character stories. Sulaymaniyah." />
 <meta name="twitter:image" content="assets/work-iphone.jpg" />
-<link rel="icon" href="assets/logo.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/site/favicon.png" type="image/png" sizes="64x64">
+<link rel="preload" href="assets/fonts/archivo-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
 
 :root{--bg:#f1efe7;--bg-soft:#e5e2d8;--ink:#181917;--muted:#5b5c56;--line:#c6c6bb;--accent:#ee5125;--accent-soft:#bd3712;--paper:#f1efe7;--dark:#181917;--ff-display:"Archivo",sans-serif;--ff-sans:"Space Grotesk",sans-serif;--ff-rtl:"Noto Kufi Arabic",sans-serif;--pad-x:clamp(20px,5vw,88px);--ease:cubic-bezier(.22,.61,.36,1);--maxw:1800px;}
@@ -35,6 +35,7 @@ a{color:inherit}
 img,video{display:block;max-width:100%}
 ::selection{background:var(--accent);color:var(--dark)}
 :focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+#scroller>section:focus{outline:none}
 button:disabled{cursor:default;opacity:.35}
 [hidden]{display:none!important}
 
@@ -67,7 +68,7 @@ nav{position:fixed;top:0;inset-inline:0;z-index:100;height:86px;display:flex;jus
 .lang-btn{display:flex;align-items:center;gap:8px;border:0;background:transparent;min-height:44px;padding:8px;font-size:12px;font-weight:600}
 .lang-btn svg{width:17px;height:17px}
 .lang-btn .chev{width:10px}
-.lang-menu{position:absolute;inset-inline-end:0;top:52px;width:180px;background:var(--paper);border:1px solid var(--line);padding:8px;visibility:hidden;opacity:0;transform:translateY(-6px);transition:.2s}
+.lang-menu{position:absolute;inset-inline-end:0;top:52px;width:180px;background:var(--paper);border:1px solid var(--line);padding:8px;visibility:hidden;opacity:0;transform:translateY(-6px);transition:opacity .2s,transform .2s}
 .lang.open .lang-menu{visibility:visible;opacity:1;transform:none}
 .lang-menu button{display:flex;justify-content:space-between;gap:12px;border:0;width:100%;background:transparent;padding:13px 10px;font-size:13px}
 .lang-menu button:hover,.lang-menu button.sel{background:var(--bg-soft)}
@@ -285,8 +286,8 @@ nav{height:76px;transition:background .25s,color .25s,border-color .25s}
 .scene-selector button:hover{background:rgba(255,255,255,.15);color:var(--paper)}
 .scene-selector button[aria-pressed=true]:hover{background:var(--paper);color:var(--dark)}
 .motion-toggle{color:var(--paper);font-size:13px;white-space:nowrap}
-@keyframes opening-title{from{opacity:.3;transform:translateY(24px);clip-path:inset(0 0 30% 0)}
-to{opacity:1;transform:none;clip-path:inset(0)}
+@keyframes opening-title{from{opacity:0;transform:translateY(16px)}
+to{opacity:1;transform:none}
 }
 
 #work{padding-block:100px 88px}
@@ -375,26 +376,126 @@ to{opacity:1;transform:none}
 }
 
 
+/* Portfolio edition: generous imagery, a clear reading order, quiet metadata. */
+:root{--bg:#f5f4f0;--paper:#f5f4f0;--bg-soft:#e9e8e2;--line:#d6d5cd}
+.hero-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:25px;color:#fff}
+.hero-heading{margin-bottom:42px}
+.hero-actions{align-items:center;gap:14px}
+.hero-actions .hero-work{background:var(--accent);color:var(--dark);gap:30px}
+.hero-films::after{background:linear-gradient(90deg,rgba(0,0,0,.66),rgba(0,0,0,.08) 85%),linear-gradient(0deg,rgba(0,0,0,.76),transparent 80%)}
+.grid-head{display:flex;align-items:end;justify-content:space-between;gap:36px;max-width:none;margin-bottom:36px}
+.section-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.grid-head h2{font-size:clamp(48px,6.6vw,96px);letter-spacing:-.055em;line-height:1}
+.grid-head .sub{max-width:29ch;margin:0 0 3px;font-size:17px}
+.work-tools{padding:24px 0;margin-bottom:8px;border-top:1px solid var(--line);gap:14px}
+.filter{border-radius:24px;padding:11px 17px}
+.work-count{white-space:nowrap}
+.featured-work{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:32px}
+.featured-work .cell{margin:0}
+.featured-work .cap b{font-size:clamp(21px,2vw,29px);font-weight:600;letter-spacing:-.04em}
+.featured-work .project-media{aspect-ratio:16/9}
+.featured-work .cover{height:100%;aspect-ratio:auto;object-fit:contain}
+.grid{columns:3;column-gap:32px}
+.cell{margin:0 0 34px;position:relative}
+.project-media{position:relative;border-radius:6px;overflow:hidden;background:#deded8;isolation:isolate}
+.cell .cover{border-radius:0;aspect-ratio:var(--asset-ratio);width:100%;height:auto;object-fit:contain}
+.cell video.cover{background:#1b1c1a}
+.cell .cap{gap:6px;padding-top:16px;padding-inline-end:8px}
+.cap i{font-size:11px;letter-spacing:.025em;color:var(--muted)}
+.cap b{font-size:19px;line-height:1.3;font-weight:500;letter-spacing:-.025em;text-wrap:balance}
+.media-label{position:absolute;bottom:12px;inset-inline-start:12px;background:rgba(20,22,19,.88);color:#fff;border:1px solid rgba(255,255,255,.18);padding:5px 9px;border-radius:3px;font-size:10px;letter-spacing:.05em;pointer-events:none;direction:ltr}
+.project-open{display:block;text-decoration:none;border-radius:6px}
+.open-mark{top:12px;inset-inline-end:12px;width:42px;height:42px;background:rgba(245,244,240,.95);box-shadow:none;transition:background .2s,transform .2s}
+.project-open:hover .open-mark{transform:rotate(-6deg)}
+.cell:hover .cap b{text-decoration:none;color:var(--accent-soft)}
+.cell:focus-within .project-media{outline:3px solid var(--accent);outline-offset:3px}
+.work-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-top:28px;margin-top:12px;border-top:1px solid var(--line)}
+.work-summary{font-size:12px;color:var(--muted)}
+.work-footer .cta{min-width:200px;border-color:var(--ink);border-radius:30px}
+.work-contact{font-size:13px;text-decoration:none;min-height:44px;display:flex;align-items:center}
+.work-contact:hover{text-decoration:underline;text-underline-offset:5px}
+[dir=rtl] .hero-eyebrow,[dir=rtl] .section-label{letter-spacing:0}
+[dir=rtl] .cap b{font-family:var(--ff-sans)}
+@media(min-width:1800px){.grid{columns:4}}
+@media(max-width:1024px){.grid{columns:2}.grid-head{gap:24px}.grid-head .sub{max-width:27ch}.hero-aside{align-items:start;gap:24px}.hero-actions .cta{padding:16px 20px}}
+@media(max-width:767px){
+  .hero-eyebrow{font-size:10px;letter-spacing:.08em;margin-bottom:22px}
+  .hero-actions{flex-wrap:wrap;gap:10px}.hero-actions .cta{padding:14px 17px;min-height:50px;font-size:12px}
+  .hero-actions .hero-work{gap:18px}.hero-aside{gap:22px}
+  .hero-bottom{gap:10px}.scene-selector{gap:2px}.scene-selector button{padding:9px 10px;font-size:11px}
+  .motion-toggle{min-height:44px}.grid-head{display:block;margin-bottom:26px}
+  .grid-head h2{font-size:54px}.grid-head .sub{font-size:16px;max-width:33ch;margin-top:20px}
+  .section-label{font-size:10px;margin-bottom:18px}.work-tools{gap:10px;padding-block:16px 22px}
+  .filters{gap:4px}.filter{font-size:12px;padding:10px 13px}.work-count{font-size:11px}
+  .featured-work{gap:24px;grid-template-columns:1fr;margin-bottom:28px}
+  .featured-work .cap b{font-size:23px}.grid{column-gap:22px}.cap b{font-size:18px}
+  .work-footer{gap:16px}.work-summary{flex:1}.work-contact{width:100%}.work-footer .cta{min-width:160px}
+}
+@media(max-width:540px){.grid{columns:1}.cell{margin-bottom:30px}.grid-head h2{font-size:48px}.nav-logo span{display:block;font-size:22px}.nav-logo img{width:27px}.hero-bottom{align-items:flex-start}.scene-selector{flex:1}.motion-toggle{font-size:11px}.open-mark{width:44px;height:44px}}
+@media(max-width:360px){.nav-logo span{font-size:18px}.nav-right{gap:3px}.lang-btn{padding:5px}.hero-actions .cta{padding:13px}.scene-selector button{padding-inline:7px}}
+/* Final audit refinements: stable browsing and usable media states. */
+.hero-eyebrow{font-size:13px;text-transform:none;letter-spacing:.015em}
+.hero-aside .sub{max-width:33ch;text-wrap:pretty}
+.section-label{text-transform:none;letter-spacing:.025em;font-size:12px}
+.cap i{font-size:12px;line-height:1.5}
+.cap b{text-wrap:pretty;line-height:1.35}
+.project-media{aspect-ratio:var(--asset-ratio)}
+.preview-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.project-media video.cover{position:absolute;inset:0;height:100%;opacity:0;transition:opacity .18s}
+.project-media video.cover.ready{opacity:1}
+.work-batches{display:block}
+.work-batch{margin:0}
+.work-controls{display:flex;align-items:center;gap:24px}
+.preview-toggle{border:0;border-bottom:1px solid var(--line);min-height:44px;padding:8px 0;background:transparent;font-size:12px}
+.preview-toggle:hover{border-color:var(--ink)}
+.preview-toggle[aria-pressed=true]{color:var(--accent-soft)}
+.work-summary,.viewer-position{font-variant-numeric:tabular-nums}
+.studio-panel .sub{max-width:33ch;text-wrap:pretty}
+.studio-panel>.media{aspect-ratio:16/9}
+.studio-panel .cover{object-fit:contain}
+#studio-panel-4>.media{aspect-ratio:1/1;width:100%;max-width:520px;justify-self:center}
+#studio-panel-6>.media{aspect-ratio:3/4;width:100%;max-width:440px;justify-self:center}
+.foot img,#loader .mk,.cast-fig img{height:auto}
+.feature-link{margin-top:28px;font-weight:500;gap:22px;text-underline-offset:6px}
+.feature-link::after{content:'↗';font-size:20px}
+.feature-link:hover{color:var(--accent-soft)}
+.studio-panel:focus{outline:none}
+.studio-panel:focus-visible{outline:2px solid var(--accent);outline-offset:10px}
+.brief-reference{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-block:4px 14px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.brief-context{margin:0;min-width:0;overflow-wrap:anywhere}
+#clearReference{font-size:12px;min-height:44px;flex-shrink:0;color:var(--paper);background:none;border:0;text-decoration:underline;text-underline-offset:4px}
+.viewer-feedback{inset-inline:auto;top:50%;left:50%;right:auto;transform:translate(-50%,-50%);max-width:calc(100% - 48px);width:max-content;padding:22px 28px;background:rgba(24,26,25,.94);border:1px solid #646950;border-radius:8px;pointer-events:auto;text-align:center}
+.retry-button{min-height:44px;padding:10px 20px;margin-top:16px;border:1px solid var(--paper);border-radius:4px;background:var(--paper);color:var(--dark)}
+.viewer-stage{position:relative}
+[dir=rtl] .viewer-nav .icon{transform:rotate(180deg)}
+[dir=rtl] .feature-link::after{content:'↖'}
+[dir=rtl] .cap i,[dir=rtl] .cap b{font-family:var(--ff-sans);text-align:right}
+[dir=rtl] .nav-cta{font-size:12px}
+#contact h2{max-width:11ch;text-wrap:balance}
+@media(max-width:1024px){.work-controls{gap:20px}.brief-reference{flex-wrap:wrap;gap:4px}.hero-aside .sub{max-width:30ch}}
+@media(max-width:767px){.hero-eyebrow{font-size:12px;letter-spacing:0}.work-controls{width:100%;justify-content:space-between}.work-controls .work-count{order:-1}.studio-panel>.media{aspect-ratio:16/9}.feature-link{margin-top:22px}.brief-reference{margin-bottom:16px}.nav-cta{padding-inline:14px}}
+@media(max-width:380px){.nav-logo span{display:none}.nav-right{gap:8px}.nav-cta{padding-inline:10px}[dir=rtl] .nav-right{gap:5px}.hero-eyebrow{font-size:11px}}
 </style>
+<link rel="stylesheet" href="assets/experience/experience.css">
 </head>
 <body>
-<a class="skip-link" href="#work">Skip to work</a>
-<noscript><style>#loader{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
+<a class="skip-link" href="#work" data-go="5" data-i18n="skip.work">Skip to work</a>
+<noscript><style>#loader,.work-tools,.work-footer,.scene-selector,.motion-toggle,.lang,.studio-tabs,.exhibit-motion,.exhibit-gesture{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
 
 <!-- LOADER -->
-<div id="loader"><img class="mk" src="assets/logo-mark.png" alt="BLINK" /><div class="bar"><i></i></div></div>
+<div id="loader"><img class="mk" src="assets/site/logo-mark.webp" width="180" height="158" alt="BLINK" /><div class="bar"><i></i></div></div>
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div id="topscrim"></div>
 
 <!-- NAV -->
-<nav class="glass" id="mainNav" aria-label="Main navigation">
-  <a class="nav-logo" href="#hero" data-go="0"><img src="assets/eye-mark.png" alt="BLINK" /><span>BLINK</span></a>
+<nav class="glass" id="mainNav" data-i18n-aria="aria.nav" aria-label="Main navigation">
+  <a class="nav-logo" href="#hero" data-go="0"><img src="assets/site/eye-mark.webp" width="160" height="96" alt="" /><span>BLINK</span></a>
   <div class="nav-right">
     <a class="lnk" href="#work" data-go="5" data-i18n="nav.work">Work</a>
     <a class="lnk" href="#studio" data-go="1" data-i18n="nav.studio">Studio</a>
     <div class="lang" id="lang">
-      <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+      <button class="lang-btn" id="langBtn" data-i18n-aria="aria.language" aria-haspopup="menu" aria-expanded="false" aria-label="Change language">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>
           <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/>
@@ -403,12 +504,12 @@ to{opacity:1;transform:none}
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="lang-menu glass" id="langMenu" role="menu">
-        <button data-lang="en" role="menuitem">English <span class="native">EN</span></button>
-        <button data-lang="ku" role="menuitem">Kurdish <span class="native">کوردی</span></button>
-        <button data-lang="ar" role="menuitem">Arabic <span class="native">العربية</span></button>
+        <button data-lang="en" role="menuitem" tabindex="-1">English <span class="native">EN</span></button>
+        <button data-lang="ku" role="menuitem" tabindex="-1">Kurdish <span class="native">کوردی</span></button>
+        <button data-lang="ar" role="menuitem" tabindex="-1">Arabic <span class="native">العربية</span></button>
       </div>
     </div>
-    <a class="nav-cta" href="#contact" data-go="8" data-i18n="nav.start">Start</a>
+    <a class="nav-cta" href="#contact" data-go="8" data-i18n="nav.start">Let’s talk</a>
   </div>
 </nav>
 
@@ -420,115 +521,320 @@ to{opacity:1;transform:none}
   <!-- 0 · HERO -->
   <section id="hero" data-i="0">
     <div class="hero-films" aria-label="Studio films">
-      <video class="cover hero-scene" data-scene="reel" aria-label="BLINK showreel" data-src="assets/cinema.mp4" data-start="3" data-end="11" autoplay muted playsinline preload="auto"></video>
-      <video class="cover hero-scene" data-scene="film" aria-label="Haji vs T-Rex" data-src="assets/films-trex.mp4" data-start="4" autoplay muted playsinline preload="metadata" hidden></video>
-      <video class="cover hero-scene" data-scene="auto" aria-label="Toyota automotive film" data-src="assets/Toyota_web.mp4" data-start="2" autoplay muted playsinline preload="metadata" hidden></video>
+      <video class="cover hero-scene" data-scene="latest" aria-label="JAUNT — One Beat" poster="assets/portfolio/jaunt-hero.webp" data-src="assets/portfolio/jaunt-hero.mp4" muted playsinline preload="none"></video>
+      <video class="cover hero-scene" data-scene="film" aria-label="Dara — The Funfair Adventure" data-src="assets/portfolio/dara-funfair-preview.mp4" poster="assets/portfolio/dara-funfair.webp" muted playsinline preload="none" hidden></video>
+      <video class="cover hero-scene" data-scene="auto" aria-label="Toyota automotive film" data-src="assets/portfolio/toyota-preview.mp4" poster="assets/portfolio/toyota.webp" muted playsinline preload="none" hidden></video>
     </div>
-    <div class="hero-heading"><h1 data-i18n="hero.h1">Create<br>Impossible.</h1><div class="hero-aside"><p class="sub" data-i18n="hero.sub">World-class advertising, film &amp; VFX.</p><div class="hero-actions"><button class="cta showreel-button" id="showreel"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg><span data-i18n="watch.reel">Watch the reel</span></button></div></div></div>
-    <div class="hero-bottom"><div class="scene-selector" role="group" aria-label="Choose a preview"><button data-show-scene="reel" aria-pressed="true" data-i18n="scene.reel">Reel</button><button data-show-scene="film" aria-pressed="false" data-i18n="scene.film">Film</button><button data-show-scene="auto" aria-pressed="false" data-i18n="scene.auto">Automotive</button></div><button class="motion-toggle" id="motionToggle" aria-pressed="false" data-i18n="pause.films">Pause films</button></div>
+    <div class="hero-heading"><p class="hero-eyebrow" data-i18n="hero.eyebrow">Creative studio / Sulaymaniyah</p><h1 data-i18n="hero.h1">Create<br>Impossible.</h1><div class="hero-aside"><p class="sub" data-i18n="hero.sub">Advertising films, brand imagery and character stories.</p><div class="hero-actions"><a class="cta hero-work" href="#work" data-go="5"><span data-i18n="explore.work">Explore the work</span><span aria-hidden="true">↘</span></a></div></div></div>
+    <div class="hero-bottom"><div class="scene-selector" data-i18n-aria="aria.scenes" role="group" aria-label="Choose a preview"><button data-show-scene="latest" aria-pressed="true" data-i18n="scene.latest">Latest / JAUNT</button><button data-show-scene="film" aria-pressed="false" data-i18n="scene.film">Film</button><button data-show-scene="auto" aria-pressed="false" data-i18n="scene.auto">Automotive</button></div><button class="motion-toggle" id="motionToggle" aria-pressed="false" data-i18n="pause.films">Pause films</button></div>
+  </section>
+
+  <section id="exhibition" data-i="9" class="exhibition-section" aria-labelledby="exhibitionTitle">
+    <div class="exhibition-sticky">
+      <div class="exhibition-heading"><div><p class="experience-eyebrow" data-exp-i18n="exhibit.kicker">A different perspective</p><h2 id="exhibitionTitle" data-exp-i18n="exhibit.title">Step inside<br>the work.</h2></div><a class="experience-link" href="#work" data-go="5" data-exp-i18n="exhibit.skip">Browse all 40 works</a><button id="exhibitMotion" class="exhibit-motion" type="button" aria-pressed="false" data-exp-i18n="motion.off">Reduce motion</button></div>
+      <div class="exhibition-world" id="exhibitionWorld" aria-hidden="true"></div>
+      <div class="exhibit-fallback"><a class="exhibit-item" href="assets/portfolio/jaunt.mp4" data-exhibit="jaunt"><img src="assets/portfolio/jaunt.webp" alt="" width="1920" height="1080" loading="lazy"><span>JAUNT — One Beat</span></a>
+<a class="exhibit-item" href="assets/Dara’s TikTak Superhero Adventure.png" data-exhibit="tiktak-superhero"><img src="assets/portfolio/tiktak-superhero.webp" alt="" width="1122" height="1402" loading="lazy"><span>TikTak — Superhero Adventure</span></a>
+<a class="exhibit-item" href="assets/portfolio/blood-orange-summer.mp4" data-exhibit="blood-orange-summer"><img src="assets/portfolio/blood-orange-summer.webp" alt="" width="1280" height="720" loading="lazy"><span>Blood Orange — A Taste of Summer</span></a>
+<a class="exhibit-item" href="assets/portfolio/blink-watch.mp4" data-exhibit="blink-watch"><img src="assets/portfolio/blink-watch.webp" alt="" width="720" height="1280" loading="lazy"><span>BLINK — A Moment in Time</span></a>
+<a class="exhibit-item" href="assets/portfolio/toyota.mp4" data-exhibit="toyota"><img src="assets/portfolio/toyota.webp" alt="" width="1880" height="1080" loading="lazy"><span>Toyota — Automotive Film</span></a>
+<a class="exhibit-item" href="assets/portfolio/dara-funfair.mp4" data-exhibit="dara-funfair"><img src="assets/portfolio/dara-funfair.webp" alt="" width="1920" height="1080" loading="lazy"><span>Dara — The Funfair Adventure</span></a></div>
+      <p class="exhibit-gesture" data-exp-i18n="exhibit.gesture">Scroll to explore · Swipe or drag sideways</p>
+      <div class="exhibition-bottom">
+        <div class="exhibit-caption"><span id="exhibitCategory"></span><button id="exhibitOpen" type="button" dir="auto">JAUNT — One Beat <span aria-hidden="true">↗</span></button></div>
+        <div class="exhibit-controls"><button id="exhibitPrev" class="icon-button" type="button" aria-label="Previous work">←</button><span id="exhibitPosition" aria-live="polite">1 / 6</span><button id="exhibitNext" class="icon-button" type="button" aria-label="Next work">→</button></div>
+      </div>
+      <div class="exhibition-track" aria-hidden="true"><span></span></div>
+    </div>
   </section>
 
   <!-- 5 · SELECTED WORK GRID -->
   <section id="work" data-i="5">
     <div class="grid-head">
-      <h2 data-reveal data-i18n="work.h2">Selected Work.</h2>
-      <p class="sub d1" data-reveal data-i18n="work.sub">Brands people stop scrolling for.</p>
+      <div><p class="section-label" data-i18n="work.eyebrow">The BLINK collection / 2026</p><h2 data-reveal data-i18n="work.h2">Selected Work.</h2></div>
+      <p class="sub d1" data-reveal data-i18n="work.sub">Product films, character stories and posters. Made to be seen.</p>
     </div>
     <div class="work-tools">
-      <div class="filters" role="group" aria-label="Filter projects">
+      <div class="filters" data-i18n-aria="aria.filters" role="group" aria-label="Filter projects">
         <button class="filter" data-filter="all" aria-pressed="true" data-i18n="filter.all">All work</button>
         <button class="filter" data-filter="film" aria-pressed="false" data-i18n="filter.film">Film &amp; Motion</button>
+        <button class="filter" data-filter="poster" aria-pressed="false" data-i18n="filter.poster">Posters &amp; Artwork</button>
         <button class="filter" data-filter="product" aria-pressed="false" data-i18n="filter.product">Products</button>
         <button class="filter" data-filter="vfx" aria-pressed="false" data-i18n="filter.vfx">VFX</button>
         <button class="filter" data-filter="character" aria-pressed="false" data-i18n="filter.character">Characters</button>
       </div>
-      <p class="work-count" aria-live="polite"><span id="workCount">16</span> <span data-i18n="projects">projects</span></p>
+      <div class="work-controls"><button class="preview-toggle" id="previewToggle" aria-pressed="false" data-i18n="pause.previews">Pause previews</button><p class="work-count" aria-live="polite"><span id="workCount">40</span> <span data-i18n="projects">works</span></p></div>
     </div>
-    <div class="grid">
-      <figure data-category="film product" class="cell" data-reveal="clip" style="--asset-ratio:9/16"><video class="cover" aria-label="Bread — baking film by Blink" data-src="assets/Produce-A-Finished-15-Second-Vertical-9 (3).mp4" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Food</i><b>Baking Film</b></figcaption></figure>
-      <figure data-category="film product" class="cell" data-reveal="clip" style="--asset-ratio:9/16"><video class="cover" aria-label="Coffee — café film by Blink" data-src="assets/Produce-A-Finished-15-Second-Vertical-9 (1).mp4" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Coffee</i><b>Café Film</b></figcaption></figure>
-      <figure data-category="film product" class="cell" data-reveal="clip" style="--asset-ratio:9/16"><video class="cover" aria-label="Automotive — wheel detail film by Blink" data-src="assets/Produce-A-Finished-15-Second-Vertical-9.mp4" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Automotive</i><b>Wheel Detail Film</b></figcaption></figure>
-      <figure data-category="film" class="cell" data-reveal="clip" style="--asset-ratio:9/16"><video class="cover" aria-label="Interior — architectural film by Blink" data-src="assets/Produce-A-Finished-15-Second-Vertical-9 (2).mp4" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Interiors</i><b>Architectural Film</b></figcaption></figure>
-      <figure data-category="product" class="cell c-7 r-a" data-reveal="clip" style="--asset-ratio:2752/1536"><img class="cover" src="assets/work-iphone.jpg" alt="Apple — cinematic poster render by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>Apple</i><b>Cinematic Poster</b></figcaption></figure>
-      <figure data-category="film" class="cell c-5 r-a d1" data-reveal="clip" style="--asset-ratio:720/1280"><video class="cover" aria-label="Ford — automotive film by Blink" data-src="assets/work1.mp4" data-start="8" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Ford</i><b>Automotive Film</b></figcaption></figure>
-
-      <figure data-category="product" class="cell c-4 r-b" data-reveal="clip" style="--asset-ratio:736/920"><img class="cover" src="assets/work-rolex.jpg" alt="Rolex — luxury watch product render by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>Rolex</i><b>Luxury Render</b></figcaption></figure>
-      <figure data-category="film product" class="cell c-4 r-b d1" data-reveal="clip" style="--asset-ratio:720/1280"><video class="cover" aria-label="Product hyper-motion film by Blink" data-src="assets/work2.mp4" data-start="3" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Product</i><b>Hyper-Motion</b></figcaption></figure>
-      <figure data-category="vfx" class="cell c-4 r-b d2" data-reveal="clip" style="--asset-ratio:720/1280"><video class="cover" aria-label="VFX composite by Blink" data-src="assets/work3.mp4" data-start="1.5" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>VFX</i><b>Composite</b></figcaption></figure>
-
-      <figure data-category="product" class="cell c-4 r-c" data-reveal="clip" style="--asset-ratio:736/981"><img class="cover" src="assets/work-muse.jpg" alt="Muse — beverage brand campaign by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>Muse</i><b>Beverage</b></figcaption></figure>
-      <figure data-category="character" class="cell c-4 r-c d1" data-reveal="clip" style="--asset-ratio:1792/2400"><img class="cover" src="assets/work-pizza.jpg" alt="Haji — bespoke brand character by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>Haji</i><b>Brand Character</b></figcaption></figure>
-      <figure data-category="film" class="cell c-4 r-c d2" data-reveal="clip" style="--asset-ratio:1280/720"><video class="cover" aria-label="Social kinetic edit by Blink" data-src="assets/work4.mp4" data-start="3" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Social</i><b>Kinetic Edit</b></figcaption></figure>
-
-      <figure data-category="film character" class="cell c-4 r-a" data-reveal="clip" style="--asset-ratio:1920/1080"><video class="cover" aria-label="Haji vs T-Rex — cinematic film by Blink" data-src="assets/films-trex.mp4" data-start="4" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Film</i><b>Haji vs T-Rex</b></figcaption></figure>
-      <figure data-category="product" class="cell c-4 r-a d1" data-reveal="clip" style="--asset-ratio:736/920"><img class="cover" src="assets/work-ford.jpg" alt="Ford — automotive studio key art by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>Ford</i><b>Studio Key Art</b></figcaption></figure>
-      <figure data-category="product" class="cell c-4 r-a d2" data-reveal="clip" style="--asset-ratio:768/1344"><img class="cover" src="assets/work-zero.jpg" alt="Zero — FMCG packaging design by Blink" loading="lazy" decoding="async"><figcaption class="cap"><i>Zero</i><b>FMCG Packaging</b></figcaption></figure>
-
-      <figure data-category="film" class="cell c-12 r-a" data-reveal="clip" style="--asset-ratio:1880/1080"><video class="cover" aria-label="Toyota — automotive film in 4K by Blink" data-src="assets/Toyota_web.mp4" data-start="2" autoplay muted playsinline preload="metadata"></video><figcaption class="cap"><i>Toyota</i><b>Automotive Film · 4K</b></figcaption></figure>
+    <!-- PORTFOLIO:START -->
+    <div class="featured-work">
+      <figure class="cell" data-project="jaunt" data-category="film product" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/jaunt.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/jaunt.webp" data-src="assets/portfolio/jaunt-preview.mp4" data-full="assets/portfolio/jaunt.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Audio / Product film</i><b dir="auto">JAUNT — One Beat</b></figcaption>
+        <a class="project-open" href="assets/portfolio/jaunt.mp4" aria-label="JAUNT — One Beat"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="blood-orange-summer" data-category="film product" style="--asset-ratio:1280/720">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/blood-orange-summer.webp" width="1280" height="720" alt="" loading="lazy" decoding="async"><video class="cover" width="1280" height="720" aria-hidden="true" data-poster="assets/portfolio/blood-orange-summer.webp" data-src="assets/portfolio/blood-orange-summer-preview.mp4" data-full="assets/portfolio/blood-orange-summer.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Beverage / Lifestyle film</i><b dir="auto">Blood Orange — A Taste of Summer</b></figcaption>
+        <a class="project-open" href="assets/portfolio/blood-orange-summer.mp4" aria-label="Blood Orange — A Taste of Summer"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
     </div>
+    <div class="work-batches" id="workGrid">
+      <div class="grid work-batch">
+      <figure class="cell" data-project="blink-watch" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/blink-watch.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/blink-watch.webp" data-src="assets/portfolio/blink-watch-preview.mp4" data-full="assets/portfolio/blink-watch.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Watches / Product film</i><b dir="auto">BLINK — A Moment in Time</b></figcaption>
+        <a class="project-open" href="assets/portfolio/blink-watch.mp4" aria-label="BLINK — A Moment in Time"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="tiktak-superhero" data-category="poster character product" style="--asset-ratio:1122/1402">
+        <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-superhero.webp" data-full="assets/Dara’s TikTak Superhero Adventure.png" width="1122" height="1402" alt="TikTak — Superhero Adventure — TikTak / Character poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Character poster</i><b dir="auto">TikTak — Superhero Adventure</b></figcaption>
+        <a class="project-open" href="assets/Dara’s TikTak Superhero Adventure.png" aria-label="TikTak — Superhero Adventure"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="zero-lemon" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/zero-lemon.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/zero-lemon.webp" data-src="assets/portfolio/zero-lemon-preview.mp4" data-full="assets/portfolio/zero-lemon.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Beverage / Product film</i><b dir="auto">Zero — Lemon in Motion</b></figcaption>
+        <a class="project-open" href="assets/portfolio/zero-lemon.mp4" aria-label="Zero — Lemon in Motion"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="dara-funfair" data-category="film character" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/dara-funfair.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/dara-funfair.webp" data-src="assets/portfolio/dara-funfair-preview.mp4" data-full="assets/portfolio/dara-funfair.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:30</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Animated film</i><b dir="auto">Dara — The Funfair Adventure</b></figcaption>
+        <a class="project-open" href="assets/portfolio/dara-funfair.mp4" aria-label="Dara — The Funfair Adventure"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="blood-orange-rhythm" data-category="film product" style="--asset-ratio:1280/720">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/blood-orange-rhythm.webp" width="1280" height="720" alt="" loading="lazy" decoding="async"><video class="cover" width="1280" height="720" aria-hidden="true" data-poster="assets/portfolio/blood-orange-rhythm.webp" data-src="assets/portfolio/blood-orange-rhythm-preview.mp4" data-full="assets/portfolio/blood-orange-rhythm.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Beverage / Product film</i><b dir="auto">Blood Orange — Find Your Rhythm</b></figcaption>
+        <a class="project-open" href="assets/portfolio/blood-orange-rhythm.mp4" aria-label="Blood Orange — Find Your Rhythm"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="tiktak-cozy" data-category="poster character product" style="--asset-ratio:1122/1402">
+        <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-cozy.webp" data-full="assets/Dara with TikTak snacks, cozy room.png" width="1122" height="1402" alt="TikTak — A Little Everyday Joy — TikTak / Character poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Character poster</i><b dir="auto">TikTak — A Little Everyday Joy</b></figcaption>
+        <a class="project-open" href="assets/Dara with TikTak snacks, cozy room.png" aria-label="TikTak — A Little Everyday Joy"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="panda" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/panda.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/panda.webp" data-src="assets/portfolio/panda-preview.mp4" data-full="assets/portfolio/panda.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Snacks / Product film</i><b dir="auto">Panda — The Perfect Crunch</b></figcaption>
+        <a class="project-open" href="assets/portfolio/panda.mp4" aria-label="Panda — The Perfect Crunch"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="zero-rice-poster" data-category="poster product" style="--asset-ratio:1122/1402">
+        <div class="project-media"><img class="cover" src="assets/portfolio/zero-rice-poster.webp" data-full="assets/Warm Kitchen Rice Celebration.png" width="1122" height="1402" alt="Zero Rice — Made for Sharing — Zero / Lifestyle poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Zero / Lifestyle poster</i><b dir="auto">Zero Rice — Made for Sharing</b></figcaption>
+        <a class="project-open" href="assets/Warm Kitchen Rice Celebration.png" aria-label="Zero Rice — Made for Sharing"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="dara-transformation" data-category="poster character product" style="--asset-ratio:1672/941">
+        <div class="project-media"><img class="cover" src="assets/portfolio/dara-transformation.webp" data-full="assets/Dara’s TikTak Hero Transformation.png" width="1672" height="941" alt="Dara — Hero Transformation — TikTak / Visual story" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Visual story</i><b dir="auto">Dara — Hero Transformation</b></figcaption>
+        <a class="project-open" href="assets/Dara’s TikTak Hero Transformation.png" aria-label="Dara — Hero Transformation"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="tiktak-family" data-category="poster product" style="--asset-ratio:1672/941">
+        <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-family.webp" data-full="assets/Warm family moments, crispy cheese puffs.png" width="1672" height="941" alt="TikTak — Family Moments — TikTak / Visual story" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Visual story</i><b dir="auto">TikTak — Family Moments</b></figcaption>
+        <a class="project-open" href="assets/Warm family moments, crispy cheese puffs.png" aria-label="TikTak — Family Moments"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      </div>
+      <div class="grid work-batch">
+      <figure class="cell" data-project="tiktak-crunch" data-category="poster product" style="--asset-ratio:1122/1402">
+        <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-crunch.webp" data-full="assets/TikTak Cheese Crunch in Motion.png" width="1122" height="1402" alt="TikTak — Cheese Crunch — TikTak / Product poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Product poster</i><b dir="auto">TikTak — Cheese Crunch</b></figcaption>
+        <a class="project-open" href="assets/TikTak Cheese Crunch in Motion.png" aria-label="TikTak — Cheese Crunch"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="zero-rice" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/zero-rice.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/zero-rice.webp" data-src="assets/portfolio/zero-rice-preview.mp4" data-full="assets/portfolio/zero-rice.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Food / Product film</i><b dir="auto">Zero — Every Grain</b></figcaption>
+        <a class="project-open" href="assets/portfolio/zero-rice.mp4" aria-label="Zero — Every Grain"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="dara-character" data-category="poster character" style="--asset-ratio:1254/1254">
+        <div class="project-media"><img class="cover" src="assets/portfolio/dara-character.webp" data-full="assets/dara.png" width="1254" height="1254" alt="Dara — Everyday Hero — TikTak / Character design" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Character design</i><b dir="auto">Dara — Everyday Hero</b></figcaption>
+        <a class="project-open" href="assets/dara.png" aria-label="Dara — Everyday Hero"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="dara-snack" data-category="film character" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/dara-snack.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/dara-snack.webp" data-src="assets/portfolio/dara-snack-preview.mp4" data-full="assets/portfolio/dara-snack.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:30</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Animated film</i><b dir="auto">Dara — Snack Break</b></figcaption>
+        <a class="project-open" href="assets/portfolio/dara-snack.mp4" aria-label="Dara — Snack Break"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="gundakam" data-category="film product" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/gundakam.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/gundakam.webp" data-src="assets/portfolio/gundakam-preview.mp4" data-full="assets/portfolio/gundakam.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Dairy / Product film</i><b dir="auto">Gundakam — A Fresh Perspective</b></figcaption>
+        <a class="project-open" href="assets/portfolio/gundakam.mp4" aria-label="Gundakam — A Fresh Perspective"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="energy" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/energy.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/energy.webp" data-src="assets/portfolio/energy-preview.mp4" data-full="assets/portfolio/energy.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Beverage / Product film</i><b dir="auto">Energy — Electric Red</b></figcaption>
+        <a class="project-open" href="assets/portfolio/energy.mp4" aria-label="Energy — Electric Red"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="ceylon-tea" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/ceylon-tea.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/ceylon-tea.webp" data-src="assets/portfolio/ceylon-tea-preview.mp4" data-full="assets/portfolio/ceylon-tea.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Tea / Product film</i><b dir="auto">Ceylon Tea — The Golden Pour</b></figcaption>
+        <a class="project-open" href="assets/portfolio/ceylon-tea.mp4" aria-label="Ceylon Tea — The Golden Pour"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="hes-clean" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/hes-clean.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/hes-clean.webp" data-src="assets/portfolio/hes-clean-preview.mp4" data-full="assets/portfolio/hes-clean.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Home care / Product film</i><b dir="auto">HES — A Brighter Clean</b></figcaption>
+        <a class="project-open" href="assets/portfolio/hes-clean.mp4" aria-label="HES — A Brighter Clean"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="dara-monster" data-category="film character" style="--asset-ratio:480/854">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/dara-monster.webp" width="480" height="854" alt="" loading="lazy" decoding="async"><video class="cover" width="480" height="854" aria-hidden="true" data-poster="assets/portfolio/dara-monster.webp" data-src="assets/portfolio/dara-monster-preview.mp4" data-full="assets/portfolio/dara-monster.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:23</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Animated film</i><b dir="auto">Dara — The Jelly Monster</b></figcaption>
+        <a class="project-open" href="assets/portfolio/dara-monster.mp4" aria-label="Dara — The Jelly Monster"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="dara-city" data-category="film character" style="--asset-ratio:480/854">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/dara-city.webp" width="480" height="854" alt="" loading="lazy" decoding="async"><video class="cover" width="480" height="854" aria-hidden="true" data-poster="assets/portfolio/dara-city.webp" data-src="assets/portfolio/dara-city-preview.mp4" data-full="assets/portfolio/dara-city.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:30</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Animated film</i><b dir="auto">Dara — City Adventure</b></figcaption>
+        <a class="project-open" href="assets/portfolio/dara-city.mp4" aria-label="Dara — City Adventure"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="jelly-monster" data-category="poster character" style="--asset-ratio:1254/1254">
+        <div class="project-media"><img class="cover" src="assets/portfolio/jelly-monster.webp" data-full="assets/monster.png" width="1254" height="1254" alt="The Jelly Monster — TikTak / Character design" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Character design</i><b dir="auto">The Jelly Monster</b></figcaption>
+        <a class="project-open" href="assets/monster.png" aria-label="The Jelly Monster"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="tiktak-pack" data-category="poster product" style="--asset-ratio:1094/1438">
+        <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-pack.webp" data-full="assets/tiktak.png" width="1094" height="1438" alt="TikTak — Meet the Pack — TikTak / Product poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">TikTak / Product poster</i><b dir="auto">TikTak — Meet the Pack</b></figcaption>
+        <a class="project-open" href="assets/tiktak.png" aria-label="TikTak — Meet the Pack"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      </div>
+      <div class="grid work-batch">
+      <figure class="cell" data-project="saffron" data-category="film product" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/saffron.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/saffron.webp" data-src="assets/portfolio/saffron-preview.mp4" data-full="assets/portfolio/saffron.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Coffee / Lifestyle film</i><b dir="auto">Saffron — The Café Ritual</b></figcaption>
+        <a class="project-open" href="assets/portfolio/saffron.mp4" aria-label="Saffron — The Café Ritual"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="vista" data-category="film" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/vista.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/vista.webp" data-src="assets/portfolio/vista-preview.mp4" data-full="assets/portfolio/vista.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Architecture / Brand film</i><b dir="auto">Vista — Space to Breathe</b></figcaption>
+        <a class="project-open" href="assets/portfolio/vista.mp4" aria-label="Vista — Space to Breathe"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="clear" data-category="film product" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/clear.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/clear.webp" data-src="assets/portfolio/clear-preview.mp4" data-full="assets/portfolio/clear.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Home care / Product film</i><b dir="auto">CLEAR — A Fresh Start</b></figcaption>
+        <a class="project-open" href="assets/portfolio/clear.mp4" aria-label="CLEAR — A Fresh Start"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="automotive-detail" data-category="film product" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/automotive-detail.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/automotive-detail.webp" data-src="assets/portfolio/automotive-detail-preview.mp4" data-full="assets/portfolio/automotive-detail.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Automotive / Product film</i><b dir="auto">Automotive — In Every Detail</b></figcaption>
+        <a class="project-open" href="assets/portfolio/automotive-detail.mp4" aria-label="Automotive — In Every Detail"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="iphone" data-category="poster product" style="--asset-ratio:2752/1536">
+        <div class="project-media"><img class="cover" src="assets/portfolio/iphone.webp" data-full="assets/work-iphone.jpg" width="2752" height="1536" alt="Apple — Cinematic Poster — Technology / Product poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Technology / Product poster</i><b dir="auto">Apple — Cinematic Poster</b></figcaption>
+        <a class="project-open" href="assets/work-iphone.jpg" aria-label="Apple — Cinematic Poster"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="ford-film" data-category="film" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/ford-film.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/ford-film.webp" data-src="assets/portfolio/ford-film-preview.mp4" data-full="assets/portfolio/ford-film.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Automotive / Brand film</i><b dir="auto">Ford — Built for the Journey</b></figcaption>
+        <a class="project-open" href="assets/portfolio/ford-film.mp4" aria-label="Ford — Built for the Journey"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="rolex" data-category="poster product" style="--asset-ratio:736/920">
+        <div class="project-media"><img class="cover" src="assets/portfolio/rolex.webp" data-full="assets/work-rolex.jpg" width="736" height="920" alt="Rolex — Luxury in Detail — Watches / Product poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Watches / Product poster</i><b dir="auto">Rolex — Luxury in Detail</b></figcaption>
+        <a class="project-open" href="assets/work-rolex.jpg" aria-label="Rolex — Luxury in Detail"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="hyper-motion" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/hyper-motion.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/hyper-motion.webp" data-src="assets/portfolio/hyper-motion-preview.mp4" data-full="assets/portfolio/hyper-motion.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Product / Motion film</i><b dir="auto">Product — Hyper-Motion</b></figcaption>
+        <a class="project-open" href="assets/portfolio/hyper-motion.mp4" aria-label="Product — Hyper-Motion"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="vfx-composite" data-category="film vfx" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/vfx-composite.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/vfx-composite.webp" data-src="assets/portfolio/vfx-composite-preview.mp4" data-full="assets/portfolio/vfx-composite.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Visual effects / Film</i><b dir="auto">VFX — Composite</b></figcaption>
+        <a class="project-open" href="assets/portfolio/vfx-composite.mp4" aria-label="VFX — Composite"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="muse" data-category="poster product" style="--asset-ratio:736/981">
+        <div class="project-media"><img class="cover" src="assets/portfolio/muse.webp" data-full="assets/work-muse.jpg" width="736" height="981" alt="Muse — Color &amp; Flavor — Beverage / Product poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Beverage / Product poster</i><b dir="auto">Muse — Color &amp; Flavor</b></figcaption>
+        <a class="project-open" href="assets/work-muse.jpg" aria-label="Muse — Color &amp; Flavor"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="haji-character" data-category="poster character" style="--asset-ratio:1792/2400">
+        <div class="project-media"><img class="cover" src="assets/portfolio/haji-character.webp" data-full="assets/work-pizza.jpg" width="1792" height="2400" alt="Haji — Brand Character — Character / Poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Character / Poster</i><b dir="auto">Haji — Brand Character</b></figcaption>
+        <a class="project-open" href="assets/work-pizza.jpg" aria-label="Haji — Brand Character"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="kinetic" data-category="film" style="--asset-ratio:1280/720">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/kinetic.webp" width="1280" height="720" alt="" loading="lazy" decoding="async"><video class="cover" width="1280" height="720" aria-hidden="true" data-poster="assets/portfolio/kinetic.webp" data-src="assets/portfolio/kinetic-preview.mp4" data-full="assets/portfolio/kinetic.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
+        <figcaption class="cap"><i dir="auto">Social / Motion film</i><b dir="auto">Social — Kinetic Edit</b></figcaption>
+        <a class="project-open" href="assets/portfolio/kinetic.mp4" aria-label="Social — Kinetic Edit"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      </div>
+      <div class="grid work-batch">
+      <figure class="cell" data-project="haji-trex" data-category="film character" style="--asset-ratio:1920/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/haji-trex.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1920" height="1080" aria-hidden="true" data-poster="assets/portfolio/haji-trex.webp" data-src="assets/portfolio/haji-trex-preview.mp4" data-full="assets/portfolio/haji-trex.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:09</span></span></div>
+        <figcaption class="cap"><i dir="auto">Character / Animated film</i><b dir="auto">Haji vs T-Rex</b></figcaption>
+        <a class="project-open" href="assets/portfolio/haji-trex.mp4" aria-label="Haji vs T-Rex"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="ford-poster" data-category="poster product" style="--asset-ratio:736/920">
+        <div class="project-media"><img class="cover" src="assets/portfolio/ford-poster.webp" data-full="assets/work-ford.jpg" width="736" height="920" alt="Ford — Studio Key Art — Automotive / Poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Automotive / Poster</i><b dir="auto">Ford — Studio Key Art</b></figcaption>
+        <a class="project-open" href="assets/work-ford.jpg" aria-label="Ford — Studio Key Art"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="zero-pack" data-category="poster product" style="--asset-ratio:768/1344">
+        <div class="project-media"><img class="cover" src="assets/portfolio/zero-pack.webp" data-full="assets/work-zero.jpg" width="768" height="1344" alt="Zero — Packaging Study — Product / Poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
+        <figcaption class="cap"><i dir="auto">Product / Poster</i><b dir="auto">Zero — Packaging Study</b></figcaption>
+        <a class="project-open" href="assets/work-zero.jpg" aria-label="Zero — Packaging Study"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="toyota" data-category="film" style="--asset-ratio:1880/1080">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/toyota.webp" width="1880" height="1080" alt="" loading="lazy" decoding="async"><video class="cover" width="1880" height="1080" aria-hidden="true" data-poster="assets/portfolio/toyota.webp" data-src="assets/portfolio/toyota-preview.mp4" data-full="assets/portfolio/toyota.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>1:18</span></span></div>
+        <figcaption class="cap"><i dir="auto">Automotive / Brand film</i><b dir="auto">Toyota — Automotive Film</b></figcaption>
+        <a class="project-open" href="assets/portfolio/toyota.mp4" aria-label="Toyota — Automotive Film"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      </div>
+
+    </div>
+    <!-- PORTFOLIO:END -->
+    <div class="work-footer"><p class="work-summary" id="workSummary" aria-live="polite"></p><button class="cta secondary" id="showMore" hidden data-i18n="work.more">Show more work</button><a href="#contact" data-go="8" class="work-contact" data-i18n="work.contact">Have something in mind? Let’s talk ↗</a></div>
   </section>
 
-  <!-- 1 · FILMS (Haji vs T-Rex) -->
+<!-- 3 · CRAFT MEETS CINEMA (iPhone render) -->
 
 
-  <!-- 2 · CINEMATIC REEL -->
+<!-- 6 · BEYOND REALITY (octopus VFX) -->
 
 
-  <!-- 3 · CRAFT MEETS CINEMA (iPhone render) -->
-
-
-  <!-- 4 · MOTION THAT SELLS (film) -->
-
-
-  <!-- 6 · BEYOND REALITY (octopus VFX) -->
-
-
-<section id="studio" data-i="1"><div class="studio-heading"><h2 data-i18n="studio.title">A little impossible.<br>Entirely possible.</h2><p data-i18n="studio.sub">Film, motion and visual effects, shaped around your brand.</p></div><div class="studio-tabs" role="tablist" aria-label="Studio capabilities"><button role="tab" id="studio-tab-1" data-panel="1" aria-controls="studio-panel-1" aria-selected="true" tabindex="0" data-i18n="films.kicker">Cinematic Production</button><button role="tab" id="studio-tab-2" data-panel="2" aria-controls="studio-panel-2" aria-selected="false" tabindex="-1" data-i18n="reel.kicker">Reel · 2026</button><button role="tab" id="studio-tab-3" data-panel="3" aria-controls="studio-panel-3" aria-selected="false" tabindex="-1" data-i18n="cinema.kicker">Product Visualization</button><button role="tab" id="studio-tab-4" data-panel="4" aria-controls="studio-panel-4" aria-selected="false" tabindex="-1" data-i18n="motion.kicker">Hyper-Motion</button><button role="tab" id="studio-tab-6" data-panel="6" aria-controls="studio-panel-6" aria-selected="false" tabindex="-1" data-i18n="vfx.kicker">VFX & Compositing</button></div><div class="studio-panels">  <article class="studio-panel" id="studio-panel-1" role="tabpanel" aria-labelledby="studio-tab-1">
-    <div class="media" data-par="0.12"><video class="cover" data-src="assets/films-trex.mp4" data-start="4" autoplay muted playsinline preload="auto"></video></div>
+<section id="studio" data-i="1"><div class="studio-heading"><h2 data-i18n="studio.title">A little impossible.<br>Entirely possible.</h2><p data-i18n="studio.sub">Film, motion and visual effects, shaped around your brand.</p></div><div class="studio-tabs" data-i18n-aria="aria.capabilities" role="tablist" aria-label="Studio capabilities"><button role="tab" id="studio-tab-1" data-panel="1" aria-controls="studio-panel-1" aria-selected="true" tabindex="0" data-i18n="films.kicker">Cinematic Production</button><button role="tab" id="studio-tab-3" data-panel="3" aria-controls="studio-panel-3" aria-selected="false" tabindex="-1" data-i18n="cinema.kicker">Product Visualization</button><button role="tab" id="studio-tab-4" data-panel="4" aria-controls="studio-panel-4" aria-selected="false" tabindex="-1" data-i18n="motion.kicker">Hyper-Motion</button><button role="tab" id="studio-tab-6" data-panel="6" aria-controls="studio-panel-6" aria-selected="false" tabindex="-1" data-i18n="vfx.kicker">VFX & Compositing</button></div><div class="studio-panels">  <div tabindex="0" class="studio-panel" id="studio-panel-1" role="tabpanel" aria-labelledby="studio-tab-1">
+    <div class="media" data-par="0.12"><video class="cover" data-src="assets/portfolio/haji-trex-preview.mp4" poster="assets/portfolio/haji-trex.webp" muted playsinline preload="none"></video></div>
     <div class="scrim center"></div>
     <div class="wrap center-copy">
       <div class="kicker" data-reveal data-i18n="films.kicker">Cinematic Production</div>
       <h2 class="d1" data-reveal data-i18n="films.h2">Films.</h2>
-      <p class="sub d2" data-reveal data-i18n="films.sub">Cinema-quality productions.</p>
+      <p class="sub d2" data-reveal data-i18n="films.sub">Product launches, brand stories and character-led films. Built around the idea.</p>
+    <a class="feature-link" href="#work" data-browse-filter="film" data-i18n="browse.film">Explore the work</a>
     </div>
-  </article>  <article class="studio-panel" id="studio-panel-2" role="tabpanel" aria-labelledby="studio-tab-2" hidden>
-    <div class="media" data-par="0.13"><video class="cover" data-src="assets/cinema.mp4" data-start="3" data-end="11" autoplay muted playsinline preload="auto"></video></div>
-    <div class="scrim center"></div>
-    <div class="wrap center-copy">
-      <div class="kicker" data-reveal data-i18n="reel.kicker">Reel · 2026</div>
-      <h2 class="d1" data-reveal data-i18n="reel.h2">Ideas Become<br>Reality.</h2>
-    </div>
-  </article>  <article class="studio-panel" id="studio-panel-3" role="tabpanel" aria-labelledby="studio-tab-3" hidden>
-    <div class="media" data-par="0.15"><img class="cover" src="assets/work-iphone.jpg" alt="iPhone 17 Pro — Blink render" decoding="async" /></div>
+  </div>  <div tabindex="0" class="studio-panel" id="studio-panel-3" role="tabpanel" aria-labelledby="studio-tab-3" hidden>
+    <div class="media" data-par="0.15"><img class="cover" src="assets/portfolio/iphone.webp" width="1000" height="558" alt="iPhone 17 Pro — Blink render" loading="lazy" decoding="async" /></div>
     <div class="scrim bottom"></div>
     <div class="wrap">
       <div class="kicker" data-reveal data-i18n="cinema.kicker">Product Visualization</div>
       <h2 class="d1" data-reveal data-i18n="cinema.h2">Craft Meets<br>Cinema.</h2>
+    <p class="sub" data-i18n="cinema.sub">Material, light and detail. A closer look at the things you make.</p>
+      <a class="feature-link" href="#work" data-browse-filter="product" data-i18n="browse.product">Explore the work</a>
     </div>
-  </article>  <article class="studio-panel" id="studio-panel-4" role="tabpanel" aria-labelledby="studio-tab-4" hidden>
-    <div class="media" data-par="0.13"><video class="cover" data-src="assets/film.mp4" data-start="3" autoplay muted playsinline preload="auto"></video></div>
+  </div>  <div tabindex="0" class="studio-panel" id="studio-panel-4" role="tabpanel" aria-labelledby="studio-tab-4" hidden>
+    <div class="media" data-par="0.13"><video class="cover" data-src="assets/portfolio/studio-motion-preview.mp4" poster="assets/portfolio/studio-motion.webp" muted playsinline preload="none"></video></div>
     <div class="scrim center"></div>
     <div class="wrap center-copy">
       <div class="kicker" data-reveal data-i18n="motion.kicker">Hyper-Motion</div>
       <h2 class="d1" data-reveal data-i18n="motion.h2">Motion<br>That Sells.</h2>
+    <p class="sub" data-i18n="motion.sub">Product animation and short-form films designed for the feed.</p>
+      <a class="feature-link" href="#work" data-browse-filter="product" data-i18n="browse.product">Explore the work</a>
     </div>
-  </article>  <article class="studio-panel" id="studio-panel-6" role="tabpanel" aria-labelledby="studio-tab-6" hidden>
-    <div class="media" data-par="0.16"><img class="cover" src="assets/octopus.jpeg" alt="Blink VFX — octopus billboard" decoding="async" /></div>
+  </div>  <div tabindex="0" class="studio-panel" id="studio-panel-6" role="tabpanel" aria-labelledby="studio-tab-6" hidden>
+    <div class="media" data-par="0.16"><img class="cover" src="assets/site/octopus.webp" width="821" height="1100" alt="Blink VFX — octopus billboard" loading="lazy" decoding="async" /></div>
     <div class="scrim left"></div>
     <div class="wrap">
       <div class="kicker" data-reveal data-i18n="vfx.kicker">VFX &amp; Compositing</div>
       <h2 class="d1" data-reveal data-i18n="vfx.h2">Beyond<br>Reality.</h2>
-      <p class="sub d2" data-reveal data-i18n="vfx.sub">The impossible, shot-in-camera.</p>
+      <p class="sub d2" data-reveal data-i18n="vfx.sub">Imagined worlds. Carefully composited.</p>
+    <a class="feature-link" href="#work" data-browse-filter="vfx" data-i18n="browse.vfx">Explore the work</a>
     </div>
-  </article></div></section>
+  </div></div></section>
   <!-- 7 · CHARACTERS -->
   <section id="cast" data-i="7">
     <div class="cast-stage">
-      <div class="cast-fig" data-reveal><img src="assets/haji.png" alt="Haji — Blink brand character" decoding="async" /></div>
+      <div class="cast-fig" data-reveal><img src="assets/site/haji.webp" width="1000" height="922" alt="Haji — Blink brand character" loading="lazy" decoding="async" /></div>
       <div class="cast-text">
         <div class="kicker" data-reveal data-i18n="cast.kicker">Brand Characters</div>
-        <h2 class="d1" data-reveal data-i18n="cast.h2">Characters,<br>Owned.</h2>
-        <p class="sub d2" data-reveal data-i18n="cast.sub">Bespoke 3D mascots your brand owns outright.</p>
+        <h2 class="d1" data-reveal data-i18n="cast.h2">Characters.<br>Full of life.</h2>
+        <p class="sub d2" data-reveal data-i18n="cast.sub">Distinctive characters for your brand’s next story.</p>
+        <a class="feature-link" href="#work" data-browse-filter="character" data-i18n="browse.character">Meet the characters</a>
       </div>
     </div>
   </section>
@@ -537,7 +843,7 @@ to{opacity:1;transform:none}
   <section id="contact" data-i="8">
     <div class="wrap" style="max-width:1300px;margin:0 auto;">
       <div class="kicker" data-reveal data-i18n="contact.kicker">Let's Work Together</div>
-      <h2 class="d1" data-reveal data-i18n="contact.h2">Ready To Scale?</h2>
+      <h2 class="d1" data-reveal data-i18n="contact.h2">Your next idea.<br>Let’s make it.</h2>
       <p class="sub d2" data-reveal data-i18n="contact.sub">Tell us about your brand — we'll handle the rest.</p>
       <div class="contact-details">
         <a class="contact-phone" href="tel:+9647701229035" dir="ltr"><span>0770 122 9035</span><span aria-hidden="true">↗</span></a>
@@ -546,10 +852,10 @@ to{opacity:1;transform:none}
       <form class="brief" id="brief">
         <h3 data-i18n="brief.title">What are you imagining?</h3>
         <p class="brief-note" data-i18n="brief.note">A few details are all we need. This prepares an email draft for you to review and send.</p>
-        <p id="briefContext" class="brief-context" hidden></p><div class="brief-fields">
+        <div id="briefReference" class="brief-reference" hidden><p id="briefContext" class="brief-context" hidden></p><button type="button" id="clearReference" data-i18n="brief.clear">Remove reference</button></div><div class="brief-fields">
           <label class="field"><span data-i18n="brief.name">Your name</span><input name="name" autocomplete="name" maxlength="100" required></label>
-          <label class="field"><span data-i18n="brief.email">Email</span><input name="email" type="email" autocomplete="email" maxlength="160" required></label>
-          <label class="field"><span data-i18n="brief.service">What do you need?</span><select name="service"><option data-i18n="filter.film">Film &amp; Motion</option><option data-i18n="filter.product">Products</option><option data-i18n="filter.vfx">VFX</option><option data-i18n="filter.character">Characters</option></select></label>
+          <label class="field"><span data-i18n="brief.email">Email</span><input name="email" type="email" dir="ltr" autocomplete="email" maxlength="160" required></label>
+          <label class="field"><span data-i18n="brief.service">What do you need?</span><select name="service"><option data-i18n="filter.film">Film &amp; Motion</option><option data-i18n="filter.poster">Posters &amp; Artwork</option><option data-i18n="filter.product">Products</option><option data-i18n="filter.vfx">VFX</option><option data-i18n="filter.character">Characters</option></select></label>
           <label class="field"><span data-i18n="brief.timeline">Your timeline</span><input name="timeline" maxlength="100"></label>
           <label class="field wide"><span data-i18n="brief.idea">Tell us about your idea</span><textarea name="idea" rows="4" maxlength="1800" required></textarea></label>
         </div>
@@ -559,7 +865,7 @@ to{opacity:1;transform:none}
       <div class="bottom">
         <a class="cta" href="#brief" data-brief data-reveal><span data-i18n="cta">Start a Project</span> <span class="cta-arrow">→</span></a>
         <div class="foot d1" data-reveal>
-          <img src="assets/logo-mark.png" alt="BLINK" />
+          <img src="assets/site/logo-mark.webp" width="180" height="158" alt="BLINK" />
           <span><a href="mailto:blinkadvertising9@gmail.com">blinkadvertising9@gmail.com</a><br><span data-i18n="city">Sulaymaniyah</span></span>
         </div>
       </div>
@@ -569,9 +875,9 @@ to{opacity:1;transform:none}
 
 </main>
 <dialog class="viewer" id="viewer" aria-labelledby="viewerTitle">
-  <div class="viewer-top"><div><h2 class="viewer-title" id="viewerTitle"></h2><p class="viewer-meta" id="viewerMeta"></p></div><button class="icon-button" id="viewerClose" aria-label="Close project"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
-  <div class="viewer-stage" id="viewerStage"></div><p class="viewer-feedback" id="viewerFeedback" role="status"></p>
-  <div class="viewer-bottom"><a href="#brief" id="viewerInquiry" data-i18n="viewer.inquire">Create something like this</a><div class="viewer-nav"><button class="icon-button" id="viewerPrev" aria-label="Previous project"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button><span class="viewer-position" id="viewerPosition" aria-live="polite"></span><button class="icon-button" id="viewerNext" aria-label="Next project"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div></div>
+  <div class="viewer-top"><div><h2 class="viewer-title" id="viewerTitle" dir="auto"></h2><p class="viewer-meta" id="viewerMeta" dir="auto"></p></div><button class="icon-button" id="viewerClose" data-i18n-aria="aria.close" aria-label="Close project"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+  <div class="viewer-stage" id="viewerStage"></div><div class="viewer-feedback" id="viewerFeedback" hidden><p id="viewerMessage" role="status"></p><button class="retry-button" id="viewerRetry" hidden data-i18n="viewer.retry">Try again</button></div>
+  <div class="viewer-bottom"><a href="#brief" id="viewerInquiry" data-i18n="viewer.inquire">Create something like this</a><div class="viewer-nav"><button class="icon-button" id="viewerPrev" data-i18n-aria="aria.previous" aria-label="Previous project"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button><span class="viewer-position" id="viewerPosition" aria-live="polite"></span><button class="icon-button" id="viewerNext" data-i18n-aria="aria.next" aria-label="Next project"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div></div>
 </dialog>
 
 <div class="scrollhint" id="hint"><div class="t" data-i18n="scroll">SCROLL</div><div class="m"></div></div>
@@ -587,13 +893,14 @@ to{opacity:1;transform:none}
   const pars = [...document.querySelectorAll('[data-par]')];
   const reveals = [...document.querySelectorAll('[data-reveal]')];
   const vids = [...document.querySelectorAll('video.cover')];
-  let mediaPaused=false;
+  let mediaPaused=matchMedia('(prefers-reduced-motion:reduce)').matches || Boolean(navigator.connection?.saveData);
   const viewer=document.getElementById('viewer');
   const progress=document.querySelector('.scroll-progress');
   const reduceMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  // Media playback is independent of decorative-motion preferences.
+  // Posters remain visible until playback is requested or a preview enters view.
   function playVisible(v){
+    if(v._visible && !document.hidden && !viewer.open && !mediaPaused && !v.getAttribute('src')){if(v.dataset.poster)v.poster=v.dataset.poster;v.src=v.dataset.src;v.load();}
     if(!v._visible || document.hidden || viewer.open || mediaPaused){v.pause();return;}
     if(v.readyState<2) return;
     if(v.currentTime<v._start || (v._end && v.currentTime>=v._end)) v.currentTime=v._start;
@@ -602,10 +909,11 @@ to{opacity:1;transform:none}
       else v.controls=false;
     }).catch(error=>{
       // Browser power-saving / autoplay policies still allow an explicit play.
-      if(error.name==='NotAllowedError') v.controls=true;
+      if(error.name==='NotAllowedError') v.classList.remove('ready');
     });
   }
   vids.forEach(v=>{
+    v.addEventListener('error',()=>v.classList.remove('ready'));
     v.muted=true;
     v.defaultMuted=true;
     v._visible=false;
@@ -632,23 +940,20 @@ to{opacity:1;transform:none}
     });
     v.addEventListener('ended',reloop);
   });
-  // Fetch just ahead of the viewport; only visible films consume playback resources.
-  const preloadIO=new IntersectionObserver(entries=>{
-    entries.forEach(({target:v,isIntersecting})=>{
-      if(isIntersecting){v.src=v.dataset.src;v.load();preloadIO.unobserve(v);}
-    });
-  },{root:scroller,rootMargin:'500px 0px'});
+  // Only attach a preview source while visible. Full films load in the viewer.
   const vIO=new IntersectionObserver(entries=>{
-    entries.forEach(({target:v,isIntersecting})=>{v._visible=isIntersecting;playVisible(v);});
-  },{root:scroller,threshold:0});
-  vids.forEach(v=>{preloadIO.observe(v);vIO.observe(v);});
+    entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{v._visible=isIntersecting&&intersectionRatio>=0.12&&!v.closest('[hidden]');playVisible(v);});
+  },{root:scroller,threshold:0.12});
+  vids.forEach(v=>vIO.observe(v));
   document.addEventListener('visibilitychange',()=>vids.forEach(playVisible));
-  document.getElementById('motionToggle').addEventListener('click',()=>{
-    mediaPaused=!mediaPaused;
-    const button=document.getElementById('motionToggle');button.setAttribute('aria-pressed',String(mediaPaused));
-    button.dataset.i18n=mediaPaused?'play.films':'pause.films';button.textContent=LANG[activeLang][button.dataset.i18n];
-    vids.forEach(playVisible);
-  });
+  const motionButtons=[document.getElementById('motionToggle'),document.getElementById('previewToggle')];
+  function updateMotionControls(){
+    motionButtons.forEach(button=>{
+      const key=button.id==='previewToggle'?(mediaPaused?'play.previews':'pause.previews'):(mediaPaused?'play.films':'pause.films');
+      button.setAttribute('aria-pressed',String(mediaPaused));button.dataset.i18n=key;button.textContent=LANG[activeLang][key];
+    });
+  }
+  motionButtons.forEach(button=>button.addEventListener('click',()=>{mediaPaused=!mediaPaused;updateMotionControls();vids.forEach(playVisible);}));
 
   /* reveals fire once, then we stop observing — opacity + small lift only */
   if(reduceMotion){ reveals.forEach(el=>el.classList.add('in')); }
@@ -698,7 +1003,7 @@ to{opacity:1;transform:none}
     if(reduceMotion){scroller.scrollTop=top;kick();return;}
     const start=scroller.scrollTop, dist=top-start;
     if(Math.abs(dist)<1) return;
-    const dur=clamp(Math.abs(dist)*0.22,850,1700), t0=performance.now();
+    const dur=clamp(Math.abs(dist)*0.16,350,800), t0=performance.now();
     const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; // easeInOutCubic — section-scale motion
     (function step(now){
       const p=Math.min(1,(now-t0)/dur);
@@ -708,7 +1013,7 @@ to{opacity:1;transform:none}
       else {animRAF=0;wheelTarget=scroller.scrollTop;}
     })(performance.now());
   }
-  function goTo(i){ i=clamp(i,0,N-1); animateTo(Math.max(0,sections[i].offsetTop-(i===0?0:72))); }
+  function goTo(i){ i=clamp(i,0,N-1);const section=sections[i];section.tabIndex=-1;section.focus({preventScroll:true});animateTo(Math.max(0,section.offsetTop-(i===0?0:document.getElementById('mainNav').offsetHeight)));if(location.hash!=='#'+section.id)history.pushState(null,'','#'+section.id); }
   document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();goTo(sections.findIndex(section=>section.dataset.i===el.dataset.go));}));
 
   /* ---- cached section / parallax offsets (no per-frame layout reads) ---- */
@@ -728,7 +1033,7 @@ to{opacity:1;transform:none}
     if(Math.abs(target-smooth)<0.1) smooth=target;
 
     // hero mark: JS only takes over the fade once you begin leaving (lets the CSS intro play)
-    document.getElementById('mainNav').classList.toggle('over-film',target<sections[0].offsetHeight-86);
+    document.getElementById('mainNav').classList.toggle('over-film',sections.some(section=>['hero','exhibition'].includes(section.id)&&target+86>=section.offsetTop&&target+86<section.offsetTop+section.offsetHeight));
     document.querySelectorAll('nav [data-go]').forEach(link=>{const section=sections.find(s=>s.dataset.i===link.dataset.go);const active=section&&target+160>=section.offsetTop&&target+160<section.offsetTop+section.offsetHeight;if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
 
     // subtle parallax — transform only, and only on media within ~1 viewport
@@ -772,13 +1077,13 @@ to{opacity:1;transform:none}
     document.getElementById('viewerPosition').textContent=`${projectIndex+1} / ${playlist.length}`;
     document.getElementById('viewerPrev').disabled=projectIndex===0;
     document.getElementById('viewerNext').disabled=projectIndex===playlist.length-1;
-    const feedback=document.getElementById('viewerFeedback');
-    feedback.textContent=LANG[activeLang]['viewer.loading'];
+    const feedback=document.getElementById('viewerFeedback'),message=document.getElementById('viewerMessage'),retry=document.getElementById('viewerRetry');
+    feedback.hidden=false;retry.hidden=true;message.textContent=LANG[activeLang]['viewer.loading'];viewerStage.setAttribute('aria-busy','true');
     const media=document.createElement(project.video?'video':'img');
-    media.addEventListener(project.video?'loadeddata':'load',()=>{feedback.textContent='';},{once:true});
-    media.addEventListener('error',()=>{feedback.textContent=LANG[activeLang]['viewer.error'];},{once:true});
+    media.addEventListener(project.video?'loadeddata':'load',()=>{if(media.parentNode===viewerStage){feedback.hidden=true;message.textContent='';viewerStage.setAttribute('aria-busy','false');}},{once:true});
+    media.addEventListener('error',()=>{if(media.parentNode===viewerStage){message.textContent=LANG[activeLang]['viewer.error'];feedback.hidden=false;retry.hidden=false;viewerStage.setAttribute('aria-busy','false');}},{once:true});
     media.src=project.src;
-    if(project.video){media.controls=true;media.playsInline=true;media.autoplay=true;media.preload='auto';media.setAttribute('aria-label',project.title);}
+    if(project.video){if(project.poster)media.poster=project.poster;media.controls=true;media.playsInline=true;media.autoplay=true;media.preload='auto';media.setAttribute('aria-label',project.title);}
     else media.alt=project.alt;
     viewerStage.append(media);
     if(project.video) media.play().catch(()=>{});
@@ -790,38 +1095,94 @@ to{opacity:1;transform:none}
   }
   function cardProject(card){
     const media=card.querySelector('.cover');
-    return {title:card.querySelector('.cap b').textContent,meta:card.querySelector('.cap i').textContent,src:media.dataset.src||media.getAttribute('src'),video:media.tagName==='VIDEO',alt:media.alt||''};
+    return {title:card.querySelector('.cap b').textContent,meta:card.querySelector('.cap i').textContent,src:media.dataset.full||media.dataset.src||media.getAttribute('src'),video:media.tagName==='VIDEO',poster:media.dataset.poster||media.poster||'',alt:media.alt||''};
   }
+  addEventListener('blink:open-project',e=>{const index=cards.findIndex(card=>card.dataset.project===e.detail.id);if(index>=0)openProjects(cards.map(cardProject),index,e.detail.trigger);});
   cards.forEach(card=>{
-    const button=document.createElement('button');button.className='project-open';
-    button.setAttribute('aria-label',card.querySelector('.cap b').textContent);
-    button.innerHTML='<span class="open-mark">'+(card.querySelector('video')?'<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg>':'<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>')+'</span>';
-    button.addEventListener('click',()=>{const visible=cards.filter(c=>!c.hidden);openProjects(visible.map(cardProject),visible.indexOf(card),button);});
-    card.append(button);
+    const button=card.querySelector('.project-open');
+    button.addEventListener('click',e=>{
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+      e.preventDefault();
+      const matching=cards.filter(matchesFilter);
+      openProjects(matching.map(cardProject),matching.indexOf(card),button);
+    });
   });
-  filterButtons.forEach(button=>button.addEventListener('click',()=>{
-    stopScroll();filterButtons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-    cards.forEach(card=>{card.hidden=button.dataset.filter!=='all'&&!card.dataset.category.split(' ').includes(button.dataset.filter);if(!card.hidden)card.classList.add('in');});
-    document.getElementById('workCount').textContent=cards.filter(c=>!c.hidden).length;
+  let activeFilter='all',visibleLimit=12;
+  const showMore=document.getElementById('showMore');
+  const featuredWork=document.querySelector('.featured-work');
+  const workGrid=document.getElementById('workGrid'),featuredCards=[...featuredWork.children];
+  const archive=document.createElement('div');archive.hidden=true;workGrid.after(archive);
+  let groupedFilter=null;
+  function groupWork(matching){
+    if(groupedFilter===activeFilter)return;
+    groupedFilter=activeFilter;
+    const remaining=matching.filter(card=>!featuredCards.includes(card));
+    const firstSize=12-matching.filter(card=>featuredCards.includes(card)).length;
+    const fragment=document.createDocumentFragment();
+    for(let i=0;i<remaining.length;){
+      const batch=document.createElement('div');batch.className='grid work-batch';
+      const size=i===0?firstSize:12;
+      remaining.slice(i,i+size).forEach(card=>batch.append(card));i+=size;fragment.append(batch);
+    }
+    cards.filter(card=>!featuredCards.includes(card)&&!matching.includes(card)).forEach(card=>archive.append(card));
+    workGrid.replaceChildren(fragment);
+  }
+  function matchesFilter(card){return activeFilter==='all'||card.dataset.category.split(' ').includes(activeFilter);}
+  function updateWork(){
+    const matching=cards.filter(matchesFilter);
+    groupWork(matching);
+    const visible=new Set(matching.slice(0,visibleLimit));
+    cards.forEach(card=>{
+      card.hidden=!visible.has(card);
+      const video=card.querySelector('video');
+      if(card.hidden&&video){video._visible=false;video.pause();}
+    });
+    workGrid.querySelectorAll('.work-batch').forEach(batch=>batch.hidden=![...batch.children].some(card=>!card.hidden));
+    featuredWork.hidden=![...featuredWork.children].some(card=>!card.hidden);
+    document.getElementById('workCount').textContent=matching.length;
+    document.getElementById('workSummary').textContent=LANG[activeLang]['work.showing'].replace('{shown}',Math.min(visibleLimit,matching.length)).replace('{total}',matching.length);
+    showMore.hidden=visibleLimit>=matching.length;
     measure();kick();
+  }
+  filterButtons.forEach(button=>button.addEventListener('click',()=>{
+    stopScroll();activeFilter=button.dataset.filter;visibleLimit=12;
+    filterButtons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+    updateWork();
   }));
-  document.getElementById('showreel').addEventListener('click',e=>openProjects([{title:'BLINK — Reel 2026',meta:'Film · VFX · Motion',video:true,src:'assets/cinema.mp4'}],0,e.currentTarget));
+  showMore.addEventListener('click',()=>{
+    const matching=cards.filter(matchesFilter),firstNew=matching[visibleLimit];
+    stopScroll();visibleLimit+=12;updateWork();
+    if(firstNew){firstNew.querySelector('.project-open').focus({preventScroll:true});animateTo(firstNew.getBoundingClientRect().top+scroller.scrollTop-scroller.getBoundingClientRect().top-document.getElementById('mainNav').offsetHeight-24);}
+  });
+  document.querySelectorAll('[data-browse-filter]').forEach(link=>link.addEventListener('click',e=>{
+    e.preventDefault();filterButtons.find(button=>button.dataset.filter===link.dataset.browseFilter)?.click();goTo(sections.findIndex(section=>section.id==='work'));
+  }));
+  document.getElementById('viewerRetry').addEventListener('click',()=>{renderProject();document.getElementById('viewerClose').focus();});
   document.getElementById('viewerClose').addEventListener('click',()=>viewer.close());
   viewer.addEventListener('close',()=>{clearViewer();vids.forEach(playVisible);returnFocus?.focus({preventScroll:true});});
   function adjacent(direction){const next=projectIndex+direction;if(next<0||next>=playlist.length)return;projectIndex=next;renderProject();}
   document.getElementById('viewerPrev').addEventListener('click',()=>adjacent(-1));
   document.getElementById('viewerNext').addEventListener('click',()=>adjacent(1));
   viewer.addEventListener('keydown',e=>{
+    if(e.key==='Tab'){
+      const controls=[...viewer.querySelectorAll('a[href],button:not(:disabled),video[controls],[tabindex="0"]')].filter(el=>el.getClientRects().length);
+      const first=controls[0],last=controls[controls.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      return;
+    }
     if(e.target.tagName==='VIDEO')return;
-    if(e.key==='ArrowRight'){e.preventDefault();adjacent(1);}
-    if(e.key==='ArrowLeft'){e.preventDefault();adjacent(-1);}
+    if(e.key==='ArrowRight'){e.preventDefault();adjacent(document.documentElement.dir==='rtl'?-1:1);}
+    if(e.key==='ArrowLeft'){e.preventDefault();adjacent(document.documentElement.dir==='rtl'?1:-1);}
   });
   function focusBrief(){const form=document.getElementById('brief');animateTo(form.getBoundingClientRect().top-scroller.getBoundingClientRect().top+scroller.scrollTop-110);document.querySelector('#brief input').focus({preventScroll:true});}
   document.querySelector('[data-brief]').addEventListener('click',e=>{e.preventDefault();focusBrief();});
-  document.getElementById('viewerInquiry').addEventListener('click',e=>{e.preventDefault();inquiryProject=playlist[projectIndex].title;const context=document.getElementById('briefContext');context.hidden=false;context.textContent=LANG[activeLang]['brief.reference']+': '+inquiryProject;returnFocus=null;viewer.close();focusBrief();});
+  document.getElementById('viewerInquiry').addEventListener('click',e=>{e.preventDefault();inquiryProject=playlist[projectIndex].title;const context=document.getElementById('briefContext');context.hidden=false;document.getElementById('briefReference').hidden=false;invalidateDraft();context.textContent=LANG[activeLang]['brief.reference']+': '+inquiryProject;returnFocus=null;viewer.close();focusBrief();});
   let inquiryProject='';
   const brief=document.getElementById('brief'),draft=document.getElementById('briefDraft');
-  brief.addEventListener('input',()=>{draft.hidden=true;draft.removeAttribute('href');document.getElementById('briefStatus').textContent='';});
+  function invalidateDraft(){draft.hidden=true;draft.removeAttribute('href');document.getElementById('briefStatus').textContent='';}
+  brief.addEventListener('input',invalidateDraft);
+  document.getElementById('clearReference').addEventListener('click',()=>{inquiryProject='';document.getElementById('briefReference').hidden=true;document.getElementById('briefContext').hidden=true;invalidateDraft();brief.querySelector('input').focus();});
   brief.addEventListener('submit',e=>{
     e.preventDefault();const data=new FormData(brief);
     const body=`${inquiryProject?'Reference project: '+inquiryProject+'\n':''}Name: ${data.get('name')}\nEmail: ${data.get('email')}\nService: ${data.get('service')}\nTimeline: ${data.get('timeline')}\n\n${data.get('idea')}`;
@@ -841,8 +1202,9 @@ to{opacity:1;transform:none}
     button.addEventListener('click',()=>selectStudio(button));
     button.addEventListener('keydown',e=>{
       let next=index;
-      if(e.key==='ArrowRight')next=(index+1)%studioTabs.length;
-      else if(e.key==='ArrowLeft')next=(index+studioTabs.length-1)%studioTabs.length;
+      const step=document.documentElement.dir==='rtl'?-1:1;
+      if(e.key==='ArrowRight')next=(index+step+studioTabs.length)%studioTabs.length;
+      else if(e.key==='ArrowLeft')next=(index-step+studioTabs.length)%studioTabs.length;
       else if(e.key==='Home')next=0;else if(e.key==='End')next=studioTabs.length-1;else return;
       e.preventDefault();selectStudio(studioTabs[next]);studioTabs[next].focus();
     });
@@ -850,16 +1212,15 @@ to{opacity:1;transform:none}
 
   /* ---- language ---- */
   const LANG={
-    en:{ "nav.studio":"Studio","scene.reel":"Reel","scene.film":"Film","scene.auto":"Automotive","studio.title":"A little impossible.<br>Entirely possible.","studio.sub":"Film, motion and visual effects, shaped around your brand.","viewer.loading":"Loading project…","viewer.error":"This project could not load. Try another project or reload the page.","brief.reference":"Reference project", 'pause.films':'Pause films','play.films':'Play films',"watch.reel":"Watch the reel","filter.all":"All work","filter.film":"Film & Motion","filter.product":"Products","filter.vfx":"VFX","filter.character":"Characters","projects":"projects","brief.title":"What are you imagining?","brief.note":"A few details are all we need. This prepares an email draft for you to review and send.","brief.name":"Your name","brief.email":"Email","brief.service":"What do you need?","brief.timeline":"Your timeline","brief.idea":"Tell us about your idea","brief.prepare":"Prepare my brief","brief.open":"Open email draft","brief.ready":"Your brief is ready. Open the draft to review and send it in your email app.","viewer.inquire":"Create something like this", code:'EN', dots:['Home','Films','Reel','Cinema','Motion','Work','VFX','Cast','Contact'],
+    en:{ "nav.studio":"Studio","scene.film":"Film","scene.auto":"Automotive","studio.title":"A little impossible.<br>Entirely possible.","studio.sub":"Film, motion and visual effects, shaped around your brand.","viewer.loading":"Loading project…","viewer.error":"This project could not load. Try another project or reload the page.","brief.reference":"Reference project", 'pause.films':'Pause films','play.films':'Play films',"filter.all":"All work","filter.film":"Film & Motion","filter.product":"Products","filter.vfx":"VFX","filter.character":"Characters","projects":"projects","brief.title":"What are you imagining?","brief.note":"A few details are all we need. This prepares an email draft for you to review and send.","brief.name":"Your name","brief.email":"Email","brief.service":"What do you need?","brief.timeline":"Your timeline","brief.idea":"Tell us about your idea","brief.prepare":"Prepare my brief","brief.open":"Open email draft","brief.ready":"Your brief is ready. Open the draft to review and send it in your email app.","viewer.inquire":"Create something like this", code:'EN', dots:['Home','Films','Reel','Cinema','Motion','Work','VFX','Cast','Contact'],
       'nav.work':'Work','nav.contact':'Contact','nav.start':'Start',
       'hero.kicker':'Blink — For Advertising','hero.h1':'Create<br>Impossible.','hero.sub':'World-class advertising, film &amp; VFX.',
       'films.kicker':'Cinematic Production','films.h2':'Films.','films.sub':'Cinema-quality productions.',
-      'reel.kicker':'Reel · 2026','reel.h2':'Ideas Become<br>Reality.',
       'cinema.kicker':'Product Visualization','cinema.h2':'Craft Meets<br>Cinema.',
       'motion.kicker':'Hyper-Motion','motion.h2':'Motion<br>That Sells.',
       'work.h2':'Selected Work.','work.sub':'Brands people stop scrolling for.',
-      'vfx.kicker':'VFX &amp; Compositing','vfx.h2':'Beyond<br>Reality.','vfx.sub':'The impossible, shot-in-camera.',
-      'cast.kicker':'Brand Characters','cast.h2':'Characters,<br>Owned.','cast.sub':'Bespoke 3D mascots your brand owns outright.',
+      'vfx.kicker':'VFX &amp; Compositing','vfx.h2':'Beyond<br>Reality.','vfx.sub':'Imagined worlds. Carefully composited.',
+      'cast.kicker':'Brand Characters','cast.h2':'Characters.<br>Full of life.','cast.sub':'Distinctive characters for your brand’s next story.',
       'contact.kicker':'Let’s Work Together','contact.h2':'Ready To Scale?','contact.sub':'Tell us about your brand — we’ll handle the rest.',
       'plan.starter.n':'Starter','plan.starter.d':'4 ad videos · 8 posts',
       'plan.dominator.n':'Dominator','plan.dominator.d':'8 ad videos · 12 posts',
@@ -867,35 +1228,33 @@ to{opacity:1;transform:none}
       'plan.tv.tag':'Broadcast','plan.tv.n':'TV Commercial Production','plan.tv.d':'broadcast-quality 4K commercial production',
       'per.mo':' /mo','per.project':' /project',
       'extras':'On-site <b>$600–800</b> &nbsp;·&nbsp; Animation <b>$450–650</b> &nbsp;·&nbsp; Custom character <b>+$100–200</b>',
-      'cta':'Start a Project','city':'Sulaymaniyah','scroll':'SCROLL' },
-    ku:{ "nav.studio":"ستۆدیۆ","scene.reel":"ڕیل","scene.film":"فیلم","scene.auto":"ئۆتۆمبێل","studio.title":"خەیاڵی بێسنوور.<br>جێبەجێکردنی ورد.","studio.sub":"فیلم و جووڵە و ئێفێکت بۆ براندەکەت.","viewer.loading":"پڕۆژە بار دەکرێت…","viewer.error":"پڕۆژەکە بار نەکرا. پڕۆژەیەکی تر هەڵبژێرە یان پەڕەکە نوێ بکەرەوە.","brief.reference":"پڕۆژەی سەرچاوە", 'pause.films':'فیلمەکان بوەستێنە','play.films':'فیلمەکان لێبدە',"watch.reel":"کارەکانمان ببینە","filter.all":"هەموو کارەکان","filter.film":"فیلم و جووڵە","filter.product":"بەرهەمەکان","filter.vfx":"ئێفێکت","filter.character":"کارەکتەرەکان","projects":"پڕۆژە","brief.title":"چی لە خەیاڵتدایە؟","brief.note":"تەنها چەند وردەکارییەکمان پێویستە. ڕەشنووسی ئیمەیڵێک ئامادە دەکەین بۆ پێداچوونەوە و ناردن.","brief.name":"ناوت","brief.email":"ئیمەیڵ","brief.service":"پێویستت بە چییە؟","brief.timeline":"کاتی پڕۆژە","brief.idea":"باسی بیرۆکەکەت بکە","brief.prepare":"پوختەی پڕۆژەکەم ئامادە بکە","brief.open":"ڕەشنووسی ئیمەیڵ بکەرەوە","brief.ready":"پوختەکەت ئامادەیە. ڕەشنووسەکە بکەرەوە و لە ئەپی ئیمەیڵەکەت بینێرە.","viewer.inquire":"با شتێکی وەک ئەمە دروست بکەین", code:'KU', dots:['ماڵەوە','فیلم','ڕیل','سینەما','جووڵە','کار','ئێفێکت','کارەکتەر','پەیوەندی'],
+      'cta':'Start a Project','city':'Sulaymaniyah','scroll':'SCROLL',"filter.poster":"Posters & Artwork","projects":"works","work.eyebrow":"The BLINK collection / 2026","work.sub":"Product films, character stories and posters. Made to be seen.","work.more":"Show more work","work.showing":"Showing {shown} of {total} works","work.contact":"Have something in mind? Let’s talk ↗","media.film":"Film","media.poster":"Artwork","hero.eyebrow":"BLINK / Film. Design. Imagination.","hero.sub":"Films that move. Images that stay.","explore.work":"Explore the work","scene.latest":"Latest / JAUNT","scene.film":"Characters","hero.eyebrow":"Creative studio / Sulaymaniyah","hero.sub":"Advertising films, brand imagery and character stories.","nav.start":"Let’s talk","contact.h2":"Your next idea.<br>Let’s make it.","films.sub":"Product launches, brand stories and character-led films. Built around the idea.","cinema.sub":"Material, light and detail. A closer look at the things you make.","motion.sub":"Product animation and short-form films designed for the feed.","browse.film":"Explore films","browse.product":"Explore product work","browse.vfx":"Explore visual effects","browse.character":"Meet the characters","pause.previews":"Pause previews","play.previews":"Play previews","viewer.retry":"Try again","viewer.error":"This work could not load. Try again or choose another project.","brief.clear":"Remove reference","skip.work":"Skip to work","aria.nav":"Main navigation","aria.language":"Change language","aria.close":"Close project","aria.previous":"Previous project","aria.next":"Next project","aria.scenes":"Choose a preview","aria.filters":"Filter works","aria.capabilities":"Studio capabilities" },
+    ku:{ "nav.studio":"ستۆدیۆ","scene.film":"فیلم","scene.auto":"ئۆتۆمبێل","studio.title":"خەیاڵی بێسنوور.<br>جێبەجێکردنی ورد.","studio.sub":"فیلم و جووڵە و ئێفێکت بۆ براندەکەت.","viewer.loading":"پڕۆژە بار دەکرێت…","viewer.error":"پڕۆژەکە بار نەکرا. پڕۆژەیەکی تر هەڵبژێرە یان پەڕەکە نوێ بکەرەوە.","brief.reference":"پڕۆژەی سەرچاوە", 'pause.films':'فیلمەکان بوەستێنە','play.films':'فیلمەکان لێبدە',"filter.all":"هەموو کارەکان","filter.film":"فیلم و جووڵە","filter.product":"بەرهەمەکان","filter.vfx":"ئێفێکت","filter.character":"کارەکتەرەکان","projects":"پڕۆژە","brief.title":"چی لە خەیاڵتدایە؟","brief.note":"تەنها چەند وردەکارییەکمان پێویستە. ڕەشنووسی ئیمەیڵێک ئامادە دەکەین بۆ پێداچوونەوە و ناردن.","brief.name":"ناوت","brief.email":"ئیمەیڵ","brief.service":"پێویستت بە چییە؟","brief.timeline":"کاتی پڕۆژە","brief.idea":"باسی بیرۆکەکەت بکە","brief.prepare":"پوختەی پڕۆژەکەم ئامادە بکە","brief.open":"ڕەشنووسی ئیمەیڵ بکەرەوە","brief.ready":"پوختەکەت ئامادەیە. ڕەشنووسەکە بکەرەوە و لە ئەپی ئیمەیڵەکەت بینێرە.","viewer.inquire":"با شتێکی وەک ئەمە دروست بکەین", code:'KU', dots:['ماڵەوە','فیلم','ڕیل','سینەما','جووڵە','کار','ئێفێکت','کارەکتەر','پەیوەندی'],
       'nav.work':'کارەکان','nav.contact':'پەیوەندی','nav.start':'دەستپێبکە',
       'hero.kicker':'بلینک — بۆ ڕیکلام','hero.h1':'مەحاڵ دروست بکە.','hero.sub':'ڕیکلام، فیلم و ئێفێکتی ئاستی جیهانی.',
       'films.kicker':'بەرهەمهێنانی سینەمایی','films.h2':'فیلمەکان.','films.sub':'بەرهەم بە کوالیتیی سینەما.',
-      'reel.kicker':'ڕیل · ٢٠٢٦','reel.h2':'بیرۆکەکان دەبنە<br>ڕاستی.',
       'cinema.kicker':'پیشاندانی بەرهەم','cinema.h2':'داهێنان تێکەڵ<br>بە سینەما.',
       'motion.kicker':'جووڵەی بەرز','motion.h2':'جووڵەیەک<br>کە دەفرۆشێت.',
       'work.h2':'هەڵبژاردەی کار.','work.sub':'براندەکانێک کە خەڵک بۆیان دەوەستن.',
-      'vfx.kicker':'ئێفێکت و کۆمپۆزیتینگ','vfx.h2':'لەودیوی<br>ڕاستی.','vfx.sub':'مەحاڵ، بە کامێرا گیراو.',
-      'cast.kicker':'کارەکتەری براند','cast.h2':'کارەکتەر،<br>خاوەندارێتی.','cast.sub':'ماسکۆتی سێ‌ڕەهەندیی تایبەت کە براندەکەت بە تەواوی خاوەنیەتی.',
-      'contact.kicker':'با پێکەوە کار بکەین','contact.h2':'ئامادەی گەشەکردنیت؟','contact.sub':'باسی براندەکەتمان بۆ بکە — ئێمە بەشی مایەوە دەکەین.',
+      'vfx.kicker':'ئێفێکت و کۆمپۆزیتینگ','vfx.h2':'لەودیوی<br>ڕاستی.','vfx.sub':'جیهانی خەیاڵی، بە وردی پێکەوە دانراو.',
+      'cast.kicker':'کارەکتەری براند','cast.h2':'کارەکتەر.<br>پڕ لە ژیان.','cast.sub':'کارەکتەری تایبەت بۆ چیرۆکی داهاتووی براندەکەت.',
+      'contact.kicker':'با پێکەوە کار بکەین','contact.h2':'ئامادەی گەشەکردنیت؟','contact.sub':'باسی براندەکەتمان بۆ بکە — ئەوەی تری بۆئێمە جێبهێڵە',
       'plan.starter.n':'سەرەتا','plan.starter.d':'٤ ڤیدیۆی ڕیکلام · ٨ پۆست',
       'plan.dominator.n':'زاڵ','plan.dominator.d':'٨ ڤیدیۆی ڕیکلام · ١٢ پۆست',
       'plan.elite.n':'نخبە','plan.elite.d':'بێسنوور · کۆنترۆڵی تەواو',
       'plan.tv.tag':'پەخش','plan.tv.n':'بەرهەمهێنانی ڕیکلامی تەلەفزیۆن','plan.tv.d':'بەرهەمی ڕیکلامی ٤K بە کوالیتیی پەخش',
       'per.mo':' /مانگ','per.project':' /پڕۆژە',
       'extras':'لە شوێن <b>$600–800</b> &nbsp;·&nbsp; ئەنیمەیشن <b>$450–650</b> &nbsp;·&nbsp; کارەکتەری تایبەت <b>+$100–200</b>',
-      'cta':'پڕۆژەیەک دەستپێبکە','city':'سلێمانی','scroll':'بۆ خوارەوە' },
-    ar:{ "nav.studio":"الاستوديو","scene.reel":"ريل","scene.film":"فيلم","scene.auto":"سيارات","studio.title":"خيال بلا حدود.<br>تنفيذ بكل التفاصيل.","studio.sub":"أفلام وحركة ومؤثرات بصرية مصممة لعلامتك.","viewer.loading":"جارٍ تحميل المشروع…","viewer.error":"تعذر تحميل المشروع. جرّب مشروعاً آخر أو أعد تحميل الصفحة.","brief.reference":"المشروع المرجعي", 'pause.films':'إيقاف الأفلام','play.films':'تشغيل الأفلام',"watch.reel":"شاهد أعمالنا","filter.all":"كل الأعمال","filter.film":"أفلام وحركة","filter.product":"منتجات","filter.vfx":"مؤثرات بصرية","filter.character":"شخصيات","projects":"مشاريع","brief.title":"ما الذي تتخيله؟","brief.note":"نحتاج فقط إلى بعض التفاصيل. سنجهّز مسودة بريد لتراجعها وترسلها.","brief.name":"اسمك","brief.email":"البريد الإلكتروني","brief.service":"ماذا تحتاج؟","brief.timeline":"الجدول الزمني","brief.idea":"أخبرنا عن فكرتك","brief.prepare":"جهّز ملخص مشروعي","brief.open":"افتح مسودة البريد","brief.ready":"ملخصك جاهز. افتح المسودة لمراجعتها وإرسالها عبر تطبيق البريد.","viewer.inquire":"لنصنع شيئاً كهذا", code:'AR', dots:['الرئيسية','أفلام','ريل','سينما','حركة','أعمال','مؤثرات','شخصيات','تواصل'],
+      'cta':'پڕۆژەیەک دەستپێبکە','city':'سلێمانی','scroll':'بۆ خوارەوە',"filter.poster":"پۆستەر و دیزاین","projects":"کار","work.eyebrow":"کۆمەڵەی کارەکانی بلینک / ٢٠٢٦","work.sub":"فیلمی بەرهەم، چیرۆکی کارەکتەر و پۆستەر. بۆ بینران دروست کراون.","work.more":"کاری زیاتر ببینە","work.showing":"پیشاندانی {shown} لە {total} کار","work.contact":"بیرۆکەیەکت هەیە؟ با قسە بکەین ↗","media.film":"فیلم","media.poster":"دیزاین","hero.eyebrow":"بلینک / فیلم. دیزاین. خەیاڵ.","hero.sub":"فیلم کە هەست دەجووڵێنێت. وێنە کە لە یاد دەمێنێت.","explore.work":"کارەکان ببینە","scene.latest":"نوێترین / JAUNT","scene.film":"کارەکتەر","hero.eyebrow":"ستۆدیۆی داهێنان / سلێمانی","hero.sub":"فیلمی ڕیکلام، وێنەی براند و چیرۆکی کارەکتەر.","nav.start":"با قسە بکەین","contact.h2":"بیرۆکەی داهاتووت.<br>با دروستی بکەین.","films.sub":"فیلمی بەرهەم، چیرۆکی براند و کارەکتەر؛ لە دەوری بیرۆکەکەت دروست دەکرێن.","cinema.sub":"ماددە، ڕووناکی و وردەکاری. بینینێکی نزیکتر بۆ بەرهەمەکانت.","motion.sub":"ئەنیمەیشنی بەرهەم و فیلمی کورت بۆ سۆشیال میدیا.","browse.film":"فیلمەکان ببینە","browse.product":"کاری بەرهەمەکان ببینە","browse.vfx":"ئێفێکتەکان ببینە","browse.character":"کارەکتەرەکان بناسە","pause.previews":"پێشبینین بوەستێنە","play.previews":"پێشبینین لێبدە","viewer.retry":"دووبارە هەوڵ بدە","viewer.error":"ئەم کارە بار نەکرا. دووبارە هەوڵ بدە یان کارێکی تر هەڵبژێرە.","brief.clear":"سەرچاوەکە لاببە","skip.work":"بڕۆ بۆ کارەکان","aria.nav":"ڕێنیشاندەری سەرەکی","aria.language":"زمان بگۆڕە","aria.close":"پڕۆژە دابخە","aria.previous":"پڕۆژەی پێشوو","aria.next":"پڕۆژەی دواتر","aria.scenes":"پێشبینینێک هەڵبژێرە","aria.filters":"کارەکان پاڵێو بکە","aria.capabilities":"تواناکانی ستۆدیۆ" },
+    ar:{ "nav.studio":"الاستوديو","scene.film":"فيلم","scene.auto":"سيارات","studio.title":"خيال بلا حدود.<br>تنفيذ بكل التفاصيل.","studio.sub":"أفلام وحركة ومؤثرات بصرية مصممة لعلامتك.","viewer.loading":"جارٍ تحميل المشروع…","viewer.error":"تعذر تحميل المشروع. جرّب مشروعاً آخر أو أعد تحميل الصفحة.","brief.reference":"المشروع المرجعي", 'pause.films':'إيقاف الأفلام','play.films':'تشغيل الأفلام',"filter.all":"كل الأعمال","filter.film":"أفلام وحركة","filter.product":"منتجات","filter.vfx":"مؤثرات بصرية","filter.character":"شخصيات","projects":"مشاريع","brief.title":"ما الذي تتخيله؟","brief.note":"نحتاج فقط إلى بعض التفاصيل. سنجهّز مسودة بريد لتراجعها وترسلها.","brief.name":"اسمك","brief.email":"البريد الإلكتروني","brief.service":"ماذا تحتاج؟","brief.timeline":"الجدول الزمني","brief.idea":"أخبرنا عن فكرتك","brief.prepare":"جهّز ملخص مشروعي","brief.open":"افتح مسودة البريد","brief.ready":"ملخصك جاهز. افتح المسودة لمراجعتها وإرسالها عبر تطبيق البريد.","viewer.inquire":"لنصنع شيئاً كهذا", code:'AR', dots:['الرئيسية','أفلام','ريل','سينما','حركة','أعمال','مؤثرات','شخصيات','تواصل'],
       'nav.work':'أعمالنا','nav.contact':'تواصل','nav.start':'ابدأ',
       'hero.kicker':'بلينك — للإعلان','hero.h1':'اِصنع المستحيل.','hero.sub':'إعلانات وأفلام ومؤثرات بصرية بمستوى عالمي.',
       'films.kicker':'إنتاج سينمائي','films.h2':'أفلام.','films.sub':'إنتاجات بجودة سينمائية.',
-      'reel.kicker':'ريل · ٢٠٢٦','reel.h2':'الأفكار تُصبح<br>واقعاً.',
       'cinema.kicker':'تصوير المنتجات','cinema.h2':'الإبداع<br>يلتقي السينما.',
       'motion.kicker':'حركة فائقة','motion.h2':'حركةٌ<br>تبيع.',
       'work.h2':'أعمال مختارة.','work.sub':'علامات تجارية تُوقف التمرير.',
-      'vfx.kicker':'مؤثرات بصرية ودمج','vfx.h2':'ما وراء<br>الواقع.','vfx.sub':'المستحيل، مُصوَّر بالكاميرا.',
-      'cast.kicker':'شخصيات العلامة','cast.h2':'شخصيات<br>تملكها.','cast.sub':'تمائم ثلاثية الأبعاد خاصة تملكها علامتك بالكامل.',
+      'vfx.kicker':'مؤثرات بصرية ودمج','vfx.h2':'ما وراء<br>الواقع.','vfx.sub':'عوالم متخيّلة، بتفاصيل متقنة.',
+      'cast.kicker':'شخصيات العلامة','cast.h2':'شخصيات.<br>تنبض بالحياة.','cast.sub':'شخصيات مميزة لقصة علامتك القادمة.',
       'contact.kicker':'لنعمل معاً','contact.h2':'جاهز للتوسّع؟','contact.sub':'أخبرنا عن علامتك التجارية — وسنتولّى الباقي.',
       'plan.starter.n':'المبتدئ','plan.starter.d':'٤ فيديوهات إعلانية · ٨ منشورات',
       'plan.dominator.n':'المُهيمن','plan.dominator.d':'٨ فيديوهات إعلانية · ١٢ منشوراً',
@@ -903,7 +1262,7 @@ to{opacity:1;transform:none}
       'plan.tv.tag':'بث','plan.tv.n':'إنتاج إعلان تلفزيوني','plan.tv.d':'إنتاج إعلاني بجودة بث ٤K',
       'per.mo':' /شهرياً','per.project':' /للمشروع',
       'extras':'تصوير ميداني <b>$600–800</b> &nbsp;·&nbsp; تحريك <b>$450–650</b> &nbsp;·&nbsp; شخصية مخصصة <b>+$100–200</b>',
-      'cta':'ابدأ مشروعاً','city':'السليمانية','scroll':'مرّر' }
+      'cta':'ابدأ مشروعاً','city':'السليمانية','scroll':'مرّر',"filter.poster":"ملصقات وتصاميم","projects":"أعمال","work.eyebrow":"مجموعة أعمال بلينك / ٢٠٢٦","work.sub":"أفلام منتجات، قصص شخصيات وملصقات. صُممت لتُرى.","work.more":"شاهد المزيد","work.showing":"عرض {shown} من {total} عملاً","work.contact":"لديك فكرة؟ لنتحدث ↗","media.film":"فيلم","media.poster":"تصميم","hero.eyebrow":"بلينك / أفلام. تصميم. خيال.","hero.sub":"أفلام تحرّك المشاعر. صور تبقى في الذاكرة.","explore.work":"اكتشف الأعمال","scene.latest":"الأحدث / JAUNT","scene.film":"شخصيات","hero.eyebrow":"استوديو إبداعي / السليمانية","hero.sub":"أفلام إعلانية، صور للعلامات وقصص شخصيات.","nav.start":"لنتحدث","contact.h2":"فكرتك القادمة.<br>لنصنعها معاً.","films.sub":"إطلاق منتجات وقصص علامات وأفلام شخصيات. تبدأ من فكرتك.","cinema.sub":"الخامة والضوء والتفاصيل. نظرة أقرب إلى ما تصنعه.","motion.sub":"تحريك منتجات وأفلام قصيرة مصممة للمنصات الاجتماعية.","browse.film":"اكتشف الأفلام","browse.product":"اكتشف أعمال المنتجات","browse.vfx":"اكتشف المؤثرات","browse.character":"تعرّف إلى الشخصيات","pause.previews":"إيقاف المعاينات","play.previews":"تشغيل المعاينات","viewer.retry":"حاول مجدداً","viewer.error":"تعذر تحميل هذا العمل. حاول مجدداً أو اختر مشروعاً آخر.","brief.clear":"إزالة المرجع","skip.work":"انتقل إلى الأعمال","aria.nav":"التنقل الرئيسي","aria.language":"تغيير اللغة","aria.close":"إغلاق المشروع","aria.previous":"المشروع السابق","aria.next":"المشروع التالي","aria.scenes":"اختر معاينة","aria.filters":"تصفية الأعمال","aria.capabilities":"خدمات الاستوديو" }
   };
   const I18N=[...document.querySelectorAll('[data-i18n]')];
   const langBox=document.getElementById('lang'),langBtn=document.getElementById('langBtn'),
@@ -915,27 +1274,44 @@ to{opacity:1;transform:none}
     document.documentElement.lang = code==='ku'?'ckb':code;
     document.documentElement.dir  = (code==='ku'||code==='ar')?'rtl':'ltr';
     I18N.forEach(el=>{ const v=d[el.dataset.i18n]; if(v!=null) el.innerHTML=v; });
-    dots.forEach((b,i)=>{ b.dataset.l=d.dots[+sections[i].dataset.i]; b.setAttribute('aria-label',d.dots[+sections[i].dataset.i]); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',d[el.dataset.i18nAria]));
+    dots.forEach((b,i)=>{ const label=d.dots[+sections[i].dataset.i]||sections[i].id;b.dataset.l=label;b.setAttribute('aria-label',label); });
     langLabel.textContent=d.code;
     if(inquiryProject) document.getElementById('briefContext').textContent=d['brief.reference']+': '+inquiryProject;
     if(!draft.hidden) document.getElementById('briefStatus').textContent=d['brief.ready'];
     langMenu.querySelectorAll('button').forEach(b=>b.classList.toggle('sel',b.dataset.lang===code));
     try{localStorage.setItem('blink-lang',code);}catch(e){}
     langBox.classList.remove('open'); langBtn.setAttribute('aria-expanded','false');
+    updateWork();
+    updateMotionControls();
     measure(); kick();
+    dispatchEvent(new CustomEvent('blink:language',{detail:code}));
   }
-  langBtn.addEventListener('click',e=>{ e.stopPropagation();
-    const open=langBox.classList.toggle('open'); langBtn.setAttribute('aria-expanded',open?'true':'false'); });
-  langMenu.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
-  document.addEventListener('click',e=>{ if(!langBox.contains(e.target)){ langBox.classList.remove('open'); langBtn.setAttribute('aria-expanded','false'); } });
-  window.addEventListener('keydown',e=>{ if(e.key==='Escape'){ langBox.classList.remove('open'); langBtn.setAttribute('aria-expanded','false'); } });
+  const languageItems=[...langMenu.querySelectorAll('button')];
+  function closeLanguages(restoreFocus=false){langBox.classList.remove('open');langBtn.setAttribute('aria-expanded','false');if(restoreFocus)langBtn.focus();}
+  function openLanguages(){langBox.classList.add('open');langBtn.setAttribute('aria-expanded','true');(languageItems.find(button=>button.dataset.lang===activeLang)||languageItems[0]).focus();}
+  langBtn.addEventListener('click',e=>{e.stopPropagation();langBox.classList.contains('open')?closeLanguages():openLanguages();});
+  langBtn.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();openLanguages();}});
+  languageItems.forEach((button,index)=>{
+    button.addEventListener('click',()=>{applyLang(button.dataset.lang);langBtn.focus();});
+    button.addEventListener('keydown',e=>{
+      let next=index;if(e.key==='ArrowDown')next=(index+1)%languageItems.length;else if(e.key==='ArrowUp')next=(index+languageItems.length-1)%languageItems.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=languageItems.length-1;else if(e.key==='Escape'){e.preventDefault();closeLanguages(true);return;}else if(e.key==='Tab'){e.preventDefault();closeLanguages();(e.shiftKey?langBtn:document.querySelector('.nav-cta')).focus();return;}else return;
+      e.preventDefault();languageItems[next].focus();
+    });
+  });
+  document.addEventListener('click',e=>{if(!langBox.contains(e.target))closeLanguages();});
+  window.addEventListener('keydown',e=>{if(e.key==='Escape'&&langBox.classList.contains('open'))closeLanguages(true);});
   let savedLang='en'; try{savedLang=localStorage.getItem('blink-lang')||'en';}catch(e){}
   applyLang(savedLang);
 
   /* ---- loader ---- */
-  scroller.scrollTop=0;
+  function restoreAnchor(){const section=sections.find(section=>'#'+section.id===location.hash);if(section){stopScroll();scroller.scrollTop=Math.max(0,section.offsetTop-document.getElementById('mainNav').offsetHeight);kick();}}
+  addEventListener('blink:layout',()=>{measure();kick();});
+  addEventListener('popstate',restoreAnchor);
+  requestAnimationFrame(restoreAnchor);
   document.getElementById('loader').classList.add('done');
 })();
 </script>
+<script type="module" src="assets/experience/experience.js"></script>
 </body>
 </html>
