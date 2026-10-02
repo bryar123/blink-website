@@ -1,5 +1,15 @@
 # Expanded scrolling portfolio validation
 
+## Aspect-ratio correction — latest validation
+
+Saffron, Vista, CLEAR and Automotive detail are 9:16 display-format videos stored as 1920x1080 pixels with an 81:256 sample aspect ratio. Studio motion uses 2304x2160 pixels with a 135:256 sample aspect ratio. The previous conversion incorrectly discarded those ratios, stretching all five derivatives. Full films, previews and thumbnails were regenerated from untouched originals with square pixels and the correct 9:16 display ratio. Catalog dimensions, gallery markup and the bundled exhibition metadata now match.
+
+Current checks: 151 comparisons of catalog/full/preview/thumbnail display ratios against original media, 576 asset and original-file integrity checks, the full 238-check portfolio regression, and 16 browser checks of affected previews and full films on desktop and phone. All passed. Corrected thumbnails and rendered galleries were visually inspected. `scripts/verify-media-aspects.py` provides a repeatable check that includes sample aspect ratio and rotation; it also checks the hero media.
+
+Evidence: `.codex-review/aspect-fix/`, `.codex-review/aspect-audit.json`, `.codex-review/asset-checks.json`, and `.codex-review/immersive/aspect-regression/`. The expansion checks below are the preceding validation round; motion, swipe and rendering interaction code were unchanged by this media correction.
+
+## Prior expansion validation
+
 Checked on October 3, 2026. The restored page design remains intact; the Step inside exhibition now covers all 40 works (25 films and 15 posters/artworks). Primary Work links enter the exhibition; the original gallery remains one click away.
 
 ## Current checks

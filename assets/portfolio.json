@@ -456,8 +456,8 @@
         "film",
         "product"
       ],
-      "width": 1920,
-      "height": 1080,
+      "width": 594,
+      "height": 1056,
       "video": true,
       "new": false,
       "duration": 15.041667,
@@ -475,8 +475,8 @@
       "categories": [
         "film"
       ],
-      "width": 1920,
-      "height": 1080,
+      "width": 594,
+      "height": 1056,
       "video": true,
       "new": false,
       "duration": 15.041667,
@@ -495,8 +495,8 @@
         "film",
         "product"
       ],
-      "width": 1920,
-      "height": 1080,
+      "width": 594,
+      "height": 1056,
       "video": true,
       "new": false,
       "duration": 15.041667,
@@ -515,8 +515,8 @@
         "film",
         "product"
       ],
-      "width": 1920,
-      "height": 1080,
+      "width": 594,
+      "height": 1056,
       "video": true,
       "new": false,
       "duration": 15.041667,
@@ -749,8 +749,8 @@
       "categories": [
         "film"
       ],
-      "width": 2304,
-      "height": 2160,
+      "width": 1080,
+      "height": 1920,
       "video": true,
       "new": false,
       "duration": 15.092993,

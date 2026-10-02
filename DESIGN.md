@@ -51,7 +51,7 @@ Pointer gestures work independently of viewport width, including tablets and tou
 
 `scripts/prepare-media.py` creates derivatives with Pillow and FFmpeg; pass `--ffmpeg` when the executable is not on PATH. Its default encoder is libx264; `--encoder h264_nvenc` supports NVIDIA builds. Full films use H.264/AAC, yuv420p and MP4 fast-start. Card previews are separate silent five-second clips; full films load only in the viewer. WebP thumbnails preserve source proportions, and poster viewers load the original artwork. A separate eight-second hero excerpt avoids end-card typography behind the page headline. Rebuild existing outputs only with `--force`.
 
-Source inspection corrected four older landscape films that had been marked as portrait. The former “Baking Film” is CLEAR home care, and the Toyota source is 1880 × 1080, so its gallery title no longer claims 4K.
+Saffron, Vista, CLEAR and Automotive detail are portrait films encoded in a landscape raster with 81:256 sample aspect ratio. Studio motion uses 135:256. Their derivatives are normalized to square pixels at the original 9:16 display ratio; encoded width/height alone must not determine presentation. The former “Baking Film” is CLEAR home care, and the Toyota source is 1880 × 1080, so its gallery title no longer claims 4K.
 
 Local verification on October 3, 2026: every gallery film was played in Chrome; all 40 viewer sources, category counts, pagination, focus restoration, inquiry drafts, hero scenes, and studio keyboard tabs were checked. Layouts were exercised at 320, 390, 768, 1024, 1440, and 1920 pixels in English, Kurdish, and Arabic. Browsing with reduced system motion and exhibition motion explicitly off fetched no video until explicit playback. Local checks do not publish the site.
 
