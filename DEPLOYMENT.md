@@ -8,7 +8,7 @@ Cloudflare build settings:
 - Build output directory: `dist`
 - Root directory: repository root
 
-`build:pages` bundles the exhibition and copies only website assets into `dist`. All 40 works remain available. The original media stays in the repository, outside the generated deployment directory. The build fails with an actionable error if a served file exceeds Cloudflare's 25 MiB limit.
+`build:pages` bundles the exhibition and copies only website assets into `dist`. All 43 works remain available. The original media stays in the repository, outside the generated deployment directory. The build fails with an actionable error if a served file exceeds Cloudflare's 25 MiB limit.
 
 The served Toyota derivative retains 1880×1080 resolution, its complete 78.4-second duration and audio, at 23,986,577 bytes. Its original `assets/Toyota_web.mp4` remains untouched. Never point the deployment output at the whole repository: unused source videos can exceed the Pages limit.
 

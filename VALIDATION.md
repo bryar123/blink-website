@@ -1,5 +1,15 @@
 # Expanded scrolling portfolio validation
 
+## Interface and branding refinement — October 3, 2026
+
+The current interface uses quiet white and pearl surfaces, fewer visible controls, and original outlined logo artwork exported from the supplied Illustrator file. The brand orange is #FF6B00; small text uses a darker orange for contrast. Header, footer, loading mark and favicon use the new assets.
+
+Browser checks covered desktop, tablet, narrow phone and landscape layouts, including English, Kurdish and Arabic. No horizontal overflow was found. Header controls remain usable at 320 pixels, including a compact symbol on narrow RTL layouts. Navigation, exhibition controls, project video playback, viewer closing and language switching passed.
+
+Motion starts on for new visitors. The settings menu retains an explicit pause preference across reloads. Changing that preference preserves section position. Show more reveals all 43 works in batches of 12 without changing the scroll position or moving existing cards; new cards fade in and keyboard focus stays on the button. Desktop and phone expansion checks measured zero scroll displacement.
+
+The production build contains 141 files; its largest file is 22.88 MiB. JavaScript syntax checks and `git diff --check` passed. The new SVG logos contain outlined paths, without embedded fonts or raster artwork. Physical devices and Safari remain unverified. Earlier sections below describe historical validation rounds and their then-current content counts and controls.
+
 ## Desktop zoom and magnetic scrolling — latest validation
 
 Twenty-two wheel checks passed with system reduced motion on and off: individual forward/reverse notches, small trackpad bursts, immediate direction changes, scrollbar settling, both page exits, navigation interrupting a pending snap, and Kurdish/Arabic vertical scrolling. Additional checks cover separated mouse notches, horizontal wheel direction in all three languages, and a 1366x768 laptop viewport. Six short-viewport checks passed. The exhibition keeps continuous movement during input and eases to the selected work when input stops.
