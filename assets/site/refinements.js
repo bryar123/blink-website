@@ -28,15 +28,32 @@
   try{preferredColumns=Number(localStorage.getItem('blink-columns'))||0;}catch{}
   function updateDensity(){
     const width=work.clientWidth,max=width<600?2:width<1000?3:width<1600?5:6;
-    const columns=Math.max(1,Math.min(max,preferredColumns||(width<600?1:width<1000?2:3)));
+    const columns=Math.max(1,Math.min(max,preferredColumns||(width<600?2:width<1000?3:width<1600?4:5)));
     density.max=max;density.value=columns;density.setAttribute('aria-valuetext',t().columns(columns));
     $('gridDensityValue').textContent=t().columns(columns);
     work.style.setProperty('--grid-columns',columns);
     work.dataset.density=columns>=(width<600?2:4)?'compact':'comfortable';
+    layoutGrid();
     dispatchEvent(new Event('blink:layout'));
   }
   density.addEventListener('input',()=>{preferredColumns=Number(density.value);try{localStorage.setItem('blink-columns',preferredColumns);}catch{}updateDensity();});
   let lastWidth=0;
+  const workGrid=$('workGrid');let gridFrame=0;
+  function layoutGrid(){
+    if(gridFrame)return;
+    gridFrame=requestAnimationFrame(()=>{
+      gridFrame=0;
+      const cards=[...workGrid.children].filter(card=>!card.hidden);
+      // Measure intrinsic card content, never the spanned grid area. Images keep
+      // their original aspect ratios, and appending works leaves earlier slots alone.
+      const heights=cards.map(card=>card.querySelector('.project-media').getBoundingClientRect().height+card.querySelector('.cap').getBoundingClientRect().height);
+      cards.forEach((card,i)=>card.style.setProperty('--rows',Math.ceil((heights[i]+8)/12)));
+      workGrid.classList.add('is-masonry');dispatchEvent(new Event('blink:layout'));
+    });
+  }
+  const gridObserver=new ResizeObserver(layoutGrid);
+  [...workGrid.children].forEach(card=>gridObserver.observe(card));
+  addEventListener('blink:grid-layout',layoutGrid);document.fonts.ready.then(layoutGrid);
   new ResizeObserver(entries=>{const width=Math.round(entries[0].contentRect.width);if(width!==lastWidth){lastWidth=width;updateDensity();}}).observe(work);
 
   const comparison=$('comparison'),range=$('comparisonRange'),after=$('comparisonAfter');

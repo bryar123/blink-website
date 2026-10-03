@@ -25,10 +25,11 @@
 <link rel="stylesheet" href="assets/site/site.css">
 <link rel="stylesheet" href="assets/experience/experience.css">
 <link rel="stylesheet" href="assets/site/refinements.css">
+<link rel="stylesheet" href="assets/site/capabilities.css">
 </head>
 <body>
 <a class="skip-link" href="#work" data-go="5" data-i18n="skip.work">Skip to work</a>
-<noscript><style>#loader,.work-tools,.work-footer,.lang,.studio-tabs,.theme-toggle,#comparisonRange,#comparisonReset{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
+<noscript><style>#loader,.work-tools,.work-footer,.lang,.studio-tabs,.theme-toggle,#comparisonRange,#comparisonReset,.compare-range,.cap-tabs,.web-toolbar,.construction-toggle,.demo-menu,.demo-discover{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
 
 <!-- LOADER -->
 <div id="loader"><img class="mk" src="assets/site/brand-symbol.svg" width="62" height="43" alt="BLINK" /><div class="bar"><i></i></div></div>
@@ -162,6 +163,75 @@
     <div hidden aria-hidden="true" id="comparisonVariants"><span data-src="assets/site/citrus-after.png"></span><span data-src="assets/site/citrus-editorial.png"></span><span data-src="assets/site/citrus-graphic.png"></span></div>
   </section>
 
+  <section id="vfx-lab" data-i="11" class="capability-section vfx-lab" aria-labelledby="vfxLabTitle">
+    <div class="capability-head">
+      <div><p class="section-label" data-cap="vfxLabel">01 / Visual effects</p><h2 id="vfxLabTitle" data-cap="vfxTitle">Reality. With a twist.</h2></div>
+      <p class="capability-sub" data-cap="vfxBody">A quiet frame becomes an impossible moment. Move across the scene and watch the idea take shape.</p>
+    </div>
+    <figure class="vfx-figure">
+      <div class="comparison vfx-comparison" data-compare style="--reveal:48%">
+        <img class="comparison-after" src="assets/site/vfx-after.webp" width="1659" height="948" alt="A monumental orange ribbon floating through a limestone plaza at blue hour" loading="lazy" decoding="async" data-cap-alt="vfxAfterAlt">
+        <div class="comparison-before"><img src="assets/site/vfx-before.webp" width="1659" height="948" alt="The same quiet limestone plaza before the ribbon effect" loading="lazy" decoding="async" data-cap-alt="vfxBeforeAlt"></div>
+        <div class="comparison-labels" aria-hidden="true"><span data-cap="cleanPlate">Clean plate</span><span data-cap="vfxResult">The impossible added</span></div>
+        <div class="comparison-divider" aria-hidden="true"><span>↔</span></div>
+        <input class="compare-range" type="range" min="0" max="100" value="48" step="1" aria-label="Reveal the visual effects concept" aria-describedby="vfxHint" data-cap-aria="vfxCompare">
+      </div>
+      <figcaption id="vfxHint"><span data-cap="hoverHint">Hover to explore. Drag on touch. Arrow keys work, too.</span><span data-cap="vfxConcept">AI-generated VFX concept / illustrative still</span></figcaption>
+    </figure>
+    <div class="capability-footer"><span data-cap="vfxCraft">Compositing · Light &amp; atmosphere · Art direction</span><a href="#work" data-browse-filter="vfx"><span data-cap="actualVfx">Explore our VFX films</span> <span aria-hidden="true">↗</span></a></div>
+  </section>
+
+  <section id="identity-lab" data-i="12" class="capability-section identity-lab" aria-labelledby="identityTitle">
+    <div class="capability-copy">
+      <p class="section-label" data-cap="brandLabel">02 / Brand identity</p>
+      <h2 id="identityTitle" data-cap="brandTitle">A mark.<br>A whole world.</h2>
+      <p class="capability-sub" data-cap="brandBody">From the first curve to the way it feels in your hands. Explore the mark, its color system, and its life beyond the screen.</p>
+      <div class="cap-tabs" role="tablist" aria-label="Identity concept views" data-cap-aria="brandTabs">
+        <button id="brand-tab-mark" role="tab" aria-controls="brand-mark" aria-selected="false" tabindex="-1" data-brand-tab="mark" data-cap="mark">The mark</button>
+        <button id="brand-tab-system" role="tab" aria-controls="brand-system" aria-selected="false" tabindex="-1" data-brand-tab="system" data-cap="system">The system</button>
+        <button id="brand-tab-application" role="tab" aria-controls="brand-application" aria-selected="true" tabindex="0" data-brand-tab="application" data-cap="application">In the world</button>
+      </div>
+      <p class="concept-note" data-cap="brandConcept">FORMA / An original BLINK identity concept. Vector mark, palette, and generated applications.</p>
+    </div>
+    <div class="identity-stage">
+      <div id="brand-mark" class="identity-panel mark-panel" role="tabpanel" aria-labelledby="brand-tab-mark" tabindex="0" hidden>
+        <div class="mark-drawing"><svg viewBox="0 0 160 160" aria-hidden="true"><path d="M24 136V24h72a32 32 0 0 1 32 32H56v20h48v28H56v32Z"/></svg></div>
+        <img src="assets/site/forma-logo.svg" width="680" height="160" alt="FORMA wordmark" class="forma-lockup" loading="lazy">
+        <button class="construction-toggle" aria-pressed="false" data-cap="construction">Show construction</button>
+      </div>
+      <div id="brand-system" class="identity-panel system-panel" role="tabpanel" aria-labelledby="brand-tab-system" tabindex="0" hidden>
+        <div class="system-wordmark" aria-label="FORMA">F<span>O</span>RMA<span class="system-period">.</span></div>
+        <p data-cap="systemLine">Quiet confidence. A warmer kind of minimal.</p>
+        <div class="brand-swatches"><div><b data-cap="olive">Deep olive</b><span>#242821</span></div><div><b data-cap="ivory">Warm ivory</b><span>#EEEEE4</span></div><div><b data-cap="clay">Burnt clay</b><span>#B96936</span></div></div>
+        <span class="system-type" data-cap="typeNote">Sculptural forms / Clear typography / Tactile materials</span>
+      </div>
+      <div id="brand-application" class="identity-panel application-panel" role="tabpanel" aria-labelledby="brand-tab-application" tabindex="0"><img src="assets/site/forma-identity.webp" width="1536" height="1024" alt="FORMA identity on an olive box, ivory stationery, orange swatch and metal card" data-cap-alt="brandAlt" loading="lazy" decoding="async"></div>
+    </div>
+  </section>
+
+  <section id="web-lab" data-i="13" class="capability-section web-lab" aria-labelledby="webLabTitle">
+    <div class="capability-head"><div><p class="section-label" data-cap="webLabel">03 / Digital experiences</p><h2 id="webLabTitle" data-cap="webTitle">Designed to be used.</h2></div><p class="capability-sub" data-cap="webBody">An idea you can actually explore. Switch from wireframe to finished design, resize it, then discover the object.</p></div>
+    <div class="web-toolbar">
+      <div class="cap-segment" role="group" aria-label="Website design stage" data-cap-aria="designStage"><button data-web-style="wire" aria-pressed="false" data-cap="wireframe">Wireframe</button><button data-web-style="finished" aria-pressed="true" data-cap="finished">With BLINK</button></div>
+      <div class="cap-segment" role="group" aria-label="Website preview size" data-cap-aria="previewSize"><button data-web-size="desktop" aria-pressed="true" data-cap="desktop">Desktop</button><button data-web-size="mobile" aria-pressed="false" data-cap="mobile">Mobile</button></div>
+    </div>
+    <div class="web-demo-stage">
+      <div class="web-viewport" id="webViewport" data-style="finished" data-size="desktop" dir="ltr" lang="en">
+        <div class="browser-chrome" aria-hidden="true"><span>● ● ●</span><span>FORMA / design concept</span><span>↗</span></div>
+        <div class="demo-site">
+          <div class="demo-nav"><img src="assets/site/forma-logo.svg" width="680" height="160" alt="FORMA" loading="lazy"><span>Objects for considered living</span><button class="demo-menu" aria-expanded="false" aria-controls="demoMenu" aria-label="Open concept navigation">☰</button></div>
+          <div class="demo-menu-panel" id="demoMenu" hidden><button data-demo-open>Discover the chair <span aria-hidden="true">↗</span></button><span>A BLINK website concept</span></div>
+          <div class="demo-hero"><img src="assets/site/forma-interior.webp" width="1672" height="941" alt="Sculptural walnut lounge chair in a sunlit plaster room overlooking sand dunes" loading="lazy" decoding="async"><div class="demo-hero-copy"><span class="demo-eyebrow">THE ART OF EVERYDAY</span><h3>Less, but<br>more feeling.</h3><p>Objects that make room<br>for the way you live.</p><button class="demo-discover" data-demo-open>Discover the object <span aria-hidden="true">↗</span></button></div><span class="demo-edition">THE FORMA COLLECTION / 01</span></div>
+          <div class="demo-details" id="demoDetails" hidden><div><span>OBJECT 01</span><h4>The Forma chair.</h4><p>Warm walnut. Soft bouclé. A sculptural place to pause.</p><small>Furniture visualization · Concept object</small></div><button aria-label="Close object details" id="demoClose">×</button></div>
+          <div class="demo-bottom"><span>FORM. MATERIAL. FEELING.</span><span>Thoughtfully composed.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="capability-footer"><span data-cap="webConcept">Live, responsive website concept / FORMA</span><a href="#contact" data-go="8"><span data-cap="webCta">Let’s build your next experience</span> <span aria-hidden="true">↗</span></a></div>
+    <div class="more-capabilities"><p data-cap="moreLabel">More ways to make your brand move.</p><div><a href="#work" data-browse-filter="product" data-cap="moreProduct">Product visualization ↗</a><a href="#studio" data-go="1" data-cap="moreMotion">Motion campaigns ↗</a><a href="#cast" data-go="7" data-cap="moreCharacter">Character worlds ↗</a></div></div>
+  </section>
+
+
   <section id="work" data-i="5">
     <div class="grid-head">
       <div><p class="section-label" data-i18n="work.eyebrow">The BLINK collection / 2026</p><h2 data-reveal data-i18n="work.h2">Selected Work.</h2></div>
@@ -179,7 +249,7 @@
       <div class="work-controls"><label class="grid-density" for="gridDensity"><span data-ui="gridSize">Grid density</span><input id="gridDensity" type="range" min="1" max="4" value="2" step="1" aria-describedby="gridDensityValue"><output id="gridDensityValue" for="gridDensity">3 columns</output></label><p class="work-count" aria-live="polite"><span id="workCount">45</span> <span data-i18n="projects">works</span></p></div>
     </div>
     <!-- PORTFOLIO:START -->
-    <div class="featured-work">
+    <div class="grid work-grid" id="workGrid">
       <figure class="cell" data-project="forest-flight" data-category="film vfx" style="--asset-ratio:3840/2160">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/forest-flight.webp" width="3840" height="2160" alt="" loading="lazy" decoding="async"><video class="cover" width="3840" height="2160" aria-hidden="true" data-poster="assets/portfolio/forest-flight.webp" data-src="assets/portfolio/forest-flight-preview.mp4" data-full="assets/portfolio/forest-flight.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:14</span></span></div>
         <figcaption class="cap"><i dir="auto">Nature / Cinematic film</i><b dir="auto">Forest Flight</b></figcaption>
@@ -190,9 +260,6 @@
         <figcaption class="cap"><i dir="auto">Brand identity / Motion</i><b dir="auto">BLINK — Logo Animation</b></figcaption>
         <a class="project-open" href="assets/portfolio/blink-logo-animation.mp4" aria-label="BLINK — Logo Animation"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-    </div>
-    <div class="work-batches" id="workGrid">
-      <div class="grid work-batch">
       <figure class="cell" data-project="aurelia-residences" data-category="film" style="--asset-ratio:720/1280">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/aurelia-residences.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/aurelia-residences.webp" data-src="assets/portfolio/aurelia-residences-preview.mp4" data-full="assets/portfolio/aurelia-residences.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:20</span></span></div>
         <figcaption class="cap"><i dir="auto">Architecture / Property film</i><b dir="auto">Aurelia Residences — Architectural Film</b></figcaption>
@@ -243,8 +310,6 @@
         <figcaption class="cap"><i dir="auto">Beverage / Product film</i><b dir="auto">Blood Orange — Find Your Rhythm</b></figcaption>
         <a class="project-open" href="assets/portfolio/blood-orange-rhythm.mp4" aria-label="Blood Orange — Find Your Rhythm"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-      </div>
-      <div class="grid work-batch">
       <figure class="cell" data-project="tiktak-cozy" data-category="poster character product" style="--asset-ratio:1122/1402">
         <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-cozy.webp" data-full="assets/Dara with TikTak snacks, cozy room.png" width="1122" height="1402" alt="TikTak — A Little Everyday Joy — TikTak / Character poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
         <figcaption class="cap"><i dir="auto">TikTak / Character poster</i><b dir="auto">TikTak — A Little Everyday Joy</b></figcaption>
@@ -305,8 +370,6 @@
         <figcaption class="cap"><i dir="auto">Tea / Product film</i><b dir="auto">Ceylon Tea — The Golden Pour</b></figcaption>
         <a class="project-open" href="assets/portfolio/ceylon-tea.mp4" aria-label="Ceylon Tea — The Golden Pour"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-      </div>
-      <div class="grid work-batch">
       <figure class="cell" data-project="hes-clean" data-category="film product" style="--asset-ratio:720/1280">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/hes-clean.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/hes-clean.webp" data-src="assets/portfolio/hes-clean-preview.mp4" data-full="assets/portfolio/hes-clean.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
         <figcaption class="cap"><i dir="auto">Home care / Product film</i><b dir="auto">HES — A Brighter Clean</b></figcaption>
@@ -367,8 +430,6 @@
         <figcaption class="cap"><i dir="auto">Watches / Product poster</i><b dir="auto">Rolex — Luxury in Detail</b></figcaption>
         <a class="project-open" href="assets/work-rolex.jpg" aria-label="Rolex — Luxury in Detail"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
       </figure>
-      </div>
-      <div class="grid work-batch">
       <figure class="cell" data-project="hyper-motion" data-category="film product" style="--asset-ratio:720/1280">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/hyper-motion.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/hyper-motion.webp" data-src="assets/portfolio/hyper-motion-preview.mp4" data-full="assets/portfolio/hyper-motion.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
         <figcaption class="cap"><i dir="auto">Product / Motion film</i><b dir="auto">Product — Hyper-Motion</b></figcaption>
@@ -414,8 +475,6 @@
         <figcaption class="cap"><i dir="auto">Automotive / Brand film</i><b dir="auto">Toyota — Automotive Film</b></figcaption>
         <a class="project-open" href="assets/portfolio/toyota.mp4" aria-label="Toyota — Automotive Film"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-      </div>
-
     </div>
     <!-- PORTFOLIO:END -->
     <div class="work-footer"><p class="work-summary" id="workSummary" aria-live="polite"></p><button class="cta secondary" id="showMore" hidden data-i18n="work.more">Show more work</button><a href="#contact" data-go="8" class="work-contact" data-i18n="work.contact">Have something in mind? Let’s talk ↗</a></div>
@@ -493,7 +552,7 @@
         <div id="briefReference" class="brief-reference" hidden><p id="briefContext" class="brief-context" hidden></p><button type="button" id="clearReference" data-i18n="brief.clear">Remove reference</button></div><div class="brief-fields">
           <label class="field"><span data-i18n="brief.name">Your name</span><input name="name" autocomplete="name" maxlength="100" required></label>
           <label class="field"><span data-i18n="brief.email">Email</span><input name="email" type="email" dir="ltr" autocomplete="email" maxlength="160" required></label>
-          <label class="field"><span data-i18n="brief.service">What do you need?</span><select name="service"><option data-i18n="filter.film">Film &amp; Motion</option><option data-i18n="filter.poster">Posters &amp; Artwork</option><option data-i18n="filter.product">Products</option><option data-i18n="filter.vfx">VFX</option><option data-i18n="filter.character">Characters</option></select></label>
+          <label class="field"><span data-i18n="brief.service">What do you need?</span><select name="service"><option data-i18n="filter.film">Film &amp; Motion</option><option data-i18n="filter.poster">Posters &amp; Artwork</option><option data-i18n="filter.product">Products</option><option data-i18n="filter.vfx">VFX</option><option data-i18n="filter.character">Characters</option><option data-cap="serviceIdentity">Brand identity</option><option data-cap="serviceWeb">Website design</option></select></label>
           <label class="field"><span data-i18n="brief.timeline">Your timeline</span><input name="timeline" maxlength="100"></label>
           <label class="field wide"><span data-i18n="brief.idea">Tell us about your idea</span><textarea name="idea" rows="4" maxlength="1800" required></textarea></label>
         </div>
@@ -524,7 +583,7 @@
 (() => {
   "use strict";
   const scroller = document.getElementById('scroller');
-  const sections = [...scroller.querySelectorAll('section')];
+  const sections = [...scroller.querySelectorAll(':scope > section')];
   const N = sections.length;
 
   const hint = document.getElementById('hint');
@@ -647,13 +706,14 @@
     cancelAnimationFrame(animRAF);cancelAnimationFrame(wheelRAF);
     scroller.style.opacity='';
     animRAF=0;wheelRAF=0;wheelTarget=wheelPosition=scroller.scrollTop;
+    delete scroller.dataset.navigating;
   }
   function wheelStep(now){
     const dt=Math.min(40,now-wheelTime || 16.67);wheelTime=now;
     wheelTarget=clamp(wheelTarget,0,maxScroll());
     const gap=wheelTarget-wheelPosition;
     if(Math.abs(gap)<1){scroller.scrollTop=wheelTarget;wheelRAF=0;return;}
-    wheelPosition+=gap*(1-Math.exp(-dt/95));
+    wheelPosition+=gap*(1-Math.exp(-dt/48));
     scroller.scrollTop=wheelPosition;
     wheelRAF=requestAnimationFrame(wheelStep);
   }
@@ -661,6 +721,7 @@
   scroller.addEventListener('wheel',e=>{
     if(viewer.open || e.target.closest('input,textarea,select') || reduceMotion || e.ctrlKey || Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
     if(!e.deltaY) return;
+    if(e.deltaMode===0 && (Math.abs(e.deltaY)<50 || !Number.isInteger(e.deltaY))){stopScroll();return;}
     e.preventDefault();cancelAnimationFrame(animRAF);animRAF=0;
     if(!wheelRAF) wheelTarget=wheelPosition=scroller.scrollTop;
     const unit=e.deltaMode===1 ? 20 : e.deltaMode===2 ? scroller.clientHeight : 1;
@@ -675,6 +736,7 @@
     if(reduceMotion){scroller.scrollTop=top;kick();return;}
     const start=scroller.scrollTop, dist=top-start;
     if(Math.abs(dist)<1) return;
+    scroller.dataset.navigating='true';
     // A long section jump uses a quiet dissolve instead of racing through 43 works.
     if(Math.abs(dist)>vh()*2){
       const began=performance.now();let moved=false;
@@ -686,18 +748,18 @@
           scroller.style.opacity=String(Math.min(1,(elapsed-150)/230));
         }
         if(elapsed<380)animRAF=requestAnimationFrame(dissolve);
-        else{animRAF=0;scroller.style.opacity='';wheelTarget=scroller.scrollTop;}
+        else{animRAF=0;scroller.style.opacity='';wheelTarget=scroller.scrollTop;delete scroller.dataset.navigating;}
       })(began);
       return;
     }
-    const dur=clamp(Math.abs(dist)*0.16,350,800), t0=performance.now();
-    const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; // easeInOutCubic — section-scale motion
+    const dur=clamp(Math.abs(dist)*0.18,240,480), t0=performance.now();
+    const ease=t=>1-Math.pow(1-t,3); // Respond immediately, then settle gently.
     (function step(now){
       const p=Math.min(1,(now-t0)/dur);
       scroller.scrollTop = start + dist*ease(p);
       kick();
       if(p<1) animRAF=requestAnimationFrame(step);
-      else {animRAF=0;wheelTarget=scroller.scrollTop;}
+      else {animRAF=0;wheelTarget=scroller.scrollTop;delete scroller.dataset.navigating;}
     })(performance.now());
   }
   function goTo(i){ i=clamp(i,0,N-1);const section=sections[i];section.tabIndex=-1;section.focus({preventScroll:true});animateTo(Math.max(0,section.offsetTop-(i===0?0:document.getElementById('mainNav').offsetHeight)));if(location.hash!=='#'+section.id)history.pushState(null,'','#'+section.id); }
@@ -796,36 +858,17 @@
   });
   let activeFilter='all',visibleLimit=12;
   const showMore=document.getElementById('showMore');
-  const featuredWork=document.querySelector('.featured-work');
-  const workGrid=document.getElementById('workGrid'),featuredCards=[...featuredWork.children];
-  const archive=document.createElement('div');archive.hidden=true;workGrid.after(archive);
-  let groupedFilter=null;
-  function groupWork(matching){
-    if(groupedFilter===activeFilter)return;
-    groupedFilter=activeFilter;
-    const remaining=matching.filter(card=>!featuredCards.includes(card));
-    const firstSize=12-matching.filter(card=>featuredCards.includes(card)).length;
-    const fragment=document.createDocumentFragment();
-    for(let i=0;i<remaining.length;){
-      const batch=document.createElement('div');batch.className='grid work-batch';
-      const size=i===0?firstSize:12;
-      remaining.slice(i,i+size).forEach(card=>batch.append(card));i+=size;fragment.append(batch);
-    }
-    cards.filter(card=>!featuredCards.includes(card)&&!matching.includes(card)).forEach(card=>archive.append(card));
-    workGrid.replaceChildren(fragment);
-  }
+  const workGrid=document.getElementById('workGrid');
   function matchesFilter(card){return activeFilter==='all'||card.dataset.category.split(' ').includes(activeFilter);}
   function updateWork(){
     const matching=cards.filter(matchesFilter);
-    groupWork(matching);
     const visible=new Set(matching.slice(0,visibleLimit));
     cards.forEach(card=>{
       card.hidden=!visible.has(card);
       const video=card.querySelector('video');
       if(card.hidden&&video){video._visible=false;video.pause();}
     });
-    workGrid.querySelectorAll('.work-batch').forEach(batch=>batch.hidden=![...batch.children].some(card=>!card.hidden));
-    featuredWork.hidden=![...featuredWork.children].some(card=>!card.hidden);
+    dispatchEvent(new Event('blink:grid-layout'));
     document.getElementById('workCount').textContent=matching.length;
     document.getElementById('workSummary').textContent=LANG[activeLang]['work.showing'].replace('{shown}',Math.min(visibleLimit,matching.length)).replace('{total}',matching.length);
     const complete=visibleLimit>=matching.length;
@@ -844,8 +887,8 @@
     if(visibleLimit>=matching.length)return;
     const added=matching.slice(visibleLimit,visibleLimit+12);
     stopScroll();visibleLimit+=12;updateWork();
-    // Keep the viewport and focus where the visitor left them. Existing batches
-    // retain their layout; only the newly revealed works fade into the space below.
+    // Keep the viewport and focus where the visitor left them. Existing cards
+    // retain their layout; only newly appended works fade into the space below.
     if(!reduceMotion)added.forEach(card=>card.animate(
       [{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],
       {duration:600,easing:'cubic-bezier(.22,.61,.36,1)'}
@@ -1007,5 +1050,6 @@
 </script>
 <script type="module" src="assets/experience/experience.js"></script>
 <script src="assets/site/refinements.js" defer></script>
+<script src="assets/site/capabilities.js" defer></script>
 </body>
 </html>

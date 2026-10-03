@@ -1,3 +1,20 @@
+# Responsive motion, capability concepts and compact portfolio — October 3, 2026
+
+Current local production validation: **612 automated checks passed** (347 existing integration checks, 233 capability/grid checks, 32 motion/hover/playback checks). `npm run build:pages` produces 221 deployed files, largest 22.88 MiB. `git diff --check` passes. All 45 catalog works remain available.
+
+- Small gallery input produces immediate movement; an accidental tiny gesture returns to center. Normal snaps settle within 360 ms in the sampled browser run. Repeated deliberate ticks, mid-snap reversal, decaying momentum, large deltas, horizontal RTL input, native touch scrolling and both section exits pass. Deliberate repeated input can leave the final work without requiring a pause.
+- Skip navigation cancels gallery motion and reaches the next section with restored focus. Automatic gallery alignment is suspended during section transitions to prevent it from canceling navigation.
+- Every card, including Forest Flight and BLINK Logo Animation, obeys every supported density at widths 320, 390, 610, 768, 1024, 1440 and 1920. Original media aspect ratios are preserved, cards do not overlap, category filtering works, and Show More preserves earlier grid positions.
+- New VFX hover/touch/keyboard reveal, identity tabs and keyboard navigation, construction toggle, wireframe/final styling, responsive preview resizing, menu and object details all pass. The VFX comparison permits native vertical touch scrolling.
+- New sections checked at seven widths in English/Kurdish/Arabic and both themes. No horizontal overflow, missing localized copy or missing visible concept imagery. All 45 works and the concept imagery remain in the no-JavaScript document.
+- Automated axe WCAG 2 A/AA and 2.1 AA checks on VFX, identity, web demo and Work report no violations in either theme. These are automated checks, not a complete accessibility certification.
+- Existing hero playback, simulated blocked mobile autoplay recovery, original three advertising variants, theme/density persistence and the two added full films still pass. Chrome phone emulation is covered; physical phones and Safari have not been tested.
+- Visual review covers desktop and mobile capability sections and the compact gallery. The in-app preview was rebuilt and refreshed. No public deployment was requested.
+
+Evidence: `.codex-review/capabilities/checks.json`, `.codex-review/responsive-gallery/checks.json`, `.codex-review/refinements/checks.json` and screenshots. Rerun `scripts/verify-capabilities.cjs`, `scripts/verify-gallery-motion.cjs`, and `scripts/verify-refinements.cjs` with `PLAYWRIGHT_PATH` and `BLINK_URL` set as needed. Image prompts and exact source/delivery paths: `assets/site/capability-prompts.json`.
+
+Earlier validation rounds follow; their motion and grid descriptions are historical.
+
 # Calmer gallery gestures, hover comparison and two new films — October 3, 2026
 
 Latest targeted validation: **29 interaction/playback checks passed** against the production build, plus **171 media-aspect checks** against original files. The build contains 214 files and 45 works (30 films, 15 artworks); the largest deployed asset remains 22.88 MiB.

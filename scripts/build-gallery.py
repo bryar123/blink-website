@@ -40,15 +40,10 @@ def card(project):
         <a class="project-open" href="{esc(p['full'])}" aria-label="{esc(p['title'])}"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true">{icon}</svg></span></a>
       </figure>'''
 
-markup = '<!-- PORTFOLIO:START -->\n    <div class="featured-work">\n'
-markup += '\n'.join(card(p) for p in projects[:2])
-markup += '\n    </div>\n    <div class="work-batches" id="workGrid">\n'
-# Fixed batches prevent earlier columns from rebalancing when more work appears.
-groups = [projects[2:12]] + [projects[i:i+12] for i in range(12, len(projects), 12)]
-for group in groups:
-    markup += '      <div class="grid work-batch">\n'
-    markup += '\n'.join(card(p) for p in group)
-    markup += '\n      </div>\n'
+markup = '<!-- PORTFOLIO:START -->\n    <div class="grid work-grid" id="workGrid">\n'
+# Every project uses the same density and source aspect. Appending cards keeps
+# earlier grid placements stable; no featured row bypasses the size control.
+markup += '\n'.join(card(p) for p in projects)
 markup += '\n    </div>\n    <!-- PORTFOLIO:END -->'
 page = ROOT / 'index.html'
 text = page.read_text(encoding='utf-8')

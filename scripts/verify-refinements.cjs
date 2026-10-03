@@ -2,7 +2,7 @@
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
 const fs=require('node:fs');
 const out='.codex-review/refinements';fs.mkdirSync(out,{recursive:true});
-const base=process.env.BLINK_URL||'http://127.0.0.1:4173';
+const base=process.env.BLINK_URL||'http://127.0.0.1:4174/dist/index.html';
 const checks=[];function check(name,pass,detail){checks.push({name,pass:!!pass,detail});if(!pass)throw Error(name+' '+JSON.stringify(detail));}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function at(p,id){await p.evaluate(id=>{const s=document.getElementById('scroller'),el=document.getElementById(id);s.scrollTop=el.offsetTop-document.getElementById('mainNav').offsetHeight;},id);await p.waitForTimeout(180);}
@@ -50,9 +50,9 @@ async function at(p,id){await p.evaluate(id=>{const s=document.getElementById('s
   }
   await at(p,'work');
   await p.locator('#gridDensity').focus();await p.keyboard.press('End');
-  const dense=await p.locator('#work .grid').first().evaluate(e=>getComputedStyle(e).columnCount);
+  const dense=await p.locator('#work .grid').first().evaluate(e=>String(getComputedStyle(e).gridTemplateColumns.split(' ').length));
   check('Density changes '+width,Number(dense)>=2,dense);
-  await p.keyboard.press('Home');check('Single-column choice '+width,await p.locator('#work .grid').first().evaluate(e=>getComputedStyle(e).columnCount)==='1');
+  await p.keyboard.press('Home');check('Single-column choice '+width,await p.locator('#work .grid').first().evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length)===1);
   await p.locator('[data-filter=poster]').click();check('Poster filter '+width,Number(await p.locator('#workCount').textContent())===15);
   await p.locator('[data-filter=all]').click();check('45 works '+width,Number(await p.locator('#workCount').textContent())===45);
   await at(p,'exhibition');await p.waitForTimeout(900);

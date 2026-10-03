@@ -1,5 +1,5 @@
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
-const fs=require('node:fs');const out='.codex-review/calm-gallery';fs.mkdirSync(out,{recursive:true});
+const fs=require('node:fs');const out='.codex-review/responsive-gallery';fs.mkdirSync(out,{recursive:true});
 const base=process.env.BLINK_URL||'http://127.0.0.1:4174/dist/index.html';
 const checks=[];function check(name,pass,detail){checks.push({name,pass:!!pass,detail});if(!pass)throw Error(name+' '+JSON.stringify(detail));}
 async function position(p){return p.locator('#exhibition').evaluate(e=>Number(e.style.getPropertyValue('--exhibit-progress'))*(document.querySelectorAll('.exhibit-item').length-1));}
@@ -8,17 +8,19 @@ async function at(p,id){await p.evaluate(id=>{dispatchEvent(new Event('blink:pag
 (async()=>{const b=await chromium.launch({channel:'chrome',headless:true});try{
 const p=await b.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(base);await p.waitForTimeout(400);
 check('45 catalog and fallback works',await p.locator('.cell').count()===45&&await p.locator('.exhibit-item').count()===45);
-await jump(p,5);for(let i=0;i<3;i++){await p.mouse.wheel(0,15);await p.waitForTimeout(25);}await p.waitForTimeout(600);check('Small accidental motion stays centered',Math.abs(await position(p)-5)<.01,await position(p));
-await p.mouse.wheel(0,120);const samples=[];for(let i=0;i<12;i++){await p.waitForTimeout(85);samples.push(await position(p));}
-check('Smooth monotonic one-work snap',samples.every((x,i)=>x>=5-.01&&x<=6.01&&(!i||x>=samples[i-1]-.01))&&Math.abs(samples.at(-1)-6)<.01,samples);
-check('Snap eases instead of jumping',samples[1]>5&&samples[1]<5.5&&samples[5]<6,samples);
-await jump(p,5);for(let i=0;i<22;i++){await p.mouse.wheel(0,80);await p.waitForTimeout(35);}await p.waitForTimeout(1000);check('Long momentum gesture changes one work',Math.abs(await position(p)-6)<.01,await position(p));
-await p.mouse.wheel(0,120);await p.waitForTimeout(1050);check('Fresh gesture reaches following work',Math.abs(await position(p)-7)<.01,await position(p));
-await jump(p,5);await p.mouse.wheel(0,120);await p.waitForTimeout(160);await p.mouse.wheel(0,-120);await p.waitForTimeout(1100);check('Reversal smoothly cancels forward snap',Math.abs(await position(p)-5)<.01,await position(p));
-await jump(p,5);for(let i=0;i<5;i++){await p.mouse.wheel(0,1200);await p.waitForTimeout(25);}await p.waitForTimeout(1100);check('Large deltas cannot race through works',Math.abs(await position(p)-6)<.01,await position(p));
-for(const lang of ['en','ku','ar']){await p.locator('[data-lang='+lang+']').evaluate(e=>e.click());await jump(p,5);await p.mouse.wheel(lang==='en'?120:-120,0);await p.waitForTimeout(1100);check('Horizontal direction '+lang,Math.abs(await position(p)-6)<.01,await position(p));}
+await jump(p,5);await p.mouse.wheel(0,6);await p.waitForTimeout(35);check('First small input visibly follows immediately',await position(p)>5.001,await position(p));await p.waitForTimeout(500);check('Tiny gesture settles back without accidental advance',Math.abs(await position(p)-5)<.01,await position(p));
+await p.mouse.wheel(0,120);const samples=[];for(let i=0;i<9;i++){await p.waitForTimeout(40);samples.push(await position(p));}
+check('Input gives visible response within 80ms',samples[1]>5.3,samples);
+check('Snap settles within 360ms',Math.abs(samples.at(-1)-6)<.01,samples);
+check('Snap is monotonic and bounded',samples.every((x,i)=>x>=5&&x<=6.01&&(!i||x>=samples[i-1]-.01)),samples);
+await jump(p,5);for(const delta of [120,100,80,64,48,35,24,16,10,6,3,1]){await p.mouse.wheel(0,delta);await p.waitForTimeout(25);}await p.waitForTimeout(400);check('Decaying momentum cannot cascade',Math.abs(await position(p)-6)<.01,await position(p));
+await jump(p,5);await p.mouse.wheel(0,120);await p.waitForTimeout(150);await p.mouse.wheel(0,120);await p.waitForTimeout(400);check('Intentional repeated ticks accepted during snap',Math.abs(await position(p)-7)<.01,await position(p));
+await jump(p,5);await p.mouse.wheel(0,120);await p.waitForTimeout(90);await p.mouse.wheel(0,-120);await p.waitForTimeout(360);check('Reversal cancels forward snap immediately',Math.abs(await position(p)-5)<.01,await position(p));
+await jump(p,5);for(let i=0;i<5;i++){await p.mouse.wheel(0,1200);await p.waitForTimeout(25);}await p.waitForTimeout(400);check('Large rapid deltas do not race through works',Math.abs(await position(p)-6)<.01,await position(p));
+for(const lang of ['en','ku','ar']){await p.locator('[data-lang='+lang+']').evaluate(e=>e.click());await jump(p,5);await p.mouse.wheel(lang==='en'?120:-120,0);await p.waitForTimeout(450);check('Horizontal direction '+lang,Math.abs(await position(p)-6)<.01,await position(p));}
 await p.locator('[data-lang=en]').evaluate(e=>e.click());await jump(p,0);await p.mouse.wheel(0,-240);await p.waitForTimeout(700);check('Can scroll out above',await p.locator('#exhibition').evaluate(e=>e.getBoundingClientRect().top>document.getElementById('mainNav').offsetHeight+10));
 await jump(p,44);await p.mouse.wheel(0,240);await p.waitForTimeout(700);check('Can scroll out below',await p.locator('#exhibition').evaluate(e=>e.getBoundingClientRect().bottom<innerHeight-10));
+await jump(p,43);for(let i=0;i<5;i++){await p.mouse.wheel(0,120);await p.waitForTimeout(150);}await p.waitForTimeout(300);check('Repeated deliberate ticks exit the final card without a pause',await p.locator('#exhibition').evaluate(e=>e.getBoundingClientRect().bottom<innerHeight-10));
 await jump(p,12);await p.mouse.wheel(0,120);await p.waitForTimeout(120);await p.locator('#exhibitSkip').click();await p.waitForTimeout(1000);check('Skip cancels snap and advances one section',await p.evaluate(()=>location.hash==='#transformation'&&document.activeElement.id==='transformation'&&Math.abs(document.getElementById('transformation').getBoundingClientRect().top-document.getElementById('mainNav').offsetHeight)<3));
 await p.locator('#comparison').scrollIntoViewIfNeeded();const rect=await p.locator('#comparison').boundingBox(),focus=await p.evaluate(()=>document.activeElement.id);const variant=await p.locator('#comparison').getAttribute('data-variant');
 await p.mouse.move(rect.x+rect.width*.2,rect.y+rect.height*.5);await p.waitForTimeout(450);check('Hover without click follows mouse',Math.abs(Number(await p.locator('#comparisonRange').inputValue())-20)<2);
@@ -32,7 +34,7 @@ for(const id of ['aurelia-residences','spiced-tea']){await at(p,'work');await p.
 check('No desktop errors',!errors.length,errors);await p.close();
 const ctx=await b.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});const m=await ctx.newPage();await m.goto(base);await m.waitForTimeout(500);const cdp=await ctx.newCDPSession(m);
 async function swipe(x1,y1,x2,y2){await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:x1,y:y1}]});for(let i=1;i<=16;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x1+(x2-x1)*i/16,y:y1+(y2-y1)*i/16}]});await m.waitForTimeout(20);}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});}
-await at(m,'exhibition');await m.waitForTimeout(400);await swipe(335,390,65,390);await m.waitForTimeout(1200);check('Touch swipe snaps one work',Math.abs(await position(m)-1)<.01,await position(m));
+await at(m,'exhibition');await m.waitForTimeout(400);await swipe(335,390,65,390);await m.waitForTimeout(450);check('Touch swipe snaps one work',Math.abs(await position(m)-1)<.01,await position(m));
 const before=await m.locator('#scroller').evaluate(e=>e.scrollTop);await swipe(195,600,195,280);await m.waitForTimeout(1500);const after=await m.locator('#scroller').evaluate(e=>e.scrollTop);check('Native vertical touch remains usable and settles',after>before+100&&Math.abs(await position(m)-Math.round(await position(m)))<.01,{before,after,position:await position(m)});
 await m.locator('#exhibitSkip').click();await m.waitForTimeout(700);check('Mobile skip goes to comparison',await m.evaluate(()=>location.hash==='#transformation'));
 await m.locator('#comparison').scrollIntoViewIfNeeded();const r=await m.locator('#comparison').boundingBox();await swipe(r.x+r.width*.2,r.y+r.height*.5,r.x+r.width*.8,r.y+r.height*.5);check('Touch comparison retained',Math.abs(Number(await m.locator('#comparisonRange').inputValue())-80)<3);

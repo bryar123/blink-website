@@ -171,9 +171,10 @@ function buildExhibition(){
  surface.onResize=surface.measureFrame;surface.measureFrame();
  let loadedCenter=-1;
  surface.update=(time,dt)=>{
-  exhibitAngle=reduced?exhibitTarget:lerp(exhibitAngle,exhibitTarget,1-Math.exp(-dt*8));
-  if(Math.abs(exhibitAngle-exhibitTarget)<.001)exhibitAngle=exhibitTarget;
-  surface.animate=Math.abs(exhibitAngle-exhibitTarget)>.001||!video.paused;
+  // The input controller owns easing. Native scroll and touch track the hand;
+  // a second camera interpolation would add lag after every input and snap.
+  exhibitAngle=exhibitTarget;
+  surface.animate=!video.paused;
   const center=Math.round(exhibitAngle/.58),dir=direction();
   const fov=mobileQuery.matches?(innerHeight<760?68:58):(innerHeight<760?56:48);
   const pixelsPerUnit=surface.container.clientHeight/(2*Math.tan(THREE.MathUtils.degToRad(fov/2))*6.2);
@@ -218,36 +219,50 @@ function animateIndex(index){
  gsap.killTweensOf(navigation);navigation.progress=exhibitProgress;
  // Long jumps go straight to the work instead of racing through the entire collection.
  if(jump)exhibitAngle=value*(selection.length-1)*.58;
- gsap.to(navigation,{progress:value,duration:reduced||jump?0:.86,ease:'power2.inOut',onUpdate:()=>writeProgress(navigation.progress),onComplete:()=>{navigationTarget=null;writeProgress(value);}});
+ const distance=Math.abs(value-exhibitProgress)*(selection.length-1);
+ gsap.to(navigation,{progress:value,duration:reduced||jump?0:clamp(.17+.14*Math.sqrt(distance),.18,.34),ease:'power3.out',onUpdate:()=>writeProgress(navigation.progress),onComplete:()=>{navigationTarget=null;writeProgress(value);}});
 }
 function selectIndex(index){cancelAlignment();animateIndex(index);}
 function insideExhibition(){return trigger&&!reduced&&!$('viewer').open&&scroller.scrollTop>=trigger.start-1&&scroller.scrollTop<=trigger.end+1;}
-// Accumulate intent, then make one uninterrupted snap per wheel gesture. Momentum
-// tails cannot cascade across works; a fresh gesture or reversal is still accepted.
+// Respond to the first input. Small trackpad deltas preview movement immediately;
+// a short snap completes deliberate movement. Suppress decaying inertia, while
+// accepting new wheel ticks, renewed trackpad intent, and reversals mid-animation.
 scroller.addEventListener('wheel',event=>{
  if(event.ctrlKey||event.target.closest('input,textarea,select')||!insideExhibition()){cancelAlignment();return;}
  const horizontal=Math.abs(event.deltaX)>Math.abs(event.deltaY);
  const delta=clamp((horizontal?event.deltaX*direction():event.deltaY)*(event.deltaMode===1?20:event.deltaMode===2?scroller.clientHeight:1),-180,180);
  if(!delta)return;
  const now=performance.now(),sign=Math.sign(delta);
- const fresh=!wheelGesture||now-wheelGesture.last>300;
- if(fresh&&((exhibitProgress<.0001&&delta<0)||(exhibitProgress>.9999&&delta>0))){cancelAlignment();return;}
+ const gap=wheelGesture?now-wheelGesture.last:Infinity;
+ const fresh=!wheelGesture||gap>170;
+ const magnitude=Math.abs(delta),previous=wheelGesture;
+ const renewed=!fresh&&previous.committed&&sign===previous.sign&&now-previous.committedAt>120&&(
+   (gap>65&&magnitude>=50&&magnitude>=previous.magnitude*.9)||
+   (magnitude>Math.max(18,previous.magnitude*1.65)&&previous.magnitude<35)
+ );
+ if((fresh||renewed)&&((exhibitProgress<.0001&&delta<0)||(exhibitProgress>.9999&&delta>0))){cancelAlignment();return;}
  event.preventDefault();event.stopImmediatePropagation();dispatchEvent(new Event('blink:scroll-control'));
  if(fresh||sign!==wheelGesture.sign){
   const position=(navigationTarget??exhibitProgress)*(selection.length-1);
-  wheelGesture={anchor:Math.round(position),sign,total:0,committed:false,last:now};
+  wheelGesture={anchor:Math.round(position),sign,total:0,committed:false,last:now,magnitude:0,committedAt:0};
  }
- wheelGesture.last=now;wheelGesture.total+=Math.abs(delta);
+ const g=wheelGesture;
+ if(renewed){g.anchor=Math.round((navigationTarget??exhibitProgress)*(selection.length-1));g.total=0;g.committed=false;}
+ g.last=now;g.total+=magnitude;g.magnitude=magnitude;
  clearTimeout(alignTimer);clearTimeout(wheelTimer);
- if(!wheelGesture.committed&&wheelGesture.total>=90){
-  wheelGesture.committed=true;animateIndex(wheelGesture.anchor+sign);
+ if(!g.committed){
+  if(g.total>=18){g.committed=true;g.committedAt=now;animateIndex(g.anchor+sign);}
+  else{
+   gsap.killTweensOf(navigation);navigationTarget=null;
+   writeProgress(exhibitProgress+delta/420/(selection.length-1));
+  }
  }
- wheelTimer=setTimeout(()=>{wheelGesture=null;},300);
+ wheelTimer=setTimeout(()=>{const pending=wheelGesture;wheelGesture=null;if(pending&&!pending.committed)animateIndex(Math.round(exhibitProgress*(selection.length-1)));},175);
 },{capture:true,passive:false});
 scroller.addEventListener('scroll',()=>{
- if(pointerHeld||!insideExhibition()||wheelGesture||gsap.isTweening(navigation))return;
+ if(pointerHeld||scroller.dataset.navigating||!insideExhibition()||wheelGesture||gsap.isTweening(navigation))return;
  clearTimeout(alignTimer);
- alignTimer=setTimeout(()=>{if(!insideExhibition()||pointerHeld)return;const position=exhibitProgress*(selection.length-1);if(Math.abs(position-Math.round(position))>.006)selectIndex(Math.round(position));},380);
+ alignTimer=setTimeout(()=>{if(!insideExhibition()||pointerHeld||scroller.dataset.navigating)return;const position=exhibitProgress*(selection.length-1);if(Math.abs(position-Math.round(position))>.006)selectIndex(Math.round(position));},120);
 },{passive:true});
 addEventListener('blink:page-navigation',cancelAlignment);
 addEventListener('pointerdown',()=>{pointerHeld=true;cancelAlignment();},{capture:true,passive:true});
@@ -258,19 +273,20 @@ function installDrag(container,tap){
  container.addEventListener('pointerdown',e=>{
   if(!e.isPrimary||e.button!==0||reduced)return;
   gsap.killTweensOf(navigation);
-  gesture={id:e.pointerId,x:e.clientX,y:e.clientY,start:exhibitProgress,index:currentProject,axis:null,delta:0};
+  gesture={id:e.pointerId,x:e.clientX,y:e.clientY,start:exhibitProgress,index:currentProject,axis:null,delta:0,lastX:e.clientX,lastTime:performance.now(),velocity:0};
  });
  container.addEventListener('pointermove',e=>{
   if(!gesture||e.pointerId!==gesture.id)return;
   const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y;
-  if(!gesture.axis&&Math.hypot(dx,dy)>8){
+  if(!gesture.axis&&Math.hypot(dx,dy)>5){
    gesture.axis=Math.abs(dx)>Math.abs(dy)*1.15?'x':'y';
    if(gesture.axis==='x'){container.setPointerCapture(e.pointerId);container.classList.add('is-dragging');}
   }
   if(gesture.axis!=='x')return;
   if(e.cancelable)e.preventDefault();
   gesture.delta=-dx*direction();
-  const distance=Math.max(260,Math.min(container.clientWidth*.9,900));
+  const now=performance.now();gesture.velocity=-(e.clientX-gesture.lastX)*direction()/Math.max(1,now-gesture.lastTime);gesture.lastX=e.clientX;gesture.lastTime=now;
+  const distance=Math.max(240,Math.min(container.clientWidth*.65,650));
   writeProgress(gesture.start+gesture.delta/distance/(selection.length-1));
  },{passive:false});
  function finish(e,cancelled){
@@ -279,7 +295,8 @@ function installDrag(container,tap){
   if(container.hasPointerCapture(e.pointerId))container.releasePointerCapture(e.pointerId);
   if(previous.axis==='x'){
    let index=Math.round(exhibitProgress*(selection.length-1));
-   if(!cancelled&&Math.abs(previous.delta)>Math.max(64,container.clientWidth*.1)&&index===previous.index)index+=Math.sign(previous.delta);
+   const flick=performance.now()-previous.lastTime<100&&Math.abs(previous.velocity)>.45;
+   if(!cancelled&&(Math.abs(previous.delta)>Math.max(44,container.clientWidth*.07)||flick)&&index===previous.index)index+=Math.sign(previous.delta);
    selectIndex(index);
   }else if(!cancelled&&!previous.axis&&Math.hypot(e.clientX-previous.x,e.clientY-previous.y)<8)tap(e);
  }
@@ -291,8 +308,8 @@ function installDrag(container,tap){
  // Both wheel axes use the single gesture controller on the scroller.
 }
 $('exhibitOpen').addEventListener('click',()=>openProject(selection[currentProject].id,$('exhibitOpen')));
-$('exhibitPrev').addEventListener('click',()=>selectIndex(currentProject-1));
-$('exhibitNext').addEventListener('click',()=>selectIndex(currentProject+1));
+$('exhibitPrev').addEventListener('click',()=>selectIndex(Math.round((navigationTarget??exhibitProgress)*(selection.length-1))-1));
+$('exhibitNext').addEventListener('click',()=>selectIndex(Math.round((navigationTarget??exhibitProgress)*(selection.length-1))+1));
 $('exhibitOpen').addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();selectIndex(currentProject+(e.key==='ArrowRight'?1:-1)*direction());}});
 function setupScroll(){
  cancelAlignment();

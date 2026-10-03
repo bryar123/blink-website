@@ -1,0 +1,27 @@
+{
+  "mode": "Built-in image_gen tool (model version not exposed)",
+  "assets": [
+    {
+      "file": "assets/site/vfx-before.webp",
+      "source": "assets/site/vfx-before-source.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: clean plate for an interactive VFX concept on BLINK agency portfolio. Create a beautiful, exceptionally realistic 16:9 wide architectural photograph of a quiet contemporary limestone plaza at blue hour. Restrained brutalist pale sandstone buildings, strong central perspective and a broad empty paved foreground, a few warm illuminated windows and one distant human for scale. Minimal architecture frames a large open central space and twilight sky. Camera eye level, 28mm lens, crisp stone and paving detail, sophisticated cool-neutral grade, believable practical lighting, high-end architectural photography. This image will be edited to add a huge sculptural orange ribbon installation as a VFX transformation, so keep the middle of the plaza spacious and uncluttered. No ribbon yet, no portal yet, no logo or text, no watermark. Wide landscape composition, 1792 by 1024 or closest available landscape aspect. Do not make a collage or split screen."
+    },
+    {
+      "file": "assets/site/vfx-after.webp",
+      "source": "assets/site/vfx-after-source.png",
+      "input": "assets/site/vfx-before-source.png",
+      "prompt": "Use case: compositing. Input image 1 is the edit target and immutable clean architectural plate. Add a spectacular premium cinematic VFX installation: a gigantic flowing tangerine-orange satin ribbon, six metres wide, suspended impossibly in the middle of the plaza. Its graceful sweeping sculptural loop climbs through the open sky like a loose infinity curve, then curls back to skim the paving. Sensuous fine silk texture, convincing tension and folds, luminous sunset orange upper highlights and deep rust shadows. A few restrained tiny golden particles in the air around the ribbon, no explosions or fantasy portal. Match the original blue-hour lighting and camera precisely. Add plausible soft reflected orange light on nearby stone and polished paving, ambient occlusion and soft grounding shadows. It should look like an extraordinary high-budget luxury advertising VFX frame, photorealistic with exquisite details, daring but minimal. Keep absolutely the same image dimensions, camera position, framing, geometry of every building, paving lines, trees, windows, sky and tiny human. No crop or lens change; the only differences should be the inserted ribbon, particles and physically necessary reflections. Do not add any text, logo, watermark, extra buildings or people. One complete landscape image, not a side by side."
+    },
+    {
+      "file": "assets/site/forma-identity.webp",
+      "source": "assets/site/forma-identity-source.png",
+      "reference": "assets/site/forma-logo.svg",
+      "prompt": "Use case: product-mockup. Create a premium editorial brand identity application photograph for FORMA, a fictional contemporary furniture and objects concept created for the BLINK portfolio. Input image 1 is the logo reference: accurately reproduce its distinctive rounded-top F monogram and the exact FORMA wordmark. This is a new photographic composition, not an edit of the reference layout. Scene: a beautifully art-directed tabletop identity suite on pale warm limestone: a substantial dark olive green book or material sample box in the lower left, an ivory textured stationery card standing at an angle on the right, a small embossed orange paper swatch and a brushed metal business card. Apply the reference F and FORMA identity in precise tasteful small print and blind embossing. Architectural diagonal warm sunlight, elegant long soft shadows, tactile uncoated cotton paper, immaculate realistic finishes. Palette warm ivory, charcoal olive, muted burnt orange. Restrained composition, not cluttered, high-end design studio case study photography, no decorative plants. Landscape 3:2 crop, objects fully visible. Only visible text is FORMA, no extra copy or tiny fake filler text. No watermark, no browser UI, no split image, no collage."
+    },
+    {
+      "file": "assets/site/forma-interior.webp",
+      "source": "assets/site/forma-interior-source.png",
+      "prompt": "Use case: product-mockup. Asset type: photographic hero for a working fictional FORMA furniture website concept on the BLINK agency portfolio. Create an extraordinary minimalist furniture campaign photograph. One sculptural low lounge chair made from curved warm walnut wood with a cream boucle seat, beside a small travertine plinth, in a spacious warm ivory plaster room. A huge circular architectural opening on the right admits late-afternoon sun, with a view of pale sand dunes. The chair is in the right half; left half is calm plaster wall and shadow, providing clean negative space. Rich but restrained warm neutral palette, tactile honest materials, quiet museum-like art direction. Architectural editorial photography, accurate geometry, realistic light, soft shadows, pristine fine texture, no clutter, no people, no text, no logo. Wide 16:9 landscape. Beautiful enough for an international furniture design studio, not generic stock imagery."
+    }
+  ]
+}
