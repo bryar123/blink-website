@@ -52,10 +52,11 @@ new MutationObserver(()=>{if($('viewer').open){cancelAnimationFrame(raf);raf=0;s
 class Surface{
  constructor(container,root,update){
   this.container=container;this.root=root;this.update=update;this.visible=false;this.animate=false;this.failed=false;
-  this.renderer=new THREE.WebGLRenderer({alpha:true,antialias:!mobileQuery.matches,powerPreference:'low-power',preserveDrawingBuffer:false});
-  this.renderer.setPixelRatio(Math.min(devicePixelRatio,mobileQuery.matches?1.25:1.6));
+  this.renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power',preserveDrawingBuffer:false});
+  this.renderer.setPixelRatio(Math.min(devicePixelRatio,2));
   this.renderer.setClearColor(0,0);this.renderer.outputColorSpace=THREE.SRGBColorSpace;
-  this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.25;
+  // Portfolio media is already graded in sRGB. Filmic tone mapping alters the original.
+  this.renderer.toneMapping=THREE.NoToneMapping;this.renderer.toneMappingExposure=1;
   this.camera=new THREE.PerspectiveCamera(42,1,.08,80);
   this.scene=new THREE.Scene();
   container.append(this.renderer.domElement);
@@ -75,33 +76,7 @@ class Surface{
   this.environmentTarget?.dispose();this.renderer.dispose();this.renderer.domElement.remove();
  }
 }
-function material(color,roughness=.45,metalness=0){return new THREE.MeshStandardMaterial({color,roughness,metalness});}
 function mesh(geometry,mat,parent,position=[0,0,0],scale=[1,1,1]){const m=new THREE.Mesh(geometry,mat);m.position.set(...position);m.scale.set(...scale);parent.add(m);return m;}
-function focusedMaterial(options){
- const mat=new THREE.MeshBasicMaterial(options);
- const blur={value:0},texel={value:new THREE.Vector2(1/1280,1/720)};
- mat.userData.focusBlur=blur;mat.userData.focusTexel=texel;
- mat.onBeforeCompile=shader=>{
-  shader.uniforms.focusBlur=blur;shader.uniforms.focusTexel=texel;
-  shader.fragmentShader='uniform float focusBlur;\nuniform vec2 focusTexel;\n'+shader.fragmentShader;
-  const sampling=`vec4 sampledDiffuseColor = texture2D( map, vMapUv );
-   if (focusBlur > 0.01) {
-    vec2 d = focusTexel * focusBlur * 0.5;
-    sampledDiffuseColor = vec4(0.0);
-    for (int x=-2; x<=2; x++) {
-     float wx = x==0 ? 6.0 : (abs(x)==1 ? 4.0 : 1.0);
-     for (int y=-2; y<=2; y++) {
-      float wy = y==0 ? 6.0 : (abs(y)==1 ? 4.0 : 1.0);
-      sampledDiffuseColor += texture2D(map,vMapUv+vec2(float(x),float(y))*d)*(wx*wy/256.0);
-     }
-    }
-   }`;
-  // Retain Three's video colour-space decoding and its normal material pipeline.
-  shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',THREE.ShaderChunk.map_fragment.replace('vec4 sampledDiffuseColor = texture2D( map, vMapUv );',sampling));
- };
- mat.customProgramCacheKey=()=> 'blink-focus-v1';return mat;
-}
-
 let exhibitSurface,exhibitAngle=0,exhibitTarget=0;
 function setExhibitProgress(value){
  exhibitProgress=clamp(value);exhibitTarget=exhibitProgress*(selection.length-1)*.58;
@@ -111,21 +86,42 @@ function setExhibitProgress(value){
   $('exhibitOpen').textContent=p.title;$('exhibitPosition').textContent=`${index+1} / ${selection.length}`;
   $('exhibitPrev').disabled=index===0;$('exhibitNext').disabled=index===selection.length-1;
   exhibitSurface?.queueVideo?.();
+  updateBackdrop(p);
  }
  $('exhibition').style.setProperty('--exhibit-progress',exhibitProgress);wake();
+}
+const backdrops=[...root.querySelectorAll('.exhibit-ambience img')];
+let backdropSlot=0,backdropVersion=0;
+function updateBackdrop(project){
+ const version=++backdropVersion,next=backdrops[1-backdropSlot];
+ if(!next)return;
+ const preload=new Image();preload.src=project.thumbnail;
+ preload.decode().then(()=>{
+  if(version!==backdropVersion)return;
+  next.src=preload.src;next.classList.add('is-current');
+  backdrops[backdropSlot].classList.remove('is-current');backdropSlot=1-backdropSlot;
+ }).catch(()=>{});
+}
+function shadowMaterial(){
+ return new THREE.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,
+  uniforms:{strength:{value:.25}},
+  vertexShader:'varying vec2 uvShadow; void main(){uvShadow=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+  fragmentShader:'varying vec2 uvShadow; uniform float strength; void main(){vec2 d=max(abs(uvShadow-.5)-vec2(.34,.34),0.0);float a=exp(-dot(d,d)*170.0)*strength;gl_FragColor=vec4(.015,.012,.018,a);}'
+ });
 }
 function buildExhibition(){
  const root=$('exhibition'),surface=new Surface($('exhibitionWorld'),root,()=>{});exhibitSurface=surface;
  surface.camera.fov=48;surface.camera.updateProjectionMatrix();surface.scene.background=null;
  const lit=new THREE.HemisphereLight(0xffffff,0xd8d8df,2.5);surface.scene.add(lit);
  const loader=new THREE.TextureLoader(),cards=[],posters=new Map();
- const cardMaterial=material(0xe5e5ea,.7,.05);
+ const cardMaterial=new THREE.MeshBasicMaterial({color:0xe5e5ea,toneMapped:false});
  // Recycle seven screens around the current work. A forty-screen circle would overlap itself.
  for(let i=0;i<7;i++){
   const group=new THREE.Group();surface.scene.add(group);
   const frame=mesh(new THREE.BoxGeometry(1,1,.055),cardMaterial,group,[0,0,-.04]);
-  const screen=mesh(new THREE.PlaneGeometry(1,1),focusedMaterial({color:0xe5e5ea}),group);
-  cards.push({group,frame,screen,index:-1});
+  const shadow=mesh(new THREE.PlaneGeometry(1,1),shadowMaterial(),group,[0,-.09,-.10]);
+  const screen=mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({color:0xe5e5ea,toneMapped:false}),group);
+  cards.push({group,frame,screen,shadow,index:-1});
  }
  function applyMap(mat,map){if(mat.map===map)return;mat.map=map;mat.color.set(map?0xffffff:0xe5e5ea);mat.needsUpdate=true;}
  function loadNearby(){
@@ -136,9 +132,9 @@ function buildExhibition(){
   for(let i=Math.max(0,center-4);i<=Math.min(selection.length-1,center+4);i++){
    const p=selection[i];if(posters.has(p.id))continue;
    const item={texture:null};posters.set(p.id,item);
-   loader.load(p.thumbnail,texture=>{
+   loader.load(p.exhibitionPoster||(!p.video?p.full:p.thumbnail),texture=>{
     if(posters.get(p.id)!==item){texture.dispose();return;}
-    texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(4,surface.renderer.capabilities.getMaxAnisotropy());item.texture=texture;wake();
+    texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,surface.renderer.capabilities.getMaxAnisotropy());item.texture=texture;wake();
    },undefined,()=>wake());
   }
  }
@@ -153,7 +149,7 @@ function buildExhibition(){
   videoTimer=setTimeout(()=>{
    const p=selection[currentProject];if(!p.video){resetVideo();surface.animate=false;wake();return;}
    if(videoIndex===currentProject&&videoTexture){video.play().catch(()=>{});wake();return;}
-   resetVideo();videoIndex=currentProject;video.src=p.preview;video.load();
+   resetVideo();videoIndex=currentProject;video.src=p.exhibitionPreview||p.preview;video.load();video.play().catch(()=>{});
   },180);
  };
  video.addEventListener('loadeddata',()=>{if(!surface.visible||reduced||document.hidden||videoIndex!==currentProject||$('viewer').open)return;videoTexture?.dispose();videoTexture=new THREE.VideoTexture(video);videoTexture.colorSpace=THREE.SRGBColorSpace;video.play().then(wake).catch(wake);});
@@ -188,17 +184,14 @@ function buildExhibition(){
     card.index=index;card.screen.userData.index=index;
     const aspect=p.width/p.height,w=aspect>1?4.4:2.25,h=w/aspect;
     card.frame.scale.set(w+.018,h+.018,1);card.screen.scale.set(w,h,1);
+    card.shadow.scale.set(w*1.4,h*1.4,1);
    }
    const angle=(index*.58-exhibitAngle)*dir;card.group.position.set(Math.sin(angle)*8,-.12,-Math.cos(angle)*8);card.group.rotation.y=-angle;
    const focus=1-THREE.MathUtils.smoothstep(Math.abs(index-exhibitAngle/.58),.08,1.1);
    const fitted=Math.min(mobileQuery.matches?1.3:1.75,frameHeight/(card.screen.scale.y*pixelsPerUnit),surface.container.clientWidth*.92/(card.screen.scale.x*pixelsPerUnit));
    card.group.scale.setScalar(fitted*lerp(.62,1,focus));
    const poster=posters.get(p.id)?.texture||null;applyMap(card.screen.material,index===videoIndex&&videoTexture?videoTexture:poster);
-   for(const mat of [card.screen.material]){
-    const media=mat.map?.image,w=media?.videoWidth||media?.width||p.width,h=media?.videoHeight||media?.height||p.height;
-    mat.userData.focusTexel.value.set(1/w,1/h);mat.userData.focusBlur.value=(1-focus)*12;
-    if(mat.map)mat.color.setScalar(lerp(.82,1,focus));
-   }
+   card.shadow.material.uniforms.strength.value=lerp(.03,.23,focus);
   });
   surface.camera.position.set(0,.25+frameOffset/pixelsPerUnit+smoothPointer.y*.025,-1.8);
   surface.camera.lookAt(0,-.12+frameOffset/pixelsPerUnit,-8);
@@ -209,55 +202,57 @@ function buildExhibition(){
 
 function writeProgress(value){
  value=clamp(value);
+ // Programmatic snaps and direct drags already define their motion. Do not add
+ // a second camera easing tail after the scroll position reaches the work.
+ exhibitAngle=value*(selection.length-1)*.58;
  if(trigger&&!reduced){scroller.scrollTop=lerp(trigger.start,trigger.end,value);ScrollTrigger.update();}
  setExhibitProgress(value);
 }
 let navigation={progress:0};
-let alignTimer=0,wheelDestination=null,navigationTarget=null,wheelAnchor=0,lastWheelTime=0,pointerHeld=false,touchInput=false;
-function cancelAlignment(){clearTimeout(alignTimer);wheelDestination=null;navigationTarget=null;gsap.killTweensOf(navigation);}
-function selectIndex(index){
- cancelAlignment();dispatchEvent(new Event('blink:scroll-control'));
+let alignTimer=0,wheelTimer=0,wheelGesture=null,navigationTarget=null,pointerHeld=false;
+function cancelAlignment(){clearTimeout(alignTimer);clearTimeout(wheelTimer);wheelGesture=null;navigationTarget=null;gsap.killTweensOf(navigation);}
+function animateIndex(index){
+ clearTimeout(alignTimer);dispatchEvent(new Event('blink:scroll-control'));
  index=clamp(index,0,selection.length-1);const value=index/(selection.length-1),jump=Math.abs(index-currentProject)>3;
  navigationTarget=value;
  gsap.killTweensOf(navigation);navigation.progress=exhibitProgress;
  // Long jumps go straight to the work instead of racing through the entire collection.
  if(jump)exhibitAngle=value*(selection.length-1)*.58;
- gsap.to(navigation,{progress:value,duration:reduced||jump?0:.5,ease:'power3.out',onUpdate:()=>writeProgress(navigation.progress)});
+ gsap.to(navigation,{progress:value,duration:reduced||jump?0:.86,ease:'power2.inOut',onUpdate:()=>writeProgress(navigation.progress),onComplete:()=>{navigationTarget=null;writeProgress(value);}});
 }
-const finePointer=matchMedia('(any-pointer: fine)');
+function selectIndex(index){cancelAlignment();animateIndex(index);}
 function insideExhibition(){return trigger&&!reduced&&!$('viewer').open&&scroller.scrollTop>=trigger.start-1&&scroller.scrollTop<=trigger.end+1;}
-// Own wheel easing only while the exhibition is pinned; normal page scrolling can exit either end.
+// Accumulate intent, then make one uninterrupted snap per wheel gesture. Momentum
+// tails cannot cascade across works; a fresh gesture or reversal is still accepted.
 scroller.addEventListener('wheel',event=>{
  if(event.ctrlKey||event.target.closest('input,textarea,select')||!insideExhibition()){cancelAlignment();return;}
  const horizontal=Math.abs(event.deltaX)>Math.abs(event.deltaY);
- const delta=(horizontal?event.deltaX*direction():event.deltaY)*(event.deltaMode===1?20:event.deltaMode===2?scroller.clientHeight:1);
+ const delta=clamp((horizontal?event.deltaX*direction():event.deltaY)*(event.deltaMode===1?20:event.deltaMode===2?scroller.clientHeight:1),-180,180);
  if(!delta)return;
- touchInput=false;
- if((exhibitProgress<.0001&&delta<0)||(exhibitProgress>.9999&&delta>0)){cancelAlignment();return;}
+ const now=performance.now(),sign=Math.sign(delta);
+ const fresh=!wheelGesture||now-wheelGesture.last>300;
+ if(fresh&&((exhibitProgress<.0001&&delta<0)||(exhibitProgress>.9999&&delta>0))){cancelAlignment();return;}
  event.preventDefault();event.stopImmediatePropagation();dispatchEvent(new Event('blink:scroll-control'));
- const now=performance.now();
- if(wheelDestination===null||now-lastWheelTime>240){wheelDestination=gsap.isTweening(navigation)&&navigationTarget!==null?navigationTarget:exhibitProgress;wheelAnchor=Math.round(wheelDestination*(selection.length-1));}
- navigationTarget=null;
- lastWheelTime=now;clearTimeout(alignTimer);gsap.killTweensOf(navigation);
- wheelDestination=clamp(wheelDestination+delta*.65/(trigger.end-trigger.start));
- navigation.progress=exhibitProgress;
- gsap.to(navigation,{progress:wheelDestination,duration:.28,ease:'power2.out',onUpdate:()=>writeProgress(navigation.progress)});
- alignTimer=setTimeout(()=>{
-  const position=wheelDestination*(selection.length-1);let index=Math.round(position);
-  // A deliberate wheel notch advances even when resistance leaves it just short of halfway.
-  if(index===wheelAnchor&&Math.abs(position-wheelAnchor)>.18)index+=Math.sign(position-wheelAnchor);
-  selectIndex(index);
- },180);
+ if(fresh||sign!==wheelGesture.sign){
+  const position=(navigationTarget??exhibitProgress)*(selection.length-1);
+  wheelGesture={anchor:Math.round(position),sign,total:0,committed:false,last:now};
+ }
+ wheelGesture.last=now;wheelGesture.total+=Math.abs(delta);
+ clearTimeout(alignTimer);clearTimeout(wheelTimer);
+ if(!wheelGesture.committed&&wheelGesture.total>=90){
+  wheelGesture.committed=true;animateIndex(wheelGesture.anchor+sign);
+ }
+ wheelTimer=setTimeout(()=>{wheelGesture=null;},300);
 },{capture:true,passive:false});
 scroller.addEventListener('scroll',()=>{
- if(pointerHeld||touchInput||!finePointer.matches||!insideExhibition()||wheelDestination!==null||gsap.isTweening(navigation))return;
+ if(pointerHeld||!insideExhibition()||wheelGesture||gsap.isTweening(navigation))return;
  clearTimeout(alignTimer);
- alignTimer=setTimeout(()=>{if(!insideExhibition())return;const position=exhibitProgress*(selection.length-1);if(Math.abs(position-Math.round(position))>.006)selectIndex(Math.round(position));},240);
+ alignTimer=setTimeout(()=>{if(!insideExhibition()||pointerHeld)return;const position=exhibitProgress*(selection.length-1);if(Math.abs(position-Math.round(position))>.006)selectIndex(Math.round(position));},380);
 },{passive:true});
 addEventListener('blink:page-navigation',cancelAlignment);
-addEventListener('pointerdown',event=>{pointerHeld=true;touchInput=event.pointerType==='touch';cancelAlignment();},{capture:true,passive:true});
+addEventListener('pointerdown',()=>{pointerHeld=true;cancelAlignment();},{capture:true,passive:true});
 for(const type of ['pointerup','pointercancel'])addEventListener(type,()=>{pointerHeld=false;},{capture:true,passive:true});
-addEventListener('keydown',()=>{touchInput=false;cancelAlignment();},{capture:true,passive:true});
+addEventListener('keydown',cancelAlignment,{capture:true,passive:true});
 function installDrag(container,tap){
  let gesture=null;
  container.addEventListener('pointerdown',e=>{
@@ -275,7 +270,7 @@ function installDrag(container,tap){
   if(gesture.axis!=='x')return;
   if(e.cancelable)e.preventDefault();
   gesture.delta=-dx*direction();
-  const distance=Math.max(180,Math.min(container.clientWidth*.7,600));
+  const distance=Math.max(260,Math.min(container.clientWidth*.9,900));
   writeProgress(gesture.start+gesture.delta/distance/(selection.length-1));
  },{passive:false});
  function finish(e,cancelled){
@@ -284,7 +279,7 @@ function installDrag(container,tap){
   if(container.hasPointerCapture(e.pointerId))container.releasePointerCapture(e.pointerId);
   if(previous.axis==='x'){
    let index=Math.round(exhibitProgress*(selection.length-1));
-   if(!cancelled&&Math.abs(previous.delta)>40&&index===previous.index)index+=Math.sign(previous.delta);
+   if(!cancelled&&Math.abs(previous.delta)>Math.max(64,container.clientWidth*.1)&&index===previous.index)index+=Math.sign(previous.delta);
    selectIndex(index);
   }else if(!cancelled&&!previous.axis&&Math.hypot(e.clientX-previous.x,e.clientY-previous.y)<8)tap(e);
  }
@@ -293,15 +288,7 @@ function installDrag(container,tap){
  // Touch initially captures the canvas. Ignore its bubbled loss when capture moves to this container.
  container.addEventListener('lostpointercapture',e=>{if(e.target===container)finish(e,true);});
  container.addEventListener('dragstart',e=>e.preventDefault());
- // A trackpad's horizontal gesture follows the same camera path; vertical wheels remain page scrolling.
- let wheelTimer=0;
- container.addEventListener('wheel',e=>{
-  if(reduced||e.ctrlKey||Math.abs(e.deltaX)<=Math.abs(e.deltaY)||!e.deltaX)return;
-  e.preventDefault();gsap.killTweensOf(navigation);
-  const unit=e.deltaMode===1?20:e.deltaMode===2?container.clientWidth:1;
-  writeProgress(exhibitProgress+e.deltaX*unit*direction()/Math.max(180,container.clientWidth*.7)/(selection.length-1));
-  clearTimeout(wheelTimer);wheelTimer=setTimeout(()=>selectIndex(Math.round(exhibitProgress*(selection.length-1))),180);
- },{passive:false});
+ // Both wheel axes use the single gesture controller on the scroller.
 }
 $('exhibitOpen').addEventListener('click',()=>openProject(selection[currentProject].id,$('exhibitOpen')));
 $('exhibitPrev').addEventListener('click',()=>selectIndex(currentProject-1));
@@ -310,7 +297,7 @@ $('exhibitOpen').addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==
 function setupScroll(){
  cancelAlignment();
  trigger?.kill();trigger=null;
- root.style.setProperty('--exhibit-distance',`${(selection.length-1)*clamp(innerHeight*.25,200,260)}px`);
+ root.style.setProperty('--exhibit-distance',`${(selection.length-1)*clamp(innerHeight*.5,360,540)}px`);
  root.classList.toggle('is-scrollable',!reduced&&root.classList.contains('has-webgl'));
  if(!reduced&&root.classList.contains('has-webgl'))trigger=ScrollTrigger.create({trigger:root,scroller,start:()=>`top top+=${$('mainNav').offsetHeight}`,end:'bottom bottom',onUpdate:self=>setExhibitProgress(self.progress)});
  else surfaces.forEach(s=>s.pauseMedia?.());

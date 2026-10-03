@@ -1,3 +1,38 @@
+# Calmer gallery gestures, hover comparison and two new films — October 3, 2026
+
+Latest targeted validation: **29 interaction/playback checks passed** against the production build, plus **171 media-aspect checks** against original files. The build contains 214 files and 45 works (30 films, 15 artworks); the largest deployed asset remains 22.88 MiB.
+
+- Small wheel noise leaves the current work centered. A normal notch, a large delta and an extended momentum burst each settle on exactly one next work. Sampled snap positions move monotonically without overshoot.
+- New gestures, immediate reversals, horizontal scrolling in English/Kurdish/Arabic, both gallery exits, and skip navigation interrupting a snap pass.
+- Skip advances to the immediately following section and restores its focus. The grid shortcut remains separate.
+- Hover reveal works without pressing the mouse, preserves keyboard focus, follows both directions, holds position on exit and cycles only behind the fully visible before image. Keyboard and native touch drag still pass.
+- Emulated mobile horizontal swipe and vertical native scrolling remain usable and settle cleanly.
+- Both new full films play at 720x1280 in desktop and phone contexts. The supplied originals were verified by SHA-256 and left intact. Representative frames were inspected before naming and selecting thumbnails.
+- The refreshed in-app browser was also checked: a deliberate scroll advanced from 1/45 to 2/45; Next section opened the comparison; BLINK — Masala Film played at 720x1280.
+
+Run `node scripts/verify-gallery-motion.cjs` with Playwright installed (or `PLAYWRIGHT_PATH` set to its package path). `BLINK_URL` can override the default local production preview. Evidence: `.codex-review/calm-gallery/checks.json` and `final-preview.png`. Physical phones and Safari remain unverified. No deployment was requested.
+
+The following sections describe preceding validation rounds.
+
+# Source fidelity, interactive concepts and themes — October 3, 2026
+
+Local Chrome verification: **347 integration checks + 32 accessibility and touch checks passed**. A further **181 production-package and no-JavaScript checks passed**, alongside the 28 media checks below. The production build contains 204 files; its largest file is 22.88 MiB. Physical iPhone/Android devices and Safari are not verified.
+
+- Screen sizes: 320x740, 390x844, 768x1024, 1024x768, 1440x1000, 1920x1080, and 844x390; English, Kurdish and Arabic; light and dark themes. No horizontal overflow or overlapping header controls.
+- Muted inline mobile/desktop hero playback; simulated autoplay denial and recovery through the visible play control.
+- Three after variants cycle only while fully hidden. Mouse drag, native touch input, Home/End keyboard control, explicit reset, decoded image loading and range values pass.
+- Exhibition WebGL rendering, color-derived backdrop updates, next/previous navigation, native horizontal swipe, skip arrow and restored focus; motion-off fallback exposes all 43 works and persists after reload.
+- Grid density, column clamping, theme persistence, category counts, full video viewer playback and restored focus.
+- Automated WCAG 2 A/AA and 2.1 AA axe checks across exhibition, comparison, work, studio and contact at desktop and phone sizes in both themes: zero violations. This is automated coverage, not a complete accessibility certification.
+- 28 new exhibition clips verified as H.264, yuv420p, silent and preserving display aspect ratios. High fidelity stills and previews were created from unchanged originals; nothing was upscaled beyond the source dimensions.
+- Visual review includes desktop/mobile gallery, comparison directions and both themes. The local preview server serves SVG/font MIME types correctly.
+
+Repeat the browser checks with `node scripts/verify-refinements.cjs`. It requires Playwright with an installed Chrome channel; set `PLAYWRIGHT_PATH` to the package if it is supplied by a bundled runtime, and `BLINK_URL` for a different local server. Build production output with `npm run build:pages`.
+
+Evidence: `.codex-review/refinements/checks.json`, `extras.json`, `media.json`, and responsive screenshots. The images are concept demonstrations, not client outcomes. Exact generation/edit prompts are recorded in `assets/site/citrus-prompts.json`; the built-in image tool's underlying model name is not exposed.
+
+The entries below are historical validation rounds.
+
 # Expanded scrolling portfolio validation
 
 ## Interface and branding refinement — October 3, 2026

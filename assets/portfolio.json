@@ -29,7 +29,9 @@
         "previewHeight": 1080,
         "previewQuality": 22,
         "previewDuration": 14.5
-      }
+      },
+      "exhibitionPoster": "assets/experience/media/forest-flight.jpg",
+      "exhibitionPreview": "assets/experience/media/forest-flight.mp4"
     },
     {
       "id": "blink-logo-animation",
@@ -60,7 +62,76 @@
         "previewHeight": 1080,
         "previewQuality": 22,
         "previewDuration": 5
-      }
+      },
+      "exhibitionPoster": "assets/experience/media/blink-logo-animation.jpg",
+      "exhibitionPreview": "assets/experience/media/blink-logo-animation.mp4"
+    },
+    {
+      "id": "aurelia-residences",
+      "source": "assets/aurelia-residences-original.mp4",
+      "title": "Aurelia Residences — Architectural Film",
+      "category": "Architecture / Property film",
+      "categories": [
+        "film"
+      ],
+      "width": 720,
+      "height": 1280,
+      "video": true,
+      "new": true,
+      "duration": 20.039002,
+      "full": "assets/portfolio/aurelia-residences.mp4",
+      "preview": "assets/portfolio/aurelia-residences-preview.mp4",
+      "thumbnail": "assets/portfolio/aurelia-residences.webp",
+      "posterTime": 2,
+      "previewStart": 1,
+      "sourceSha256": "7debbaf5f0ab7e214f0bdad58c50f704b7b2660557be88649dd0600940b68d45",
+      "delivery": {
+        "width": 720,
+        "height": 1280,
+        "quality": 19,
+        "maxrate": "5M",
+        "bufsize": "10M",
+        "previewWidth": 720,
+        "previewHeight": 1280,
+        "previewQuality": 21,
+        "previewDuration": 6
+      },
+      "exhibitionPoster": "assets/experience/media/aurelia-residences.jpg",
+      "exhibitionPreview": "assets/experience/media/aurelia-residences.mp4"
+    },
+    {
+      "id": "spiced-tea",
+      "source": "assets/spiced-tea-original.mp4",
+      "title": "BLINK — Masala Film",
+      "category": "Beverage / Product film",
+      "categories": [
+        "film",
+        "product"
+      ],
+      "width": 720,
+      "height": 1280,
+      "video": true,
+      "new": true,
+      "duration": 16.020998,
+      "full": "assets/portfolio/spiced-tea.mp4",
+      "preview": "assets/portfolio/spiced-tea-preview.mp4",
+      "thumbnail": "assets/portfolio/spiced-tea.webp",
+      "posterTime": 14.8,
+      "previewStart": 9.5,
+      "sourceSha256": "2e55873503857445011d993186f742832502b3a63a587b60af68db0ff5558bc2",
+      "delivery": {
+        "width": 720,
+        "height": 1280,
+        "quality": 19,
+        "maxrate": "5M",
+        "bufsize": "10M",
+        "previewWidth": 720,
+        "previewHeight": 1280,
+        "previewQuality": 21,
+        "previewDuration": 6
+      },
+      "exhibitionPoster": "assets/experience/media/spiced-tea.jpg",
+      "exhibitionPreview": "assets/experience/media/spiced-tea.mp4"
     },
     {
       "id": "desert-journey",
@@ -92,7 +163,9 @@
         "previewHeight": 1080,
         "previewQuality": 22,
         "previewDuration": 5
-      }
+      },
+      "exhibitionPoster": "assets/experience/media/desert-journey.jpg",
+      "exhibitionPreview": "assets/experience/media/desert-journey.mp4"
     },
     {
       "id": "jaunt",
@@ -112,7 +185,9 @@
       "preview": "assets/portfolio/jaunt-preview.mp4",
       "thumbnail": "assets/portfolio/jaunt.webp",
       "posterTime": 10.8,
-      "previewStart": 8.561
+      "previewStart": 8.561,
+      "exhibitionPoster": "assets/experience/media/jaunt.jpg",
+      "exhibitionPreview": "assets/experience/media/jaunt.mp4"
     },
     {
       "id": "blood-orange-summer",
@@ -132,7 +207,9 @@
       "preview": "assets/portfolio/blood-orange-summer-preview.mp4",
       "thumbnail": "assets/portfolio/blood-orange-summer.webp",
       "posterTime": 11.8,
-      "previewStart": 8.569
+      "previewStart": 8.569,
+      "exhibitionPoster": "assets/experience/media/blood-orange-summer.jpg",
+      "exhibitionPreview": "assets/experience/media/blood-orange-summer.mp4"
     },
     {
       "id": "blink-watch",
@@ -152,7 +229,9 @@
       "preview": "assets/portfolio/blink-watch-preview.mp4",
       "thumbnail": "assets/portfolio/blink-watch.webp",
       "posterTime": 6.8,
-      "previewStart": 6.8
+      "previewStart": 6.8,
+      "exhibitionPoster": "assets/experience/media/blink-watch.jpg",
+      "exhibitionPreview": "assets/experience/media/blink-watch.mp4"
     },
     {
       "id": "tiktak-superhero",
@@ -189,7 +268,9 @@
       "preview": "assets/portfolio/zero-lemon-preview.mp4",
       "thumbnail": "assets/portfolio/zero-lemon.webp",
       "posterTime": 11.5,
-      "previewStart": 8.572
+      "previewStart": 8.572,
+      "exhibitionPoster": "assets/experience/media/zero-lemon.jpg",
+      "exhibitionPreview": "assets/experience/media/zero-lemon.mp4"
     },
     {
       "id": "dara-funfair",
@@ -209,7 +290,9 @@
       "preview": "assets/portfolio/dara-funfair-preview.mp4",
       "thumbnail": "assets/portfolio/dara-funfair.webp",
       "posterTime": 14,
-      "previewStart": 14
+      "previewStart": 14,
+      "exhibitionPoster": "assets/experience/media/dara-funfair.jpg",
+      "exhibitionPreview": "assets/experience/media/dara-funfair.mp4"
     },
     {
       "id": "blood-orange-rhythm",
@@ -229,7 +312,9 @@
       "preview": "assets/portfolio/blood-orange-rhythm-preview.mp4",
       "thumbnail": "assets/portfolio/blood-orange-rhythm.webp",
       "posterTime": 12,
-      "previewStart": 8.569
+      "previewStart": 8.569,
+      "exhibitionPoster": "assets/experience/media/blood-orange-rhythm.jpg",
+      "exhibitionPreview": "assets/experience/media/blood-orange-rhythm.mp4"
     },
     {
       "id": "tiktak-cozy",
@@ -266,7 +351,9 @@
       "preview": "assets/portfolio/panda-preview.mp4",
       "thumbnail": "assets/portfolio/panda.webp",
       "posterTime": 11.5,
-      "previewStart": 8.572
+      "previewStart": 8.572,
+      "exhibitionPoster": "assets/experience/media/panda.jpg",
+      "exhibitionPreview": "assets/experience/media/panda.mp4"
     },
     {
       "id": "zero-rice-poster",
@@ -351,7 +438,9 @@
       "preview": "assets/portfolio/zero-rice-preview.mp4",
       "thumbnail": "assets/portfolio/zero-rice.webp",
       "posterTime": 11,
-      "previewStart": 8.572
+      "previewStart": 8.572,
+      "exhibitionPoster": "assets/experience/media/zero-rice.jpg",
+      "exhibitionPreview": "assets/experience/media/zero-rice.mp4"
     },
     {
       "id": "dara-character",
@@ -387,7 +476,9 @@
       "preview": "assets/portfolio/dara-snack-preview.mp4",
       "thumbnail": "assets/portfolio/dara-snack.webp",
       "posterTime": 18,
-      "previewStart": 18
+      "previewStart": 18,
+      "exhibitionPoster": "assets/experience/media/dara-snack.jpg",
+      "exhibitionPreview": "assets/experience/media/dara-snack.mp4"
     },
     {
       "id": "gundakam",
@@ -407,7 +498,9 @@
       "preview": "assets/portfolio/gundakam-preview.mp4",
       "thumbnail": "assets/portfolio/gundakam.webp",
       "posterTime": 11,
-      "previewStart": 8.593
+      "previewStart": 8.593,
+      "exhibitionPoster": "assets/experience/media/gundakam.jpg",
+      "exhibitionPreview": "assets/experience/media/gundakam.mp4"
     },
     {
       "id": "energy",
@@ -427,7 +520,9 @@
       "preview": "assets/portfolio/energy-preview.mp4",
       "thumbnail": "assets/portfolio/energy.webp",
       "posterTime": 11.5,
-      "previewStart": 8.572
+      "previewStart": 8.572,
+      "exhibitionPoster": "assets/experience/media/energy.jpg",
+      "exhibitionPreview": "assets/experience/media/energy.mp4"
     },
     {
       "id": "ceylon-tea",
@@ -447,7 +542,9 @@
       "preview": "assets/portfolio/ceylon-tea-preview.mp4",
       "thumbnail": "assets/portfolio/ceylon-tea.webp",
       "posterTime": 11.5,
-      "previewStart": 8.572
+      "previewStart": 8.572,
+      "exhibitionPoster": "assets/experience/media/ceylon-tea.jpg",
+      "exhibitionPreview": "assets/experience/media/ceylon-tea.mp4"
     },
     {
       "id": "hes-clean",
@@ -467,7 +564,9 @@
       "preview": "assets/portfolio/hes-clean-preview.mp4",
       "thumbnail": "assets/portfolio/hes-clean.webp",
       "posterTime": 11.5,
-      "previewStart": 8.572
+      "previewStart": 8.572,
+      "exhibitionPoster": "assets/experience/media/hes-clean.jpg",
+      "exhibitionPreview": "assets/experience/media/hes-clean.mp4"
     },
     {
       "id": "dara-monster",
@@ -487,7 +586,9 @@
       "preview": "assets/portfolio/dara-monster-preview.mp4",
       "thumbnail": "assets/portfolio/dara-monster.webp",
       "posterTime": 15,
-      "previewStart": 15
+      "previewStart": 15,
+      "exhibitionPoster": "assets/experience/media/dara-monster.jpg",
+      "exhibitionPreview": "assets/experience/media/dara-monster.mp4"
     },
     {
       "id": "dara-city",
@@ -507,7 +608,9 @@
       "preview": "assets/portfolio/dara-city-preview.mp4",
       "thumbnail": "assets/portfolio/dara-city.webp",
       "posterTime": 16,
-      "previewStart": 16
+      "previewStart": 16,
+      "exhibitionPoster": "assets/experience/media/dara-city.jpg",
+      "exhibitionPreview": "assets/experience/media/dara-city.mp4"
     },
     {
       "id": "jelly-monster",
@@ -559,7 +662,9 @@
       "preview": "assets/portfolio/saffron-preview.mp4",
       "thumbnail": "assets/portfolio/saffron.webp",
       "posterTime": 5.5,
-      "previewStart": 5.5
+      "previewStart": 5.5,
+      "exhibitionPoster": "assets/experience/media/saffron.jpg",
+      "exhibitionPreview": "assets/experience/media/saffron.mp4"
     },
     {
       "id": "vista",
@@ -578,7 +683,9 @@
       "preview": "assets/portfolio/vista-preview.mp4",
       "thumbnail": "assets/portfolio/vista.webp",
       "posterTime": 6,
-      "previewStart": 6
+      "previewStart": 6,
+      "exhibitionPoster": "assets/experience/media/vista.jpg",
+      "exhibitionPreview": "assets/experience/media/vista.mp4"
     },
     {
       "id": "clear",
@@ -598,7 +705,9 @@
       "preview": "assets/portfolio/clear-preview.mp4",
       "thumbnail": "assets/portfolio/clear.webp",
       "posterTime": 10.5,
-      "previewStart": 8.542
+      "previewStart": 8.542,
+      "exhibitionPoster": "assets/experience/media/clear.jpg",
+      "exhibitionPreview": "assets/experience/media/clear.mp4"
     },
     {
       "id": "automotive-detail",
@@ -618,7 +727,9 @@
       "preview": "assets/portfolio/automotive-detail-preview.mp4",
       "thumbnail": "assets/portfolio/automotive-detail.webp",
       "posterTime": 6,
-      "previewStart": 6
+      "previewStart": 6,
+      "exhibitionPoster": "assets/experience/media/automotive-detail.jpg",
+      "exhibitionPreview": "assets/experience/media/automotive-detail.mp4"
     },
     {
       "id": "iphone",
@@ -653,7 +764,9 @@
       "preview": "assets/portfolio/ford-film-preview.mp4",
       "thumbnail": "assets/portfolio/ford-film.webp",
       "posterTime": 8,
-      "previewStart": 8
+      "previewStart": 8,
+      "exhibitionPoster": "assets/experience/media/ford-film.jpg",
+      "exhibitionPreview": "assets/experience/media/ford-film.mp4"
     },
     {
       "id": "rolex",
@@ -689,7 +802,9 @@
       "preview": "assets/portfolio/hyper-motion-preview.mp4",
       "thumbnail": "assets/portfolio/hyper-motion.webp",
       "posterTime": 3,
-      "previewStart": 3
+      "previewStart": 3,
+      "exhibitionPoster": "assets/experience/media/hyper-motion.jpg",
+      "exhibitionPreview": "assets/experience/media/hyper-motion.mp4"
     },
     {
       "id": "vfx-composite",
@@ -709,7 +824,9 @@
       "preview": "assets/portfolio/vfx-composite-preview.mp4",
       "thumbnail": "assets/portfolio/vfx-composite.webp",
       "posterTime": 1.5,
-      "previewStart": 1.5
+      "previewStart": 1.5,
+      "exhibitionPoster": "assets/experience/media/vfx-composite.jpg",
+      "exhibitionPreview": "assets/experience/media/vfx-composite.mp4"
     },
     {
       "id": "muse",
@@ -760,7 +877,9 @@
       "preview": "assets/portfolio/kinetic-preview.mp4",
       "thumbnail": "assets/portfolio/kinetic.webp",
       "posterTime": 3,
-      "previewStart": 3
+      "previewStart": 3,
+      "exhibitionPoster": "assets/experience/media/kinetic.jpg",
+      "exhibitionPreview": "assets/experience/media/kinetic.mp4"
     },
     {
       "id": "haji-trex",
@@ -780,7 +899,9 @@
       "preview": "assets/portfolio/haji-trex-preview.mp4",
       "thumbnail": "assets/portfolio/haji-trex.webp",
       "posterTime": 4,
-      "previewStart": 2.5
+      "previewStart": 2.5,
+      "exhibitionPoster": "assets/experience/media/haji-trex.jpg",
+      "exhibitionPreview": "assets/experience/media/haji-trex.mp4"
     },
     {
       "id": "ford-poster",
@@ -831,7 +952,9 @@
       "preview": "assets/portfolio/toyota-preview.mp4",
       "thumbnail": "assets/portfolio/toyota.webp",
       "posterTime": 12,
-      "previewStart": 12
+      "previewStart": 12,
+      "exhibitionPoster": "assets/experience/media/toyota.jpg",
+      "exhibitionPreview": "assets/experience/media/toyota.mp4"
     }
   ],
   "studio": [

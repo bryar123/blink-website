@@ -6,6 +6,7 @@
 <title>BLINK — Create Impossible</title>
 <meta name="description" content="Blink — advertising studio. Cinematic film, VFX, product visualization, motion & bespoke characters. Sulaymaniyah." />
 <meta name="theme-color" content="#f5f5f7" />
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('blink-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <!-- Open Graph / social share -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="BLINK" />
@@ -23,10 +24,11 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site/site.css">
 <link rel="stylesheet" href="assets/experience/experience.css">
+<link rel="stylesheet" href="assets/site/refinements.css">
 </head>
 <body>
 <a class="skip-link" href="#work" data-go="5" data-i18n="skip.work">Skip to work</a>
-<noscript><style>#loader,.work-tools,.work-footer,.lang,.studio-tabs{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
+<noscript><style>#loader,.work-tools,.work-footer,.lang,.studio-tabs,.theme-toggle,#comparisonRange,#comparisonReset{display:none}[data-reveal]{opacity:1;transform:none}</style></noscript>
 
 <!-- LOADER -->
 <div id="loader"><img class="mk" src="assets/site/brand-symbol.svg" width="62" height="43" alt="BLINK" /><div class="bar"><i></i></div></div>
@@ -42,6 +44,7 @@
     <img class="brand-symbol" src="assets/site/brand-symbol.svg" width="62" height="43" alt="" />
   </a>
   <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="theme-moon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.5 8.5 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"/></svg><svg class="theme-sun icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
     <a class="lnk" href="#exhibition" data-go="9" data-i18n="nav.work">Work</a>
     <a class="lnk" href="#studio" data-go="1" data-i18n="nav.studio">Studio</a>
     <div class="lang" id="lang">
@@ -71,15 +74,18 @@
   <!-- 0 · HERO -->
   <section id="hero" data-i="0">
     <div class="hero-films" aria-label="Studio films">
-      <video class="cover hero-scene" data-scene="nature" aria-label="Forest Flight" poster="assets/portfolio/forest-flight.webp" data-src="assets/portfolio/forest-flight.mp4" data-mobile-src="assets/portfolio/forest-flight-preview.mp4" autoplay muted playsinline preload="none"></video>
+      <video class="cover hero-scene" data-scene="nature" aria-label="Forest Flight" poster="assets/portfolio/forest-flight.webp" data-src="assets/portfolio/forest-flight.mp4" data-mobile-src="assets/site/hero-mobile.mp4" autoplay muted playsinline webkit-playsinline loop preload="none"></video>
     </div>
     <div class="hero-heading"><p class="hero-eyebrow" data-i18n="hero.eyebrow">Creative studio / Sulaymaniyah</p><h1 data-i18n="hero.h1">Create<br>Impossible.</h1><div class="hero-aside"><p class="sub" data-i18n="hero.sub">Advertising films, brand imagery and character stories.</p><div class="hero-actions"><a class="cta hero-work" href="#exhibition" data-go="9"><span data-i18n="explore.work">Explore the work</span><span aria-hidden="true">↘</span></a></div></div></div>
+    <button id="heroPlay" class="hero-play" type="button" hidden><span aria-hidden="true">▷</span><span data-ui="heroPlay">Play background film</span></button>
   </section>
 
   <section id="exhibition" data-i="9" class="exhibition-section" aria-labelledby="exhibitionTitle">
     <div class="exhibition-sticky">
+      <div class="exhibit-ambience" aria-hidden="true"><img alt=""><img alt=""></div>
       <div class="exhibition-heading"><h2 id="exhibitionTitle" data-exp-i18n="exhibit.title">Step inside<br>the work.</h2><a id="exhibitGrid" class="experience-link" href="#work" data-go="5" aria-label="View all work" title="View all work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.3"/><rect x="14" y="4" width="6" height="6" rx="1.3"/><rect x="4" y="14" width="6" height="6" rx="1.3"/><rect x="14" y="14" width="6" height="6" rx="1.3"/></svg></a></div>
       <div class="exhibition-world" id="exhibitionWorld" aria-hidden="true"></div>
+      <a class="exhibit-skip" id="exhibitSkip" href="#transformation" data-next-section><span data-ui="skip">Next section</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M6 14l6 6 6-6"/></svg></a>
       <div class="exhibit-fallback"><a class="exhibit-item" href="assets/portfolio/jaunt.mp4" data-exhibit="jaunt"><img src="assets/portfolio/jaunt.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">JAUNT — One Beat</span></a>
 <a class="exhibit-item" href="assets/Dara’s TikTak Superhero Adventure.png" data-exhibit="tiktak-superhero"><img src="assets/portfolio/tiktak-superhero.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"><span dir="auto">TikTak — Superhero Adventure</span></a>
 <a class="exhibit-item" href="assets/portfolio/blood-orange-summer.mp4" data-exhibit="blood-orange-summer"><img src="assets/portfolio/blood-orange-summer.webp" alt="" width="1280" height="720" loading="lazy" decoding="async"><span dir="auto">Blood Orange — A Taste of Summer</span></a>
@@ -88,6 +94,8 @@
 <a class="exhibit-item" href="assets/portfolio/dara-funfair.mp4" data-exhibit="dara-funfair"><img src="assets/portfolio/dara-funfair.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"><span dir="auto">Dara — The Funfair Adventure</span></a>
 <a class="exhibit-item" href="assets/portfolio/forest-flight.mp4" data-exhibit="forest-flight"><img src="assets/portfolio/forest-flight.webp" alt="" width="3840" height="2160" loading="lazy" decoding="async"><span dir="auto">Forest Flight</span></a>
 <a class="exhibit-item" href="assets/portfolio/blink-logo-animation.mp4" data-exhibit="blink-logo-animation"><img src="assets/portfolio/blink-logo-animation.webp" alt="" width="3840" height="2160" loading="lazy" decoding="async"><span dir="auto">BLINK — Logo Animation</span></a>
+<a class="exhibit-item" href="assets/portfolio/aurelia-residences.mp4" data-exhibit="aurelia-residences"><img src="assets/portfolio/aurelia-residences.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Aurelia Residences — Architectural Film</span></a>
+<a class="exhibit-item" href="assets/portfolio/spiced-tea.mp4" data-exhibit="spiced-tea"><img src="assets/portfolio/spiced-tea.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">BLINK — Masala Film</span></a>
 <a class="exhibit-item" href="assets/portfolio/desert-journey.mp4" data-exhibit="desert-journey"><img src="assets/portfolio/desert-journey.webp" alt="" width="2206" height="946" loading="lazy" decoding="async"><span dir="auto">Desert Journey</span></a>
 <a class="exhibit-item" href="assets/portfolio/zero-lemon.mp4" data-exhibit="zero-lemon"><img src="assets/portfolio/zero-lemon.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><span dir="auto">Zero — Lemon in Motion</span></a>
 <a class="exhibit-item" href="assets/portfolio/blood-orange-rhythm.mp4" data-exhibit="blood-orange-rhythm"><img src="assets/portfolio/blood-orange-rhythm.webp" alt="" width="1280" height="720" loading="lazy" decoding="async"><span dir="auto">Blood Orange — Find Your Rhythm</span></a>
@@ -125,12 +133,35 @@
 <a class="exhibit-item" href="assets/work-zero.jpg" data-exhibit="zero-pack"><img src="assets/portfolio/zero-pack.webp" alt="" width="768" height="1344" loading="lazy" decoding="async"><span dir="auto">Zero — Packaging Study</span></a></div>
       <div class="exhibition-bottom">
         <div class="exhibit-caption"><button id="exhibitOpen" type="button" dir="auto">JAUNT — One Beat</button></div>
-        <div class="exhibit-controls"><button id="exhibitPrev" class="icon-button" type="button" aria-label="Previous work">←</button><span id="exhibitPosition" aria-live="polite">1 / 43</span><button id="exhibitNext" class="icon-button" type="button" aria-label="Next work">→</button></div>
+        <div class="exhibit-controls"><button id="exhibitPrev" class="icon-button" type="button" aria-label="Previous work">←</button><span id="exhibitPosition" aria-live="polite">1 / 45</span><button id="exhibitNext" class="icon-button" type="button" aria-label="Next work">→</button></div>
       </div>
     </div>
   </section>
 
   <!-- 5 · SELECTED WORK GRID -->
+  <section id="transformation" data-i="10" aria-labelledby="transformTitle">
+    <div class="transform-copy">
+      <p class="section-label" data-ui="transformEyebrow">The difference is direction.</p>
+      <h2 id="transformTitle" data-ui="transformTitle">Same product.<br>New possibilities.</h2>
+      <p class="sub" data-ui="transformBody">An everyday image. An entirely different feeling. Slide to see what a little BLINK can do.</p>
+      <div class="direction-note"><span class="direction-number" id="directionNumber">01 / 03</span><h3 id="directionName">Citrus in motion</h3><p id="directionDescription">Light, texture and a splash of energy.</p></div>
+      <button class="cta secondary" id="comparisonReset" type="button"><span data-ui="nextDirection">Try another direction</span><span aria-hidden="true">↻</span></button>
+      <p class="concept-note" data-ui="concept">An original BLINK concept. Three art directions, one product.</p>
+    </div>
+    <figure class="comparison-figure">
+      <div class="comparison" id="comparison" style="--reveal:50%">
+        <img class="comparison-after" id="comparisonAfter" src="assets/site/citrus-after.png" width="1122" height="1402" alt="Citrus can surrounded by a golden splash and fresh oranges" loading="lazy" decoding="async">
+        <div class="comparison-before"><img src="assets/site/citrus-before.png" width="1122" height="1402" alt="The same Citrus can in a plain, pale studio photograph" loading="lazy" decoding="async"></div>
+        <div class="comparison-labels" aria-hidden="true"><span data-ui="without">Without BLINK</span><span data-ui="with">With BLINK</span></div>
+        <div class="comparison-divider" aria-hidden="true"><span>↔</span></div>
+        <input id="comparisonRange" type="range" min="0" max="100" value="50" step="1" aria-label="Before and after comparison" aria-describedby="comparisonHint">
+      </div>
+      <figcaption id="comparisonHint" data-ui="comparisonHint">Move your mouse to compare, or drag on touch. Move fully right for the next direction.</figcaption>
+      <p class="sr-only" id="comparisonStatus" aria-live="polite"></p>
+    </figure>
+    <div hidden aria-hidden="true" id="comparisonVariants"><span data-src="assets/site/citrus-after.png"></span><span data-src="assets/site/citrus-editorial.png"></span><span data-src="assets/site/citrus-graphic.png"></span></div>
+  </section>
+
   <section id="work" data-i="5">
     <div class="grid-head">
       <div><p class="section-label" data-i18n="work.eyebrow">The BLINK collection / 2026</p><h2 data-reveal data-i18n="work.h2">Selected Work.</h2></div>
@@ -145,7 +176,7 @@
         <button class="filter" data-filter="vfx" aria-pressed="false" data-i18n="filter.vfx">VFX</button>
         <button class="filter" data-filter="character" aria-pressed="false" data-i18n="filter.character">Characters</button>
       </div>
-      <div class="work-controls"><p class="work-count" aria-live="polite"><span id="workCount">43</span> <span data-i18n="projects">works</span></p></div>
+      <div class="work-controls"><label class="grid-density" for="gridDensity"><span data-ui="gridSize">Grid density</span><input id="gridDensity" type="range" min="1" max="4" value="2" step="1" aria-describedby="gridDensityValue"><output id="gridDensityValue" for="gridDensity">3 columns</output></label><p class="work-count" aria-live="polite"><span id="workCount">45</span> <span data-i18n="projects">works</span></p></div>
     </div>
     <!-- PORTFOLIO:START -->
     <div class="featured-work">
@@ -162,6 +193,16 @@
     </div>
     <div class="work-batches" id="workGrid">
       <div class="grid work-batch">
+      <figure class="cell" data-project="aurelia-residences" data-category="film" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/aurelia-residences.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/aurelia-residences.webp" data-src="assets/portfolio/aurelia-residences-preview.mp4" data-full="assets/portfolio/aurelia-residences.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:20</span></span></div>
+        <figcaption class="cap"><i dir="auto">Architecture / Property film</i><b dir="auto">Aurelia Residences — Architectural Film</b></figcaption>
+        <a class="project-open" href="assets/portfolio/aurelia-residences.mp4" aria-label="Aurelia Residences — Architectural Film"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
+      <figure class="cell" data-project="spiced-tea" data-category="film product" style="--asset-ratio:720/1280">
+        <div class="project-media"><img class="preview-poster" src="assets/portfolio/spiced-tea.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/spiced-tea.webp" data-src="assets/portfolio/spiced-tea-preview.mp4" data-full="assets/portfolio/spiced-tea.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:16</span></span></div>
+        <figcaption class="cap"><i dir="auto">Beverage / Product film</i><b dir="auto">BLINK — Masala Film</b></figcaption>
+        <a class="project-open" href="assets/portfolio/spiced-tea.mp4" aria-label="BLINK — Masala Film"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
+      </figure>
       <figure class="cell" data-project="desert-journey" data-category="film character vfx" style="--asset-ratio:2206/946">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/desert-journey.webp" width="2206" height="946" alt="" loading="lazy" decoding="async"><video class="cover" width="2206" height="946" aria-hidden="true" data-poster="assets/portfolio/desert-journey.webp" data-src="assets/portfolio/desert-journey-preview.mp4" data-full="assets/portfolio/desert-journey.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
         <figcaption class="cap"><i dir="auto">Characters / Cinematic film</i><b dir="auto">Desert Journey</b></figcaption>
@@ -202,6 +243,8 @@
         <figcaption class="cap"><i dir="auto">Beverage / Product film</i><b dir="auto">Blood Orange — Find Your Rhythm</b></figcaption>
         <a class="project-open" href="assets/portfolio/blood-orange-rhythm.mp4" aria-label="Blood Orange — Find Your Rhythm"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
+      </div>
+      <div class="grid work-batch">
       <figure class="cell" data-project="tiktak-cozy" data-category="poster character product" style="--asset-ratio:1122/1402">
         <div class="project-media"><img class="cover" src="assets/portfolio/tiktak-cozy.webp" data-full="assets/Dara with TikTak snacks, cozy room.png" width="1122" height="1402" alt="TikTak — A Little Everyday Joy — TikTak / Character poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
         <figcaption class="cap"><i dir="auto">TikTak / Character poster</i><b dir="auto">TikTak — A Little Everyday Joy</b></figcaption>
@@ -212,8 +255,6 @@
         <figcaption class="cap"><i dir="auto">Snacks / Product film</i><b dir="auto">Panda — The Perfect Crunch</b></figcaption>
         <a class="project-open" href="assets/portfolio/panda.mp4" aria-label="Panda — The Perfect Crunch"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-      </div>
-      <div class="grid work-batch">
       <figure class="cell" data-project="zero-rice-poster" data-category="poster product" style="--asset-ratio:1122/1402">
         <div class="project-media"><img class="cover" src="assets/portfolio/zero-rice-poster.webp" data-full="assets/Warm Kitchen Rice Celebration.png" width="1122" height="1402" alt="Zero Rice — Made for Sharing — Zero / Lifestyle poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
         <figcaption class="cap"><i dir="auto">Zero / Lifestyle poster</i><b dir="auto">Zero Rice — Made for Sharing</b></figcaption>
@@ -264,6 +305,8 @@
         <figcaption class="cap"><i dir="auto">Tea / Product film</i><b dir="auto">Ceylon Tea — The Golden Pour</b></figcaption>
         <a class="project-open" href="assets/portfolio/ceylon-tea.mp4" aria-label="Ceylon Tea — The Golden Pour"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
+      </div>
+      <div class="grid work-batch">
       <figure class="cell" data-project="hes-clean" data-category="film product" style="--asset-ratio:720/1280">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/hes-clean.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/hes-clean.webp" data-src="assets/portfolio/hes-clean-preview.mp4" data-full="assets/portfolio/hes-clean.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
         <figcaption class="cap"><i dir="auto">Home care / Product film</i><b dir="auto">HES — A Brighter Clean</b></figcaption>
@@ -274,8 +317,6 @@
         <figcaption class="cap"><i dir="auto">TikTak / Animated film</i><b dir="auto">Dara — The Jelly Monster</b></figcaption>
         <a class="project-open" href="assets/portfolio/dara-monster.mp4" aria-label="Dara — The Jelly Monster"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-      </div>
-      <div class="grid work-batch">
       <figure class="cell" data-project="dara-city" data-category="film character" style="--asset-ratio:480/854">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/dara-city.webp" width="480" height="854" alt="" loading="lazy" decoding="async"><video class="cover" width="480" height="854" aria-hidden="true" data-poster="assets/portfolio/dara-city.webp" data-src="assets/portfolio/dara-city-preview.mp4" data-full="assets/portfolio/dara-city.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:30</span></span></div>
         <figcaption class="cap"><i dir="auto">TikTak / Animated film</i><b dir="auto">Dara — City Adventure</b></figcaption>
@@ -326,6 +367,8 @@
         <figcaption class="cap"><i dir="auto">Watches / Product poster</i><b dir="auto">Rolex — Luxury in Detail</b></figcaption>
         <a class="project-open" href="assets/work-rolex.jpg" aria-label="Rolex — Luxury in Detail"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
       </figure>
+      </div>
+      <div class="grid work-batch">
       <figure class="cell" data-project="hyper-motion" data-category="film product" style="--asset-ratio:720/1280">
         <div class="project-media"><img class="preview-poster" src="assets/portfolio/hyper-motion.webp" width="720" height="1280" alt="" loading="lazy" decoding="async"><video class="cover" width="720" height="1280" aria-hidden="true" data-poster="assets/portfolio/hyper-motion.webp" data-src="assets/portfolio/hyper-motion-preview.mp4" data-full="assets/portfolio/hyper-motion.mp4" muted playsinline preload="none"></video><span class="media-label"><span data-i18n="media.film">Film</span><span aria-hidden="true"> · </span><span>0:15</span></span></div>
         <figcaption class="cap"><i dir="auto">Product / Motion film</i><b dir="auto">Product — Hyper-Motion</b></figcaption>
@@ -336,8 +379,6 @@
         <figcaption class="cap"><i dir="auto">Visual effects / Film</i><b dir="auto">VFX — Composite</b></figcaption>
         <a class="project-open" href="assets/portfolio/vfx-composite.mp4" aria-label="VFX — Composite"><span class="open-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></span></a>
       </figure>
-      </div>
-      <div class="grid work-batch">
       <figure class="cell" data-project="muse" data-category="poster product" style="--asset-ratio:736/981">
         <div class="project-media"><img class="cover" src="assets/portfolio/muse.webp" data-full="assets/work-muse.jpg" width="736" height="981" alt="Muse — Color &amp; Flavor — Beverage / Product poster" loading="lazy" decoding="async"><span class="media-label"><span data-i18n="media.poster">Poster</span></span></div>
         <figcaption class="cap"><i dir="auto">Beverage / Product poster</i><b dir="auto">Muse — Color &amp; Flavor</b></figcaption>
@@ -496,26 +537,31 @@
   document.documentElement.dataset.motion=mediaPaused?'off':'on';
   const viewer=document.getElementById('viewer');
   const progress=document.querySelector('.scroll-progress');
-  let reduceMotion=mediaPaused;
+  const systemMotion=matchMedia('(prefers-reduced-motion: reduce)');
+  let reduceMotion=mediaPaused||systemMotion.matches;
 
   // Posters remain visible until playback is requested or a preview enters view.
   function playVisible(v){
     if(v._visible && !document.hidden && !viewer.open && !mediaPaused && !v.getAttribute('src')){if(v.dataset.poster)v.poster=v.dataset.poster;v.src=(v.dataset.mobileSrc && (innerWidth<1024 || navigator.connection?.saveData))?v.dataset.mobileSrc:v.dataset.src;v.load();}
     if(!v._visible || document.hidden || viewer.open || mediaPaused){v.pause();return;}
-    if(v.readyState<2) return;
-    if(v.currentTime<v._start || (v._end && v.currentTime>=v._end)) v.currentTime=v._start;
+    // Calling play starts loading on mobile Safari even when preload is ignored.
+    if(v._playPending)return;
+    if(v.readyState>=1&&(v.currentTime<v._start || (v._end && v.currentTime>=v._end))) v.currentTime=v._start;
+    v._playPending=true;
     v.play().then(()=>{
       if(!v._visible || document.hidden || viewer.open || mediaPaused) v.pause();
-      else v.controls=false;
+      else {v.controls=false;if(v.classList.contains('hero-scene'))document.getElementById('heroPlay').hidden=true;}
     }).catch(error=>{
       // Browser power-saving / autoplay policies still allow an explicit play.
       if(error.name==='NotAllowedError') v.classList.remove('ready');
-    });
+      if(v.classList.contains('hero-scene')&&error.name!=='AbortError')document.getElementById('heroPlay').hidden=false;
+    }).finally(()=>{v._playPending=false;});
   }
   vids.forEach(v=>{
     v.addEventListener('error',()=>v.classList.remove('ready'));
     v.muted=true;
     v.defaultMuted=true;
+    v.playsInline=true;
     v._visible=false;
     v._start=Number(v.dataset.start || 0);
     v._end=v.dataset.end ? Number(v.dataset.end) : null;
@@ -546,6 +592,17 @@
   },{root:scroller,threshold:0.12});
   vids.forEach(v=>vIO.observe(v));
   document.addEventListener('visibilitychange',()=>vids.forEach(playVisible));
+  addEventListener('pageshow',()=>vids.forEach(playVisible));
+  const heroVideo=document.querySelector('.hero-scene'),heroPlay=document.getElementById('heroPlay');
+  heroVideo.addEventListener('error',()=>{heroPlay.hidden=false;});
+  heroVideo.addEventListener('playing',()=>{heroPlay.hidden=true;});
+  heroPlay.addEventListener('click',()=>{
+    if(mediaPaused){motionPreference='on';try{localStorage.setItem('blink-motion','on');}catch{}setMotion(false);}
+    heroVideo._visible=true;
+    if(heroVideo.error){heroVideo.removeAttribute('src');heroVideo.load();}
+    playVisible(heroVideo);
+  });
+  setTimeout(()=>{if(heroVideo.paused&&heroVideo._visible)heroPlay.hidden=false;},3500);
   const motionButton=document.getElementById('motionToggle');
   function updateMotionControls(){
     const labels={en:['Pause motion','Motion paused'],ku:['جووڵە بوەستێنە','جووڵە وەستێنراوە'],ar:['إيقاف الحركة','الحركة متوقفة']};
@@ -553,12 +610,14 @@
     motionButton.setAttribute('aria-checked',String(mediaPaused));
   }
   function setMotion(paused){
-    mediaPaused=paused;reduceMotion=paused;
+    mediaPaused=paused;reduceMotion=paused||systemMotion.matches;
     document.documentElement.dataset.motion=paused?'off':'on';
     stopScroll();updateMotionControls();vids.forEach(playVisible);
     if(paused)document.querySelectorAll('.cell').forEach(card=>card.getAnimations().forEach(animation=>animation.cancel()));
     dispatchEvent(new CustomEvent('blink:motion',{detail:{paused}}));
+    heroPlay.hidden=!paused;
   }
+  systemMotion.addEventListener('change',()=>{reduceMotion=mediaPaused||systemMotion.matches;stopScroll();});
   motionButton.addEventListener('click',()=>{
     motionPreference=mediaPaused?'on':'off';
     try{localStorage.setItem('blink-motion',motionPreference);}catch{}
@@ -586,6 +645,7 @@
   const maxScroll=()=>Math.max(0,scroller.scrollHeight-scroller.clientHeight);
   function stopScroll(){
     cancelAnimationFrame(animRAF);cancelAnimationFrame(wheelRAF);
+    scroller.style.opacity='';
     animRAF=0;wheelRAF=0;wheelTarget=wheelPosition=scroller.scrollTop;
   }
   function wheelStep(now){
@@ -615,6 +675,21 @@
     if(reduceMotion){scroller.scrollTop=top;kick();return;}
     const start=scroller.scrollTop, dist=top-start;
     if(Math.abs(dist)<1) return;
+    // A long section jump uses a quiet dissolve instead of racing through 43 works.
+    if(Math.abs(dist)>vh()*2){
+      const began=performance.now();let moved=false;
+      (function dissolve(now){
+        const elapsed=now-began;
+        if(elapsed<150)scroller.style.opacity=String(1-elapsed/150);
+        else{
+          if(!moved){scroller.scrollTop=top;moved=true;kick();}
+          scroller.style.opacity=String(Math.min(1,(elapsed-150)/230));
+        }
+        if(elapsed<380)animRAF=requestAnimationFrame(dissolve);
+        else{animRAF=0;scroller.style.opacity='';wheelTarget=scroller.scrollTop;}
+      })(began);
+      return;
+    }
     const dur=clamp(Math.abs(dist)*0.16,350,800), t0=performance.now();
     const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; // easeInOutCubic — section-scale motion
     (function step(now){
@@ -626,7 +701,7 @@
     })(performance.now());
   }
   function goTo(i){ i=clamp(i,0,N-1);const section=sections[i];section.tabIndex=-1;section.focus({preventScroll:true});animateTo(Math.max(0,section.offsetTop-(i===0?0:document.getElementById('mainNav').offsetHeight)));if(location.hash!=='#'+section.id)history.pushState(null,'','#'+section.id); }
-  document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();goTo(sections.findIndex(section=>section.dataset.i===el.dataset.go));}));
+  document.querySelectorAll('[data-go],[data-next-section]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();goTo(el.hasAttribute('data-next-section')?sections.indexOf(el.closest('section'))+1:sections.findIndex(section=>section.dataset.i===el.dataset.go));}));
 
   /* ---- cached section / parallax offsets (no per-frame layout reads) ---- */
   let secTops=[],current=-1;
@@ -931,5 +1006,6 @@
 })();
 </script>
 <script type="module" src="assets/experience/experience.js"></script>
+<script src="assets/site/refinements.js" defer></script>
 </body>
 </html>

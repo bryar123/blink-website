@@ -10,7 +10,7 @@ const catalog=JSON.parse(await readFile(path.join(root,'assets/portfolio.json'),
 const files=new Set(['index.html']);
 for(const match of html.matchAll(/["'](assets\/[^"']+)["']/g))files.add(match[1]);
 for(const project of [...catalog.projects,...catalog.studio,catalog.hero]){
- for(const key of ['full','preview','thumbnail'])if(project[key])files.add(project[key]);
+ for(const key of ['full','preview','thumbnail','exhibitionPoster','exhibitionPreview'])if(project[key])files.add(project[key]);
 }
 // Local fonts and library licenses travel with the website. Source artwork, build inputs and audit files do not.
 for(const folder of ['assets/fonts','assets/experience']){
