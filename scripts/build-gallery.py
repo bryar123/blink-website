@@ -55,6 +55,9 @@ text = page.read_text(encoding='utf-8')
 assert '<!-- PORTFOLIO:START -->' in text, 'Gallery markers not found'
 text = re.sub(r'<!-- PORTFOLIO:START -->.*?<!-- PORTFOLIO:END -->', lambda _: markup, text, flags=re.S)
 text = re.sub(r'(<span id="workCount">)\d+', lambda m: m[1]+str(len(projects)), text)
+for kind, label, count in [('all', 'All work', len(projects)), ('film', 'Films', sum(p['video'] for p in projects)), ('poster', 'Posters', sum(not p['video'] for p in projects))]:
+    text = re.sub(r'(<button[^>]*data-exhibit-filter="' + kind + r'"[^>]*>)[^<]+', lambda m: m[1] + f'{label} {count}', text)
+text = re.sub(r'(<span id="exhibitPosition"[^>]*>)1 / \d+', lambda m: m[1] + f'1 / {len(projects)}', text)
 # Keep the no-JavaScript exhibition complete and in the same order as the 3D gallery.
 featured = json.loads((ROOT / 'assets/experience/selection.json').read_text(encoding='utf-8'))
 ids = {p['id'] for p in featured}

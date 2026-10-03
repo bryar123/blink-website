@@ -1,6 +1,100 @@
 {
   "projects": [
     {
+      "id": "forest-flight",
+      "source": "assets/forest-flight-original.mp4",
+      "title": "Forest Flight",
+      "category": "Nature / Cinematic film",
+      "categories": [
+        "film",
+        "vfx"
+      ],
+      "width": 3840,
+      "height": 2160,
+      "video": true,
+      "new": true,
+      "duration": 14.5,
+      "full": "assets/portfolio/forest-flight.mp4",
+      "preview": "assets/portfolio/forest-flight-preview.mp4",
+      "thumbnail": "assets/portfolio/forest-flight.webp",
+      "posterTime": 3,
+      "previewStart": 0,
+      "delivery": {
+        "width": 3840,
+        "height": 2160,
+        "quality": 20,
+        "maxrate": "11M",
+        "bufsize": "11M",
+        "previewWidth": 1920,
+        "previewHeight": 1080,
+        "previewQuality": 22,
+        "previewDuration": 14.5
+      }
+    },
+    {
+      "id": "blink-logo-animation",
+      "source": "assets/blink-logo-animation-original.mp4",
+      "title": "BLINK — Logo Animation",
+      "category": "Brand identity / Motion",
+      "categories": [
+        "film",
+        "vfx"
+      ],
+      "width": 3840,
+      "height": 2160,
+      "video": true,
+      "new": true,
+      "duration": 7.041667,
+      "full": "assets/portfolio/blink-logo-animation.mp4",
+      "preview": "assets/portfolio/blink-logo-animation-preview.mp4",
+      "thumbnail": "assets/portfolio/blink-logo-animation.webp",
+      "posterTime": 3,
+      "previewStart": 0,
+      "delivery": {
+        "width": 3840,
+        "height": 2160,
+        "quality": 20,
+        "maxrate": "11M",
+        "bufsize": "11M",
+        "previewWidth": 1920,
+        "previewHeight": 1080,
+        "previewQuality": 22,
+        "previewDuration": 5
+      }
+    },
+    {
+      "id": "desert-journey",
+      "source": "assets/desert-journey-original.mp4",
+      "title": "Desert Journey",
+      "category": "Characters / Cinematic film",
+      "categories": [
+        "film",
+        "character",
+        "vfx"
+      ],
+      "width": 2206,
+      "height": 946,
+      "video": true,
+      "new": true,
+      "duration": 15.069002,
+      "full": "assets/portfolio/desert-journey.mp4",
+      "preview": "assets/portfolio/desert-journey-preview.mp4",
+      "thumbnail": "assets/portfolio/desert-journey.webp",
+      "posterTime": 5,
+      "previewStart": 0,
+      "delivery": {
+        "width": 2206,
+        "height": 946,
+        "quality": 20,
+        "maxrate": "11M",
+        "bufsize": "11M",
+        "previewWidth": 1920,
+        "previewHeight": 1080,
+        "previewQuality": 22,
+        "previewDuration": 5
+      }
+    },
+    {
       "id": "jaunt",
       "source": "assets/Seedance 2 0 - Referenceuse The Exact Jaunt Portable Speaker As The Only Product Reference  Preserve 4K(1).mp4",
       "title": "JAUNT — One Beat",

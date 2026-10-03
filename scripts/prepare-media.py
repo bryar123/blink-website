@@ -23,10 +23,10 @@ args = parser.parse_args()
 catalog = json.loads((ROOT / 'assets/portfolio.json').read_text(encoding='utf-8'))
 (ROOT / 'assets/portfolio').mkdir(exist_ok=True)
 
-def encode_options(preview=False):
+def encode_options(preview=False, quality=None):
     if args.encoder == 'libx264':
-        return ['-c:v', 'libx264', '-preset', 'medium', '-crf', '27' if preview else '22']
-    return ['-c:v', 'h264_nvenc', '-preset', 'p6', '-rc', 'vbr', '-cq', '29' if preview else '25', '-b:v', '0']
+        return ['-c:v', 'libx264', '-preset', 'medium', '-crf', str(quality if quality is not None else (27 if preview else 22))]
+    return ['-c:v', 'h264_nvenc', '-preset', 'p6', '-rc', 'vbr', '-cq', str(quality if quality is not None else (29 if preview else 25)), '-b:v', '0']
 
 def run(command):
     subprocess.run([args.ffmpeg, '-hide_banner', '-loglevel', 'error', '-y'] + command, check=True)
@@ -58,15 +58,16 @@ for p in catalog['projects'] + catalog['studio']:
         continue
     source = ROOT / p['source']
     if p['video']:
+        delivery = p.get('delivery', {})
         full, preview = ROOT / p['full'], ROOT / p['preview']
         if not args.only_previews and needed(full):
-            w, h = display_size(source, 1920, 1920)
+            w, h = display_size(source, delivery.get('width', 1920), delivery.get('height', 1920))
             scale = f'scale={w}:{h},setsar=1'
-            run(['-i', str(source), '-map', '0:v:0', '-map', '0:a?', '-vf', scale] + encode_options() + ['-maxrate', '4M', '-bufsize', '8M', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', str(full)])
+            run(['-i', str(source), '-map', '0:v:0', '-map', '0:a?', '-vf', scale] + encode_options(quality=delivery.get('quality')) + ['-maxrate', delivery.get('maxrate', '4M'), '-bufsize', delivery.get('bufsize', '8M'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', str(full)])
         if needed(preview):
-            w, h = display_size(source, 960, 720)
+            w, h = display_size(source, delivery.get('previewWidth', 960), delivery.get('previewHeight', 720))
             scale = f'scale={w}:{h},setsar=1'
-            run(['-ss', str(p['previewStart']), '-i', str(source), '-t', '5', '-an', '-vf', scale] + encode_options(True) + ['-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(preview)])
+            run(['-ss', str(p['previewStart']), '-i', str(source), '-t', str(delivery.get('previewDuration', 5)), '-an', '-vf', scale] + encode_options(True, delivery.get('previewQuality')) + ['-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(preview)])
     if args.only_previews:
         continue
     thumb = ROOT / p['thumbnail']
