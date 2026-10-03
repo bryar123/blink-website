@@ -12,29 +12,24 @@ const saver=Boolean(navigator.connection?.saveData);
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lerp=THREE.MathUtils.lerp;
 const featuredIds=new Set(featured.map(p=>p.id));
 const allProjects=[...featured.map(p=>catalog.projects.find(item=>item.id===p.id)).filter(Boolean),...catalog.projects.filter(p=>!featuredIds.has(p.id))];
-let selection=allProjects,filter='all';
-// The exhibition starts on. Only a visitor's deliberate choice overrides that default.
-let reduced=false,initialized=false,trigger=null;
-try{reduced=localStorage.getItem('blink-exhibition-motion')==='off';}catch{}
+const selection=allProjects;
+// Motion starts enabled unless the visitor explicitly pauses it.
+let reduced=html.dataset.motion==='off',initialized=false,trigger=null;
 let lang=html.lang==='ckb'?'ku':html.lang;
 let pointer=new THREE.Vector2(),smoothPointer=new THREE.Vector2();
 let raf=0,previousTime=0,surfaces=[],exhibitProgress=0,currentProject=0;
 const copy={
- en:{'exhibit.kicker':'A different perspective','exhibit.title':'Step inside<br>the work.','exhibit.skip':'View the grid ↗','exhibit.gesture':'Scroll to explore · Swipe or drag sideways','motion.off':'Reduce motion','motion.on':'Enable motion',all:'All work',film:'Films',poster:'Posters',jump:'Jump to a work',filters:'Choose a work format',prev:'Previous work',next:'Next work'},
- ku:{'exhibit.kicker':'لە ڕوانگەیەکی جیاوازەوە','exhibit.title':'بچۆ ناو<br>جیهانی کارەکان.','exhibit.skip':'کارەکان بە تۆڕ ببینە ↗','exhibit.gesture':'بۆ گەڕان بجووڵێنە · بەرەو لاکان ڕایبکێشە','motion.off':'جووڵە کەم بکەوە','motion.on':'جووڵە چالاک بکە',all:'هەموو کارەکان',film:'فیلمەکان',poster:'پۆستەرەکان',jump:'کارێک هەڵبژێرە',filters:'جۆری کار هەڵبژێرە',prev:'کاری پێشوو',next:'کاری دواتر'},
- ar:{'exhibit.kicker':'من منظور مختلف','exhibit.title':'ادخل إلى<br>عالم الأعمال.','exhibit.skip':'عرض شبكة الأعمال ↗','exhibit.gesture':'مرّر للاستكشاف · اسحب جانبياً','motion.off':'تقليل الحركة','motion.on':'تفعيل الحركة',all:'كل الأعمال',film:'الأفلام',poster:'الملصقات',jump:'انتقل إلى عمل',filters:'اختر نوع العمل',prev:'العمل السابق',next:'العمل التالي'}
+ en:{'exhibit.title':'Step inside<br>the work.',prev:'Previous work',next:'Next work'},
+ ku:{'exhibit.title':'بچۆ ناو<br>جیهانی کارەکان.',prev:'کاری پێشوو',next:'کاری دواتر'},
+ ar:{'exhibit.title':'ادخل إلى<br>عالم الأعمال.',prev:'العمل السابق',next:'العمل التالي'}
 };
 const text=key=>(copy[lang]||copy.en)[key]||copy.en[key];
 const direction=()=>html.dir==='rtl'?-1:1;
 function translate(){
  root.querySelectorAll('[data-exp-i18n]').forEach(el=>el.innerHTML=text(el.dataset.expI18n));
  $('exhibitPrev').setAttribute('aria-label',text('prev'));$('exhibitNext').setAttribute('aria-label',text('next'));
- $('exhibitMotion').textContent=text(reduced?'motion.on':'motion.off');
- $('exhibitFilters').setAttribute('aria-label',text('filters'));
- $('exhibitJump').setAttribute('aria-label',text('jump'));
- const skipLabel=({en:'Skip to selected work',ku:'بڕۆ بۆ کارە هەڵبژێردراوەکان',ar:'انتقل إلى الأعمال المختارة'})[lang]||'Skip to selected work';
- $('exhibitSkip').setAttribute('aria-label',skipLabel);$('exhibitSkip').title=skipLabel;
- $('exhibitFilters').querySelectorAll('button').forEach(button=>{const key=button.dataset.exhibitFilter,count=allProjects.filter(p=>key==='all'||(key==='film'?p.video:!p.video)).length;button.textContent=`${text(key)} ${count}`;});
+ const gridLabel=({en:'View all work',ku:'هەموو کارەکان ببینە',ar:'عرض جميع الأعمال'})[lang]||'View all work';
+ $('exhibitGrid').setAttribute('aria-label',gridLabel);$('exhibitGrid').title=gridLabel;
  requestRefresh();wake();
 }
 addEventListener('blink:language',event=>{lang=event.detail;translate();});
@@ -111,31 +106,28 @@ let exhibitSurface,exhibitAngle=0,exhibitTarget=0;
 function setExhibitProgress(value){
  exhibitProgress=clamp(value);exhibitTarget=exhibitProgress*(selection.length-1)*.58;
  const index=Math.round(exhibitProgress*(selection.length-1));
- if(index!==currentProject||!$('exhibitCategory').textContent){
-  currentProject=index;const p=selection[index];$('exhibitCategory').textContent=p.category;
-  $('exhibitOpen').textContent=p.title+' ↗';$('exhibitPosition').textContent=`${index+1} / ${selection.length}`;
+ if(index!==currentProject||!$('exhibitOpen').dataset.ready){
+  currentProject=index;const p=selection[index];$('exhibitOpen').dataset.ready='true';
+  $('exhibitOpen').textContent=p.title;$('exhibitPosition').textContent=`${index+1} / ${selection.length}`;
   $('exhibitPrev').disabled=index===0;$('exhibitNext').disabled=index===selection.length-1;
-  $('exhibitJump').value=String(index);
   exhibitSurface?.queueVideo?.();
  }
  $('exhibition').style.setProperty('--exhibit-progress',exhibitProgress);wake();
 }
 function buildExhibition(){
  const root=$('exhibition'),surface=new Surface($('exhibitionWorld'),root,()=>{});exhibitSurface=surface;
- surface.camera.fov=48;surface.camera.updateProjectionMatrix();surface.scene.background=new THREE.Color(0x101316);surface.scene.fog=new THREE.Fog(0x101316,12,30);
- const lit=new THREE.HemisphereLight(0xc4ddff,0x131918,2.5);surface.scene.add(lit);
- const floor=mesh(new THREE.CircleGeometry(17,80),material(0x161e24,.85,.25),surface.scene,[0,-2.2,0]);floor.rotation.x=-Math.PI/2;
+ surface.camera.fov=48;surface.camera.updateProjectionMatrix();surface.scene.background=null;
+ const lit=new THREE.HemisphereLight(0xffffff,0xd8d8df,2.5);surface.scene.add(lit);
  const loader=new THREE.TextureLoader(),cards=[],posters=new Map();
- const cardMaterial=material(0x4d5965,.38,.55);
+ const cardMaterial=material(0xe5e5ea,.7,.05);
  // Recycle seven screens around the current work. A forty-screen circle would overlap itself.
  for(let i=0;i<7;i++){
   const group=new THREE.Group();surface.scene.add(group);
   const frame=mesh(new THREE.BoxGeometry(1,1,.055),cardMaterial,group,[0,0,-.04]);
-  const screen=mesh(new THREE.PlaneGeometry(1,1),focusedMaterial({color:0x34414b}),group);
-  const reflection=mesh(new THREE.PlaneGeometry(1,1),focusedMaterial({color:0x607581,transparent:true,opacity:.08}),group);
-  cards.push({group,frame,screen,reflection,index:-1});
+  const screen=mesh(new THREE.PlaneGeometry(1,1),focusedMaterial({color:0xe5e5ea}),group);
+  cards.push({group,frame,screen,index:-1});
  }
- function applyMap(mat,map){if(mat.map===map)return;mat.map=map;mat.color.set(map?0xffffff:0x34414b);mat.needsUpdate=true;}
+ function applyMap(mat,map){if(mat.map===map)return;mat.map=map;mat.color.set(map?0xffffff:0xe5e5ea);mat.needsUpdate=true;}
  function loadNearby(){
   if(!surface.visible||reduced||surface.failed)return;
   const center=Math.round(exhibitAngle/.58),nearby=new Set();
@@ -175,9 +167,9 @@ function buildExhibition(){
  installDrag(surface.container,tap);
  let frameHeight=400,frameOffset=0;
  surface.measureFrame=()=>{
-  const bounds=surface.container.getBoundingClientRect(),heading=root.querySelector('.exhibition-heading').getBoundingClientRect(),browse=root.querySelector('.exhibit-browse').getBoundingClientRect();
-  const gesture=root.querySelector('.exhibit-gesture'),bottom=(getComputedStyle(gesture).display==='none'?root.querySelector('.exhibition-bottom'):gesture).getBoundingClientRect();
-  const top=(innerHeight<=520?heading.bottom:Math.max(heading.bottom,browse.bottom))-bounds.top+16,end=bottom.top-bounds.top-20;
+  const bounds=surface.container.getBoundingClientRect(),heading=root.querySelector('.exhibition-heading').getBoundingClientRect();
+  const bottom=root.querySelector('.exhibition-bottom').getBoundingClientRect();
+  const top=heading.bottom-bounds.top+28,end=bottom.top-bounds.top-32;
   frameHeight=Math.max(70,end-top);frameOffset=(top+end)/2-bounds.height/2;wake();
  };
  surface.onResize=surface.measureFrame;surface.measureFrame();
@@ -195,20 +187,20 @@ function buildExhibition(){
    if(card.index!==index){
     card.index=index;card.screen.userData.index=index;
     const aspect=p.width/p.height,w=aspect>1?4.4:2.25,h=w/aspect;
-    card.frame.scale.set(w+.07,h+.07,1);card.screen.scale.set(w,h,1);card.reflection.scale.set(w,-h,1);card.reflection.position.set(0,-h-.14,-.01);
+    card.frame.scale.set(w+.018,h+.018,1);card.screen.scale.set(w,h,1);
    }
    const angle=(index*.58-exhibitAngle)*dir;card.group.position.set(Math.sin(angle)*8,-.12,-Math.cos(angle)*8);card.group.rotation.y=-angle;
    const focus=1-THREE.MathUtils.smoothstep(Math.abs(index-exhibitAngle/.58),.08,1.1);
    const fitted=Math.min(mobileQuery.matches?1.3:1.75,frameHeight/(card.screen.scale.y*pixelsPerUnit),surface.container.clientWidth*.92/(card.screen.scale.x*pixelsPerUnit));
    card.group.scale.setScalar(fitted*lerp(.62,1,focus));
-   const poster=posters.get(p.id)?.texture||null;applyMap(card.screen.material,index===videoIndex&&videoTexture?videoTexture:poster);applyMap(card.reflection.material,poster);
-   for(const mat of [card.screen.material,card.reflection.material]){
+   const poster=posters.get(p.id)?.texture||null;applyMap(card.screen.material,index===videoIndex&&videoTexture?videoTexture:poster);
+   for(const mat of [card.screen.material]){
     const media=mat.map?.image,w=media?.videoWidth||media?.width||p.width,h=media?.videoHeight||media?.height||p.height;
     mat.userData.focusTexel.value.set(1/w,1/h);mat.userData.focusBlur.value=(1-focus)*12;
-    if(mat.map)mat.color.setScalar(lerp(.55,1,focus));
+    if(mat.map)mat.color.setScalar(lerp(.82,1,focus));
    }
   });
-  surface.camera.position.set(0,.25+frameOffset/pixelsPerUnit+smoothPointer.y*.09,-1.8);
+  surface.camera.position.set(0,.25+frameOffset/pixelsPerUnit+smoothPointer.y*.025,-1.8);
   surface.camera.lookAt(0,-.12+frameOffset/pixelsPerUnit,-8);
   surface.camera.fov=fov;surface.camera.updateProjectionMatrix();
  };
@@ -266,18 +258,6 @@ addEventListener('blink:page-navigation',cancelAlignment);
 addEventListener('pointerdown',event=>{pointerHeld=true;touchInput=event.pointerType==='touch';cancelAlignment();},{capture:true,passive:true});
 for(const type of ['pointerup','pointercancel'])addEventListener(type,()=>{pointerHeld=false;},{capture:true,passive:true});
 addEventListener('keydown',()=>{touchInput=false;cancelAlignment();},{capture:true,passive:true});
-function populateJump(){
- $('exhibitJump').replaceChildren(...selection.map((p,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=`${String(index+1).padStart(2,'0')} — ${p.title}`;return option;}));
-}
-function selectFilter(value){
- if(filter===value)return;filter=value;cancelAlignment();
- selection=allProjects.filter(p=>filter==='all'||(filter==='film'?p.video:!p.video));
- $('exhibitFilters').querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.exhibitFilter===filter)));
- const ids=new Set(selection.map(p=>p.id));root.querySelectorAll('[data-exhibit]').forEach(link=>link.hidden=!ids.has(link.dataset.exhibit));
- root.querySelector('.exhibit-fallback').scrollLeft=0;
- exhibitSurface?.resetCatalog?.();exhibitAngle=0;currentProject=-1;exhibitProgress=0;populateJump();setExhibitProgress(0);
- setupScroll();ScrollTrigger.refresh();writeProgress(0);exhibitSurface?.onVisible?.();
-}
 function installDrag(container,tap){
  let gesture=null;
  container.addEventListener('pointerdown',e=>{
@@ -326,8 +306,6 @@ function installDrag(container,tap){
 $('exhibitOpen').addEventListener('click',()=>openProject(selection[currentProject].id,$('exhibitOpen')));
 $('exhibitPrev').addEventListener('click',()=>selectIndex(currentProject-1));
 $('exhibitNext').addEventListener('click',()=>selectIndex(currentProject+1));
-$('exhibitJump').addEventListener('change',event=>selectIndex(Number(event.target.value)));
-$('exhibitFilters').querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>selectFilter(button.dataset.exhibitFilter)));
 $('exhibitOpen').addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();selectIndex(currentProject+(e.key==='ArrowRight'?1:-1)*direction());}});
 function setupScroll(){
  cancelAlignment();
@@ -346,10 +324,18 @@ function updateMotion(){
  root.classList.toggle('is-reduced',reduced);translate();if(!reduced)initialize();setupScroll();
  if(!reduced)surfaces.filter(s=>s.visible).forEach(s=>s.onVisible?.());
 }
-$('exhibitMotion').addEventListener('click',()=>{reduced=!reduced;try{localStorage.setItem('blink-exhibition-motion',reduced?'off':'on');}catch{}updateMotion();scroller.scrollTop=root.offsetTop-$('mainNav').offsetHeight;});
+addEventListener('blink:motion',event=>{
+ const navHeight=$('mainNav').offsetHeight;
+ const anchor=[...scroller.querySelectorAll(':scope > section')].find(section=>section.getBoundingClientRect().bottom>navHeight);
+ const anchorTop=anchor?.getBoundingClientRect().top;
+ reduced=event.detail.paused;updateMotion();
+ // Preserve the visitor's place when the exhibition changes height.
+ if(anchor===root)scroller.scrollTop=root.offsetTop-navHeight;
+ else if(anchor)scroller.scrollTop+=anchor.getBoundingClientRect().top-anchorTop;
+});
 mobileQuery.addEventListener('change',()=>{surfaces.forEach(s=>s.resize());setupScroll();});
 addEventListener('pagehide',event=>{if(event.persisted)return;cancelAnimationFrame(raf);trigger?.kill();surfaces.forEach(s=>s.dispose());});
 addEventListener('pageshow',requestRefresh);
-populateJump();updateMotion();setExhibitProgress(0);
+updateMotion();setExhibitProgress(0);
 if(location.hash)requestAnimationFrame(()=>{const target=document.getElementById(location.hash.slice(1));if(target&&target.closest('#scroller'))scroller.scrollTop=target.offsetTop-$('mainNav').offsetHeight;});
 document.fonts.ready.then(requestRefresh);
