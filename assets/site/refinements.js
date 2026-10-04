@@ -57,18 +57,24 @@
   if(matchMedia('(hover: hover) and (pointer: fine)').matches){
     const bubble=document.createElement('div');bubble.className='cursor-bubble';bubble.setAttribute('aria-hidden','true');bubble.innerHTML='<span></span>';document.body.append(bubble);
     const words={en:{view:'View',play:'Play',drag:'Drag'},ckb:{view:'بینین',play:'لێدان',drag:'ڕاکێشان'},ar:{view:'عرض',play:'تشغيل',drag:'اسحب'}};
-    let x=0,y=0,bx=0,by=0,last=0,frame=0,active=false;
+    // Spring follower: slight overshoot, and the bubble stretches along its velocity (counter-transformed label stays upright).
+    let x=0,y=0,bx=0,by=0,vx=0,vy=0,last=0,frame=0,active=false;const label=bubble.firstChild;
     const follow=now=>{
-      const k=1-Math.exp(-Math.min(50,now-last||16)/45);last=now;bx+=(x-bx)*k;by+=(y-by)*k;
-      bubble.style.transform=`translate3d(${bx}px,${by}px,0)`;
-      frame=(active||Math.abs(x-bx)+Math.abs(y-by)>.3)?requestAnimationFrame(follow):0;
+      const dt=Math.min(.032,(now-last)/1000||.016);last=now;
+      vx+=(380*(x-bx)-30*vx)*dt;vy+=(380*(y-by)-30*vy)*dt;bx+=vx*dt;by+=vy*dt;
+      const speed=Math.hypot(vx,vy),stretch=Math.min(speed/5000,.28),angle=Math.atan2(vy,vx),sx=1+stretch,sy=1-stretch*.55;
+      bubble.style.transform=`translate3d(${bx.toFixed(1)}px,${by.toFixed(1)}px,0) rotate(${angle}rad) scale(${sx},${sy})`;
+      label.style.transform=`scale(${1/sx},${1/sy}) rotate(${-angle}rad)`;
+      frame=(active||speed>2||Math.abs(x-bx)+Math.abs(y-by)>.3)?requestAnimationFrame(follow):0;
     };
     addEventListener('pointermove',e=>{
       if(e.pointerType!=='mouse')return;
       x=e.clientX;y=e.clientY;
-      const cell=e.target.closest('.cell .project-media, .cell .project-open'),world=!cell&&e.target.closest('#exhibitionWorld');
-      const kind=cell?(cell.closest('.cell').dataset.category.includes('film')?'play':'view'):world?'drag':null;
-      if(kind){const t=(words[html.lang]||words.en)[kind];if(bubble.firstChild.textContent!==t)bubble.firstChild.textContent=t;if(!active){bx=x;by=y;}}
+      // Whole works / whole exhibition stage count, except real controls: no flicker over captions or backdrops.
+      const control=e.target.closest('a:not(.project-open),button,input,select,textarea,label');
+      const cell=e.target.closest('.cell .project-media, .cell .project-open'),stage=!cell&&!control&&e.target.closest('.exhibition-section.has-webgl:not(.is-reduced) .exhibition-sticky');
+      const kind=cell?(cell.closest('.cell').dataset.category.includes('film')?'play':'view'):stage?'drag':null;
+      if(kind){const t=(words[html.lang]||words.en)[kind];if(label.textContent!==t)label.textContent=t;if(!active&&!bubble.classList.contains('is-on')){bx=x;by=y;vx=vy=0;}}
       active=Boolean(kind)&&!$('viewer').open;bubble.classList.toggle('is-on',active);
       if(!frame){last=performance.now();frame=requestAnimationFrame(follow);}
     },{passive:true});

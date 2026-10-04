@@ -114,10 +114,10 @@ h2[data-reveal].in{clip-path:inset(-25% -6% -30% -6%);transform:none}
 html[data-motion=off] h2[data-reveal]{clip-path:none;transform:none}
 
 /* ---- Cursor bubble over works (fine pointers only; the native cursor stays) ---- */
-.cursor-bubble{position:fixed;left:0;top:0;z-index:150;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;display:grid;place-items:center;background:#fffffff2;color:#111;font-size:12px;font-weight:600;letter-spacing:.02em;box-shadow:0 10px 30px #0000002e;pointer-events:none;opacity:0;scale:.3;transition:opacity .2s var(--ease),scale .3s var(--ease)}
+.cursor-bubble{position:fixed;left:0;top:0;z-index:150;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;display:grid;place-items:center;background:#fffffff2;color:#111;font-size:11px;font-weight:600;letter-spacing:.02em;box-shadow:0 0 26px #0000002e;pointer-events:none;opacity:0;scale:.4;will-change:transform;transition:opacity .25s var(--ease),scale .5s cubic-bezier(.34,1.56,.64,1)}
 .cursor-bubble.is-on{opacity:1;scale:1}
-.cursor-bubble.is-down{scale:.86}
-.cursor-bubble span{direction:auto}
+.cursor-bubble.is-down{scale:.82;transition:opacity .25s var(--ease),scale .18s var(--ease)}
+.cursor-bubble span{display:block;white-space:nowrap}
 html[data-motion=off] .cursor-bubble{display:none}
 
 /* ---- Living icons: arrows lean toward where they point, small glyphs respond to hover ---- */
