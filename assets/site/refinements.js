@@ -53,6 +53,42 @@
   }
   const gridObserver=new ResizeObserver(layoutGrid);
   [...workGrid.children].forEach(card=>gridObserver.observe(card));
+  // Cursor bubble: a "View"/"Play"/"Drag" label that trails the mouse over works.
+  if(matchMedia('(hover: hover) and (pointer: fine)').matches){
+    const bubble=document.createElement('div');bubble.className='cursor-bubble';bubble.setAttribute('aria-hidden','true');bubble.innerHTML='<span></span>';document.body.append(bubble);
+    const words={en:{view:'View',play:'Play',drag:'Drag'},ckb:{view:'بینین',play:'لێدان',drag:'ڕاکێشان'},ar:{view:'عرض',play:'تشغيل',drag:'اسحب'}};
+    let x=0,y=0,bx=0,by=0,last=0,frame=0,active=false;
+    const follow=now=>{
+      const k=1-Math.exp(-Math.min(50,now-last||16)/45);last=now;bx+=(x-bx)*k;by+=(y-by)*k;
+      bubble.style.transform=`translate3d(${bx}px,${by}px,0)`;
+      frame=(active||Math.abs(x-bx)+Math.abs(y-by)>.3)?requestAnimationFrame(follow):0;
+    };
+    addEventListener('pointermove',e=>{
+      if(e.pointerType!=='mouse')return;
+      x=e.clientX;y=e.clientY;
+      const cell=e.target.closest('.cell .project-media, .cell .project-open'),world=!cell&&e.target.closest('#exhibitionWorld');
+      const kind=cell?(cell.closest('.cell').dataset.category.includes('film')?'play':'view'):world?'drag':null;
+      if(kind){const t=(words[html.lang]||words.en)[kind];if(bubble.firstChild.textContent!==t)bubble.firstChild.textContent=t;if(!active){bx=x;by=y;}}
+      active=Boolean(kind)&&!$('viewer').open;bubble.classList.toggle('is-on',active);
+      if(!frame){last=performance.now();frame=requestAnimationFrame(follow);}
+    },{passive:true});
+    // Magnetic buttons: lean up to 6px toward the cursor, spring back on leave (CSS translate transition).
+    document.querySelectorAll('.cta,.nav-cta,.whatsapp-float,.icon-button,.theme-toggle').forEach(el=>{
+      let box=null;
+      el.addEventListener('pointerenter',()=>{box=el.getBoundingClientRect();});
+      el.addEventListener('pointermove',e=>{if(!box||e.pointerType!=='mouse'||html.dataset.motion==='off')return;const mx=Math.max(-1,Math.min(1,(e.clientX-box.left-box.width/2)/(box.width/2))),my=Math.max(-1,Math.min(1,(e.clientY-box.top-box.height/2)/(box.height/2)));el.style.translate=`${(mx*6).toFixed(1)}px ${(my*4).toFixed(1)}px`;},{passive:true});
+      el.addEventListener('pointerleave',()=>{box=null;el.style.translate='';});
+    });
+    addEventListener('pointerdown',()=>bubble.classList.add('is-down'),{passive:true});
+    addEventListener('pointerup',()=>bubble.classList.remove('is-down'),{passive:true});
+    document.documentElement.addEventListener('pointerleave',()=>{active=false;bubble.classList.remove('is-on');});
+  }
+  // Masked headings are fully clipped before they reveal, and a clipped element never "intersects",
+  // so watch each heading's container and reveal the heading from there.
+  const headingReveal=new IntersectionObserver(entries=>{
+    entries.filter(e=>e.isIntersecting).forEach(e=>{e.target.querySelectorAll(':scope > h2[data-reveal]').forEach(h=>h.classList.add('in'));headingReveal.unobserve(e.target);});
+  },{rootMargin:'0px 0px -10% 0px'});
+  document.querySelectorAll('h2[data-reveal]').forEach(h=>headingReveal.observe(h.parentElement));
   // Stagger cards that enter together (60ms apart, capped) so a screenful doesn't pop in at once.
   workGrid.classList.add('reveal-cells');
   const cellReveal=new IntersectionObserver(entries=>{
