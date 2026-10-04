@@ -781,9 +781,11 @@
   document.querySelectorAll('[data-go],[data-next-section]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();goTo(el.hasAttribute('data-next-section')?sections.indexOf(el.closest('section'))+1:sections.findIndex(section=>section.dataset.i===el.dataset.go));}));
 
   /* ---- cached section / parallax offsets (no per-frame layout reads) ---- */
-  let secTops=[],current=-1;
+  let secTops=[],secBottoms=[],current=-1;
+  const navLinks=[...document.querySelectorAll('nav [data-go]')].map(link=>({link,ids:sections.find(s=>s.dataset.i===link.dataset.go)?.id==='exhibition'?['exhibition','work']:[sections.find(s=>s.dataset.i===link.dataset.go)?.id]}));
   function measure(){
     secTops = sections.map(el=>el.offsetTop);
+    secBottoms = sections.map(el=>el.offsetTop+el.offsetHeight);
     pars.forEach(p=>{ p._top = p.closest('section').offsetTop; });
   }
 
@@ -797,8 +799,10 @@
     if(Math.abs(target-smooth)<0.1) smooth=target;
 
     // hero mark: JS only takes over the fade once you begin leaving (lets the CSS intro play)
-    document.getElementById('mainNav').classList.toggle('over-film',sections.some(section=>section.id==='hero'&&target+86>=section.offsetTop&&target+86<section.offsetTop+section.offsetHeight));
-    document.querySelectorAll('nav [data-go]').forEach(link=>{const section=sections.find(s=>s.dataset.i===link.dataset.go);const active=(section?.id==='exhibition'?sections.filter(s=>['exhibition','work'].includes(s.id)):[section]).some(s=>s&&target+160>=s.offsetTop&&target+160<s.offsetTop+s.offsetHeight);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
+    // Cached offsets only: reading layout here forced a reflow on every scroll frame.
+    const inside=(id,y)=>{const i=sections.findIndex(s=>s.id===id);return i>=0&&y>=secTops[i]&&y<secBottoms[i];};
+    document.getElementById('mainNav').classList.toggle('over-film',inside('hero',target+86));
+    navLinks.forEach(({link,ids})=>{if(ids.some(id=>inside(id,target+160)))link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
 
     // subtle parallax — transform only, and only on media within ~1 viewport
     for(const p of pars){ if(reduceMotion) continue; const rel=(smooth-p._top)/H; if(rel<-1.15||rel>1.15) continue;

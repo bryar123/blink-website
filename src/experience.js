@@ -36,7 +36,7 @@ addEventListener('blink:language',event=>{lang=event.detail;translate();});
 function openProject(id,button){dispatchEvent(new CustomEvent('blink:open-project',{detail:{id,trigger:button}}));}
 root.querySelectorAll('[data-exhibit]').forEach(link=>link.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();openProject(link.dataset.exhibit,link);}));
 let refreshTimer=0;
-function requestRefresh(){clearTimeout(refreshTimer);refreshTimer=setTimeout(()=>{ScrollTrigger.refresh();surfaces.forEach(s=>s.measureFrame?.());dispatchEvent(new Event('blink:layout'));wake();},100);}
+function requestRefresh(){clearTimeout(refreshTimer);refreshTimer=setTimeout(()=>{ScrollTrigger.refresh();placeSnaps();surfaces.forEach(s=>s.measureFrame?.());dispatchEvent(new Event('blink:layout'));wake();},100);}
 function wake(){if(!raf&&!document.hidden)raf=requestAnimationFrame(tick);}
 function tick(time){
  raf=0;if(document.hidden||$('viewer').open)return;
@@ -83,7 +83,7 @@ function setExhibitProgress(value){
  const index=Math.round(exhibitProgress*(selection.length-1));
  if(index!==currentProject||!$('exhibitOpen').dataset.ready){
   currentProject=index;const p=selection[index];$('exhibitOpen').dataset.ready='true';
-  $('exhibitOpen').textContent=p.title;$('exhibitPosition').textContent=`${index+1} / ${selection.length}`;
+  $('exhibitOpen').textContent=p.title;if(!reduced)$('exhibitOpen').animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:460,easing:'cubic-bezier(.16,1,.3,1)'});$('exhibitPosition').textContent=`${index+1} / ${selection.length}`;
   $('exhibitPrev').disabled=index===0;$('exhibitNext').disabled=index===selection.length-1;
   exhibitSurface?.queueVideo?.();
   updateBackdrop(p);
@@ -92,7 +92,11 @@ function setExhibitProgress(value){
 }
 const backdrops=[...root.querySelectorAll('.exhibit-ambience img')];
 let backdropSlot=0,backdropVersion=0;
+let backdropTimer=0;
 function updateBackdrop(project){
+ clearTimeout(backdropTimer);backdropTimer=setTimeout(()=>loadBackdrop(project),110);
+}
+function loadBackdrop(project){
  const version=++backdropVersion,next=backdrops[1-backdropSlot];
  if(!next)return;
  const preload=new Image();preload.src=project.thumbnail;
@@ -134,7 +138,9 @@ function buildExhibition(){
    const item={texture:null};posters.set(p.id,item);
    loader.load(p.exhibitionPoster||(!p.video?p.full:p.thumbnail),texture=>{
     if(posters.get(p.id)!==item){texture.dispose();return;}
-    texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,surface.renderer.capabilities.getMaxAnisotropy());item.texture=texture;wake();
+    texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,surface.renderer.capabilities.getMaxAnisotropy());
+    // Decode asynchronously and upload now; a lazy decode inside render() drops frames mid-swipe.
+    Promise.resolve(texture.image.decode?.()).catch(()=>{}).then(()=>{if(posters.get(p.id)!==item){texture.dispose();return;}surface.renderer.initTexture(texture);item.texture=texture;wake();});
    },undefined,()=>wake());
   }
  }
@@ -169,12 +175,17 @@ function buildExhibition(){
   frameHeight=Math.max(70,end-top);frameOffset=(top+end)/2-bounds.height/2;wake();
  };
  surface.onResize=surface.measureFrame;surface.measureFrame();
- let loadedCenter=-1;
+ let loadedCenter=-1,lastAngle=0,velocity=0;
  surface.update=(time,dt)=>{
   // The input controller owns easing. Native scroll and touch track the hand;
   // a second camera interpolation would add lag after every input and snap.
   exhibitAngle=exhibitTarget;
-  surface.animate=!video.paused;
+  // Velocity only shapes the cards (lean + slight recede), never the position, so input stays 1:1.
+  const step=(exhibitAngle-lastAngle)/.58;lastAngle=exhibitAngle;
+  velocity=lerp(velocity,Math.abs(step)>2?0:step/Math.max(dt,.001),1-Math.exp(-dt*10));
+  if(Math.abs(velocity)<.01)velocity=0;
+  const lean=clamp(velocity*.03,-.16,.16),recede=1-Math.min(Math.abs(velocity)*.01,.06);
+  surface.animate=!video.paused||velocity!==0;
   const center=Math.round(exhibitAngle/.58),dir=direction();
   const fov=mobileQuery.matches?(innerHeight<760?68:58):(innerHeight<760?56:48);
   const pixelsPerUnit=surface.container.clientHeight/(2*Math.tan(THREE.MathUtils.degToRad(fov/2))*6.2);
@@ -187,10 +198,10 @@ function buildExhibition(){
     card.frame.scale.set(w+.018,h+.018,1);card.screen.scale.set(w,h,1);
     card.shadow.scale.set(w*1.4,h*1.4,1);
    }
-   const angle=(index*.58-exhibitAngle)*dir;card.group.position.set(Math.sin(angle)*8,-.12,-Math.cos(angle)*8);card.group.rotation.y=-angle;
+   const angle=(index*.58-exhibitAngle)*dir;card.group.position.set(Math.sin(angle)*8,-.12,-Math.cos(angle)*8);card.group.rotation.y=-angle-lean*dir;
    const focus=1-THREE.MathUtils.smoothstep(Math.abs(index-exhibitAngle/.58),.08,1.1);
    const fitted=Math.min(mobileQuery.matches?1.3:1.75,frameHeight/(card.screen.scale.y*pixelsPerUnit),surface.container.clientWidth*.92/(card.screen.scale.x*pixelsPerUnit));
-   card.group.scale.setScalar(fitted*lerp(.62,1,focus));
+   card.group.scale.setScalar(fitted*lerp(.62,1,focus)*recede);
    const poster=posters.get(p.id)?.texture||null;applyMap(card.screen.material,index===videoIndex&&videoTexture?videoTexture:poster);
    card.shadow.material.uniforms.strength.value=lerp(.03,.23,focus);
   });
@@ -201,6 +212,19 @@ function buildExhibition(){
  setExhibitProgress(0);return surface;
 }
 
+// Touch uses native, momentum-aware CSS snapping: one continuous glide that lands on a work,
+// instead of a fling followed by a separate JS correction. Programmatic scrolling turns it off.
+let snaps=[];
+function placeSnaps(){
+ snaps.forEach(el=>el.remove());snaps=[];
+ if(!trigger)return;
+ const offset=root.getBoundingClientRect().top-scroller.getBoundingClientRect().top+scroller.scrollTop;
+ for(let i=0;i<selection.length;i++){const el=document.createElement('div');el.className='exhibit-snap';el.style.top=`${lerp(trigger.start,trigger.end,i/(selection.length-1))-offset}px`;root.append(el);snaps.push(el);}
+}
+const touchSnap=on=>scroller.classList.toggle('is-touch-snap',on&&Boolean(trigger));
+scroller.addEventListener('touchstart',()=>touchSnap(true),{capture:true,passive:true});
+for(const type of ['blink:page-navigation','blink:scroll-control'])addEventListener(type,()=>touchSnap(false));
+scroller.addEventListener('wheel',()=>touchSnap(false),{capture:true,passive:true});
 function writeProgress(value){
  value=clamp(value);
  // Programmatic snaps and direct drags already define their motion. Do not add
@@ -260,7 +284,7 @@ scroller.addEventListener('wheel',event=>{
  wheelTimer=setTimeout(()=>{const pending=wheelGesture;wheelGesture=null;if(pending&&!pending.committed)animateIndex(Math.round(exhibitProgress*(selection.length-1)));},175);
 },{capture:true,passive:false});
 scroller.addEventListener('scroll',()=>{
- if(pointerHeld||scroller.dataset.navigating||!insideExhibition()||wheelGesture||gsap.isTweening(navigation))return;
+ if(scroller.classList.contains('is-touch-snap')||pointerHeld||scroller.dataset.navigating||!insideExhibition()||wheelGesture||gsap.isTweening(navigation))return;
  clearTimeout(alignTimer);
  alignTimer=setTimeout(()=>{if(!insideExhibition()||pointerHeld||scroller.dataset.navigating)return;const position=exhibitProgress*(selection.length-1);if(Math.abs(position-Math.round(position))>.006)selectIndex(Math.round(position));},120);
 },{passive:true});
@@ -280,7 +304,7 @@ function installDrag(container,tap){
   const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y;
   if(!gesture.axis&&Math.hypot(dx,dy)>5){
    gesture.axis=Math.abs(dx)>Math.abs(dy)*1.15?'x':'y';
-   if(gesture.axis==='x'){container.setPointerCapture(e.pointerId);container.classList.add('is-dragging');}
+   if(gesture.axis==='x'){touchSnap(false);container.setPointerCapture(e.pointerId);container.classList.add('is-dragging');}
   }
   if(gesture.axis!=='x')return;
   if(e.cancelable)e.preventDefault();
@@ -312,7 +336,7 @@ $('exhibitPrev').addEventListener('click',()=>selectIndex(Math.round((navigation
 $('exhibitNext').addEventListener('click',()=>selectIndex(Math.round((navigationTarget??exhibitProgress)*(selection.length-1))+1));
 $('exhibitOpen').addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();selectIndex(currentProject+(e.key==='ArrowRight'?1:-1)*direction());}});
 function setupScroll(){
- cancelAlignment();
+ cancelAlignment();touchSnap(false);
  trigger?.kill();trigger=null;
  root.style.setProperty('--exhibit-distance',`${(selection.length-1)*clamp(innerHeight*.5,360,540)}px`);
  root.classList.toggle('is-scrollable',!reduced&&root.classList.contains('has-webgl'));
