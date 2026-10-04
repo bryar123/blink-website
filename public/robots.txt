@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blink-website-1qs.pages.dev/sitemap.xml

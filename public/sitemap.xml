@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://blink-website-1qs.pages.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://blink-website-1qs.pages.dev/"/>
+    <xhtml:link rel="alternate" hreflang="ku" href="https://blink-website-1qs.pages.dev/ku/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://blink-website-1qs.pages.dev/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://blink-website-1qs.pages.dev/"/>
+  </url>
+  <url>
+    <loc>https://blink-website-1qs.pages.dev/ku/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://blink-website-1qs.pages.dev/"/>
+    <xhtml:link rel="alternate" hreflang="ku" href="https://blink-website-1qs.pages.dev/ku/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://blink-website-1qs.pages.dev/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://blink-website-1qs.pages.dev/"/>
+  </url>
+  <url>
+    <loc>https://blink-website-1qs.pages.dev/ar/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://blink-website-1qs.pages.dev/"/>
+    <xhtml:link rel="alternate" hreflang="ku" href="https://blink-website-1qs.pages.dev/ku/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://blink-website-1qs.pages.dev/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://blink-website-1qs.pages.dev/"/>
+  </url>
+  <url>
+    <loc>https://blink-website-1qs.pages.dev/privacy</loc>
+  </url>
+</urlset>
