@@ -1,0 +1,3 @@
+# The Kurdish and Arabic pages reuse the shared files under /assets.
+/ku/assets/* /assets/:splat 200
+/ar/assets/* /assets/:splat 200

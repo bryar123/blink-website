@@ -1,0 +1,20 @@
+/* WhatsApp contact, project sharing, footer and touch-target fixes */
+.whatsapp-float{position:fixed;inset-inline-end:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:90;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 8px 24px #0003;transition:transform .2s}
+.whatsapp-float:hover{transform:scale(1.06)}
+.whatsapp-float:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.whatsapp-float svg{width:30px;height:30px}
+.contact-whatsapp{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:16px;color:inherit;text-underline-offset:5px}
+.contact-whatsapp svg{width:22px;height:22px;flex:none;color:#25d366}
+.brief-actions .brief-whatsapp{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#06210f}
+.brief-actions .brief-whatsapp:hover{background:#1fbd5b}
+.brief-actions .brief-whatsapp[hidden]{display:none}
+.brief-whatsapp svg{width:20px;height:20px;flex:none}
+.viewer-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;min-width:0}
+.viewer-share{min-height:44px;padding:0 18px;border:1px solid #ffffff45;border-radius:999px;background:none;color:var(--paper);font:inherit;font-size:14px;cursor:pointer}
+.viewer-share:hover{border-color:var(--paper)}
+.site-footer{align-items:center}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px 20px}
+.footer-links a{display:inline-block;padding-block:14px}
+.nav-right .lnk{padding-inline:8px;margin-inline:-8px;min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:767px){.whatsapp-float{width:52px;height:52px}.site-footer{padding-bottom:72px}.viewer-bottom>.viewer-actions>a{max-width:14ch}}
+@media(prefers-reduced-motion:reduce){.whatsapp-float{transition:none}}

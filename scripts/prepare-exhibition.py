@@ -14,7 +14,7 @@ parser.add_argument('--ffmpeg', default='ffmpeg')
 parser.add_argument('--ffprobe', default='ffprobe')
 parser.add_argument('--encoder', choices=['libx264', 'h264_nvenc'], default='libx264')
 args = parser.parse_args()
-codec = ['-c:v', 'h264_nvenc', '-preset', 'p7', '-rc', 'vbr', '-cq', '19', '-b:v', '0'] if args.encoder == 'h264_nvenc' else ['-c:v', 'libx264', '-preset', 'fast', '-crf', '19']
+codec = ['-c:v', 'h264_nvenc', '-preset', 'p7', '-rc', 'vbr', '-cq', '27', '-b:v', '0', '-maxrate', '2500k', '-bufsize', '5M'] if args.encoder == 'h264_nvenc' else ['-c:v', 'libx264', '-preset', 'slow', '-crf', '26', '-maxrate', '2500k', '-bufsize', '5M']
 root = Path(__file__).resolve().parents[1]
 catalog_path = root / 'assets/portfolio.json'
 catalog = json.loads(catalog_path.read_text(encoding='utf-8'))
@@ -48,14 +48,17 @@ for project in catalog['projects']:
     w, h = dimensions(source, 1920)
     poster = folder / (project['id'] + '.jpg')
     run(['-ss', str(project['posterTime']), '-i', str(source), '-vf', f'scale={w}:{h},setsar=1', '-frames:v', '1', '-q:v', '2'], poster)
-    w, h = dimensions(source, 1920)
+    # Exhibition previews play as small textures; 1280px and a 2.5 Mbps cap keep the first visit light on mobile data.
+    w, h = dimensions(source, 1280)
     preview = folder / (project['id'] + '.mp4')
     run(['-ss', str(project['previewStart']), '-i', str(source), '-t', '6', '-an', '-vf', f'scale={w}:{h},setsar=1', *codec, '-pix_fmt', 'yuv420p', '-movflags', '+faststart'], preview)
     project['exhibitionPoster'] = poster.relative_to(root).as_posix()
     project['exhibitionPreview'] = preview.relative_to(root).as_posix()
     print(project['id'], w, h, flush=True)
 
-hero = root / 'assets/site/hero-mobile.mp4'
-run(['-i', str(root / 'assets/forest-flight-original.mp4'), '-t', '14.5', '-an', '-vf', 'scale=1280:720,setsar=1,fps=30', *codec, '-profile:v', 'main', '-level:v', '3.1', '-maxrate', '3M', '-bufsize', '6M', '-pix_fmt', 'yuv420p', '-movflags', '+faststart'], hero)
+hero_source = root / 'assets/forest-flight-original.mp4'
+hero_codec = [c for c in codec if c not in ('-maxrate', '2500k', '-bufsize', '5M')]
+run(['-i', str(hero_source), '-t', '14.5', '-an', '-vf', 'scale=1280:720,setsar=1,fps=30', *hero_codec, '-profile:v', 'main', '-level:v', '3.1', '-maxrate', '1500k', '-bufsize', '3M', '-pix_fmt', 'yuv420p', '-movflags', '+faststart'], root / 'assets/site/hero-mobile.mp4')
+run(['-i', str(hero_source), '-t', '14.5', '-an', '-vf', 'scale=1920:1080,setsar=1,fps=30', *hero_codec, '-profile:v', 'high', '-maxrate', '2500k', '-bufsize', '5M', '-pix_fmt', 'yuv420p', '-movflags', '+faststart'], root / 'assets/site/hero-desktop.mp4')
 catalog_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print('Exhibition media and mobile hero ready. Originals unchanged.')

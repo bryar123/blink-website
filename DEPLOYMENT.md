@@ -13,3 +13,7 @@ Cloudflare build settings:
 The served Toyota derivative retains 1880×1080 resolution, its complete 78.4-second duration and audio, at 23,986,577 bytes. Its original `assets/Toyota_web.mp4` remains untouched. Never point the deployment output at the whole repository: unused source videos can exceed the Pages limit.
 
 To check locally, run `npm ci` followed by `npm run build:pages`. The `dist` directory is generated and ignored by Git. Push reviewed source changes to `main` to update the existing production URL.
+
+Files in `public/` (404 page, privacy page, `robots.txt`, `sitemap.xml`, `_headers`, `_redirects`) are copied to the root of `dist`. The build also writes `dist/ku/index.html` and `dist/ar/index.html` so each language has its own address; `_redirects` serves `/ku/assets/*` and `/ar/assets/*` from `/assets`.
+
+Visit statistics: in the Cloudflare dashboard open the `blink-website` Pages project, then Metrics, and enable Web Analytics. No code change is needed, and the Content-Security-Policy in `public/_headers` already allows its script.
