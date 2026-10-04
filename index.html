@@ -611,8 +611,8 @@
   document.documentElement.dataset.motion=mediaPaused?'off':'on';
   const viewer=document.getElementById('viewer');
   const progress=document.querySelector('.scroll-progress');
-  const systemMotion=matchMedia('(prefers-reduced-motion: reduce)');
-  let reduceMotion=mediaPaused||systemMotion.matches;
+  // Owner choice: motion plays for everyone; the in-page Pause motion switch is the off control.
+  let reduceMotion=mediaPaused;
 
   // Posters remain visible until playback is requested or a preview enters view.
   function playVisible(v){
@@ -684,14 +684,14 @@
     motionButton.setAttribute('aria-checked',String(mediaPaused));
   }
   function setMotion(paused){
-    mediaPaused=paused;reduceMotion=paused||systemMotion.matches;
+    mediaPaused=paused;reduceMotion=paused;
     document.documentElement.dataset.motion=paused?'off':'on';
     stopScroll();updateMotionControls();vids.forEach(playVisible);
     if(paused)document.querySelectorAll('.cell').forEach(card=>card.getAnimations().forEach(animation=>animation.cancel()));
     dispatchEvent(new CustomEvent('blink:motion',{detail:{paused}}));
     heroPlay.hidden=!paused;
   }
-  systemMotion.addEventListener('change',()=>{reduceMotion=mediaPaused||systemMotion.matches;stopScroll();});
+  
   motionButton.addEventListener('click',()=>{
     motionPreference=mediaPaused?'on':'off';
     try{localStorage.setItem('blink-motion',motionPreference);}catch{}

@@ -27,7 +27,7 @@ The previous page design is restored. Only the “Step inside” curved exhibiti
 
 ## Behavior to preserve
 
-Muted viewport previews, independent pause/resume, eased wheel scrolling, native touch momentum, modal viewing with sound, keyboard dismissal and restored focus, category filters, three languages, and both phone numbers. Outside the exhibition, reduced-motion and data-saving preferences still start with still posters and an explicit play option. Data-saving mode keeps the exhibition interactive using still images, without automatically fetching its video previews.
+Muted viewport previews, independent pause/resume, eased wheel scrolling, native touch momentum, modal viewing with sound, keyboard dismissal and restored focus, category filters, three languages, and both phone numbers. Site-wide motion now plays regardless of the operating-system reduced-motion setting (owner decision, October 5, 2026); the in-page Pause motion switch is the off control. Data-saving mode still starts with still posters and an explicit play option. Data-saving mode keeps the exhibition interactive using still images, without automatically fetching its video previews.
 
 Project inquiries retain the chosen project's title and let visitors remove that reference. Changing a reference or form field invalidates any older draft. The form prepares an email draft for review; it does not send messages or claim a submission was made. Viewer loading failures explain recovery and offer a retry. Dialog focus stays inside the viewer; Escape restores the triggering link. Language and studio controls support keyboard navigation in both reading directions.
 

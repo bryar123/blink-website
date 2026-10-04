@@ -17,7 +17,7 @@
 .footer-links a{display:inline-block;padding-block:14px}
 .nav-right .lnk{padding-inline:8px;margin-inline:-8px;min-height:44px;display:inline-flex;align-items:center}
 @media(max-width:767px){.whatsapp-float{width:52px;height:52px}.site-footer{padding-bottom:72px}.viewer-bottom>.viewer-actions>a{max-width:14ch}}
-@media(prefers-reduced-motion:reduce){.whatsapp-float{transition:none}}
+
 .social-links{display:flex;gap:10px;margin-top:4px}
 .social-links a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);color:inherit;transition:border-color .2s,color .2s}
 .social-links a:hover{border-color:var(--brand);color:var(--brand)}

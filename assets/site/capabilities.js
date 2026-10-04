@@ -8,7 +8,7 @@
   };
   let lang=html.lang==='ckb'?'ku':html.lang;
   const t=()=>copy[lang]||copy.en;
-  const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches||html.dataset.motion==='off';
+  const reduced=()=>html.dataset.motion==='off';
   const fine=matchMedia('(any-hover: hover) and (any-pointer: fine)');
   const comparisons=[];
   document.querySelectorAll('[data-compare]').forEach(element=>{

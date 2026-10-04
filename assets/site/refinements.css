@@ -73,8 +73,8 @@ html[data-motion=off] [data-reveal]{opacity:1;transform:none}
 @media(max-width:380px){.nav-right .lnk[data-go="9"]{display:none}}
 @media(max-height:650px){.exhibition-section.has-webgl .exhibition-bottom{bottom:60px}.exhibit-skip{bottom:8px}.exhibition-section.has-webgl .exhibition-sticky{padding-top:18px}.exhibition-heading h2{font-size:22px}.exhibition-bottom .exhibit-caption>button{font-size:15px}}
 @media(max-height:460px){.exhibition-section.has-webgl .exhibition-bottom{bottom:52px}.exhibit-skip{bottom:4px;min-height:44px}.exhibition-section.has-webgl .exhibition-sticky{padding-top:10px}.exhibition-heading h2{font-size:18px}}
-@media(prefers-reduced-motion:reduce){body,nav,#work,#studio,#transformation,.exhibition-section,.exhibit-ambience img{transition:none}.hero-heading h1{animation:none!important}}
-@media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+
 
 /* ---- Motion polish (values from Emil Kowalski's animation audit) ---- */
 /* One strong ease-out for every UI transition; the old curve was close to a plain ease and felt soft. */
@@ -104,4 +104,4 @@ html[data-motion=off] [data-reveal]{opacity:1;transform:none}
 .reveal-cells .cell{transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .reveal-cells .cell:not(.in){opacity:0;transform:translateY(18px)}
 html[data-motion=off] .reveal-cells .cell{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){#hero .hero-eyebrow,#hero .hero-aside{animation:none!important}.reveal-cells .cell:not(.in){transform:none}}
+

@@ -66,7 +66,6 @@
   const variants=[...$('comparisonVariants').children].map(el=>el.dataset.src);
   const loaded=new Map();let current=0,revealed=true,swapVersion=0,gesture=null;
   const hoverCapable=matchMedia('(any-hover: hover) and (any-pointer: fine)');
-  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
   let hoverFrame=0,hoverTarget=50,hoverValue=50,hoverTime=0;
   function preload(index){
     if(!loaded.has(index)){
@@ -106,7 +105,7 @@
   function followHover(e){
     if(e.pointerType!=='mouse'||!hoverCapable.matches||gesture)return;
     hoverTarget=pointerPosition(e);
-    if(reducedMotion.matches||html.dataset.motion==='off'){stopHover();hoverValue=hoverTarget;range.value=hoverTarget;updateReveal(hoverValue);nextHidden();return;}
+    if(html.dataset.motion==='off'){stopHover();hoverValue=hoverTarget;range.value=hoverTarget;updateReveal(hoverValue);nextHidden();return;}
     if(!hoverFrame){hoverValue=parseFloat(comparison.style.getPropertyValue('--reveal'))||0;hoverFrame=requestAnimationFrame(hoverStep);}
   }
   async function nextHidden(){
