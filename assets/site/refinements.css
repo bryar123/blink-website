@@ -75,3 +75,33 @@ html[data-motion=off] [data-reveal]{opacity:1;transform:none}
 @media(max-height:460px){.exhibition-section.has-webgl .exhibition-bottom{bottom:52px}.exhibit-skip{bottom:4px;min-height:44px}.exhibition-section.has-webgl .exhibition-sticky{padding-top:10px}.exhibition-heading h2{font-size:18px}}
 @media(prefers-reduced-motion:reduce){body,nav,#work,#studio,#transformation,.exhibition-section,.exhibit-ambience img{transition:none}.hero-heading h1{animation:none!important}}
 @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+/* ---- Motion polish (values from Emil Kowalski's animation audit) ---- */
+/* One strong ease-out for every UI transition; the old curve was close to a plain ease and felt soft. */
+:root{--ease:cubic-bezier(.23,1,.32,1)}
+/* Press feedback: snappy and subtle, on everything pressable. */
+.cta,.icon-button{transition:background .2s,transform .16s var(--ease)}
+.nav-cta,.filter,.cap-tabs button,.cap-segment button,.theme-toggle,.lang-btn,.social-links a{transition:background .2s,color .2s,border-color .2s,box-shadow .2s,transform .16s var(--ease)}
+.nav-cta:active,.filter:active,.cap-tabs button:active,.cap-segment button:active,.theme-toggle:active,.lang-btn:active,.social-links a:active,.whatsapp-float:active{transform:scale(.97)}
+/* Language menu grows from its trigger and now fades out too (visibility used to cut it instantly). */
+.lang-menu{transform:translateY(-6px) scale(.97);transform-origin:top right;transition:opacity .2s var(--ease),transform .2s var(--ease),visibility 0s .2s}
+[dir=rtl] .lang-menu{transform-origin:top left}
+.lang.open .lang-menu{transition:opacity .2s var(--ease),transform .2s var(--ease),visibility 0s}
+.project-open .open-mark{transition:opacity .2s var(--ease),transform .2s var(--ease)}
+.whatsapp-float{transition:transform .2s var(--ease)}
+/* Touch fires hover on tap; only fine pointers get hover motion. */
+.whatsapp-float:hover{transform:none}
+@media(hover:hover) and (pointer:fine){
+ .whatsapp-float:hover{transform:scale(1.06)}
+ .project-media>img,.project-media>video{transition:transform .7s var(--ease),opacity .2s}
+ .cell:hover .project-media>img,.cell:hover .project-media>video{transform:scale(1.025)}
+}
+/* Hero: eyebrow, headline and actions arrive in sequence instead of all at once. */
+#hero .hero-eyebrow{animation:opening-title .9s var(--ease) both}
+#hero h1{animation-delay:.08s}
+#hero .hero-aside{animation:opening-title .9s var(--ease) .18s both}
+/* Work grid: cards rise in with a short stagger as they enter (class set by JS, so no-JS stays visible). */
+.reveal-cells .cell{transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal-cells .cell:not(.in){opacity:0;transform:translateY(18px)}
+html[data-motion=off] .reveal-cells .cell{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){#hero .hero-eyebrow,#hero .hero-aside{animation:none!important}.reveal-cells .cell:not(.in){transform:none}}

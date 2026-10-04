@@ -53,6 +53,12 @@
   }
   const gridObserver=new ResizeObserver(layoutGrid);
   [...workGrid.children].forEach(card=>gridObserver.observe(card));
+  // Stagger cards that enter together (60ms apart, capped) so a screenful doesn't pop in at once.
+  workGrid.classList.add('reveal-cells');
+  const cellReveal=new IntersectionObserver(entries=>{
+    entries.filter(e=>e.isIntersecting).forEach((e,i)=>{e.target.style.transitionDelay=`${Math.min(i*60,300)}ms`;e.target.classList.add('in');cellReveal.unobserve(e.target);});
+  },{rootMargin:'0px 0px -6% 0px'});
+  [...workGrid.children].forEach(card=>cellReveal.observe(card));
   addEventListener('blink:grid-layout',layoutGrid);document.fonts.ready.then(layoutGrid);
   new ResizeObserver(entries=>{const width=Math.round(entries[0].contentRect.width);if(width!==lastWidth){lastWidth=width;updateDensity();}}).observe(work);
 
