@@ -1,5 +1,6 @@
 import { readFile, readdir, copyFile, mkdir, rm, lstat, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -40,6 +41,11 @@ for(const {file,source} of entries){
  await mkdir(path.dirname(target),{recursive:true});
  await copyFile(source,target);
 }
+// /assets is cached for a day (+7 days stale), so stamp CSS/JS links with a content hash:
+// every deploy that changes a file changes its URL, and returning visitors fetch it fresh.
+const hashes=new Map(await Promise.all(entries.filter(e=>/\.(css|js)$/.test(e.file)).map(async e=>[e.file,createHash('sha1').update(await readFile(e.source)).digest('hex').slice(0,10)])));
+const versioned=html.replace(/(href|src)="(assets\/[^"?]+\.(?:css|js))"/g,(m,attr,file)=>hashes.has(file)?`${attr}="${file}?v=${hashes.get(file)}"`:m);
+await writeFile(path.join(output,'index.html'),versioned);
 // Root files for Cloudflare Pages: 404 page, privacy page, robots, sitemap, headers and redirects.
 for(const entry of await readdir(path.join(root,'public'),{withFileTypes:true})){
  if(entry.isFile())await copyFile(path.join(root,'public',entry.name),path.join(output,entry.name));
@@ -52,7 +58,7 @@ const languages={
 };
 const swap=(text,from,to)=>{if(!text.includes(from))throw new Error(`Language page: cannot find ${from}`);return text.replace(from,to);};
 for(const [code,meta] of Object.entries(languages)){
- let page=html;
+ let page=versioned;
  page=swap(page,'<html lang="en">',`<html lang="${meta.lang}" dir="rtl">`);
  page=page.replace(/<title>[^<]*<\/title>/,`<title>${meta.title}</title>`);
  page=page.replace(/<meta name="description" content="[^"]*" \/>/,`<meta name="description" content="${meta.description}" />`);
