@@ -55,18 +55,28 @@
   [...workGrid.children].forEach(card=>gridObserver.observe(card));
   // Cursor bubble: a "View"/"Play"/"Drag" label that trails the mouse over works.
   if(matchMedia('(hover: hover) and (pointer: fine)').matches){
-    const bubble=document.createElement('div');bubble.className='cursor-bubble';bubble.setAttribute('aria-hidden','true');bubble.innerHTML='<span></span>';document.body.append(bubble);
+    const bubble=document.createElement('div');bubble.className='cursor-bubble';bubble.setAttribute('aria-hidden','true');bubble.innerHTML='<span><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg><b></b></span>';document.body.append(bubble);
+    // Text spotlight: an inverting disc (mix-blend-mode: difference) that lifts the text under the pointer.
+    const spot=document.createElement('div');spot.className='cursor-spot';spot.setAttribute('aria-hidden','true');document.body.append(spot);
     const words={en:{view:'View',play:'Play',drag:'Drag'},ckb:{view:'بینین',play:'لێدان',drag:'ڕاکێشان'},ar:{view:'عرض',play:'تشغيل',drag:'اسحب'}};
     // Spring follower: slight overshoot, and the bubble stretches along its velocity (counter-transformed label stays upright).
-    let x=0,y=0,bx=0,by=0,vx=0,vy=0,last=0,frame=0,active=false;const label=bubble.firstChild;
+    let x=0,y=0,bx=0,by=0,vx=0,vy=0,last=0,frame=0,active=false;const label=bubble.firstChild,labelText=label.lastChild;
+    let spotOn=false,spx=0,spy=0,spotSize=0,spotTarget=0;
     const follow=now=>{
       const dt=Math.min(.032,(now-last)/1000||.016);last=now;
       vx+=(380*(x-bx)-30*vx)*dt;vy+=(380*(y-by)-30*vy)*dt;bx+=vx*dt;by+=vy*dt;
       const speed=Math.hypot(vx,vy),stretch=Math.min(speed/5000,.28),angle=Math.atan2(vy,vx),sx=1+stretch,sy=1-stretch*.55;
       bubble.style.transform=`translate3d(${bx.toFixed(1)}px,${by.toFixed(1)}px,0) rotate(${angle}rad) scale(${sx},${sy})`;
       label.style.transform=`scale(${1/sx},${1/sy}) rotate(${-angle}rad)`;
-      frame=(active||speed>2||Math.abs(x-bx)+Math.abs(y-by)>.3)?requestAnimationFrame(follow):0;
+      // The spotlight trails closely and eases its size toward the text it is over (0 when hidden).
+      const k=Math.min(1,dt*20);spx+=(x-spx)*k;spy+=(y-spy)*k;spotSize+=((spotOn?spotTarget:0)-spotSize)*Math.min(1,dt*14);
+      spot.style.transform=`translate3d(${spx.toFixed(1)}px,${spy.toFixed(1)}px,0) scale(${(spotSize/100).toFixed(3)})`;
+      const spotMoving=Math.abs(x-spx)+Math.abs(y-spy)>.3||Math.abs((spotOn?spotTarget:0)-spotSize)>.3;
+      frame=(active||spotOn||spotMoving||speed>2||Math.abs(x-bx)+Math.abs(y-by)>.3)?requestAnimationFrame(follow):0;
     };
+    // Spotlight only over real glyphs: the pointer must sit inside one of the element's text line boxes.
+    const textSelector='h1,h2,h3,h4,p,li,blockquote,figcaption,dd,dt,.cap b,.contact-phone';
+    const overGlyphs=(el,px,py)=>{const range=document.createRange();range.selectNodeContents(el);for(const r of range.getClientRects())if(px>=r.left-4&&px<=r.right+4&&py>=r.top-2&&py<=r.bottom+2)return true;return false;};
     addEventListener('pointermove',e=>{
       if(e.pointerType!=='mouse')return;
       x=e.clientX;y=e.clientY;
@@ -74,8 +84,12 @@
       const control=e.target.closest('a:not(.project-open),button,input,select,textarea,label');
       const cell=e.target.closest('.cell .project-media, .cell .project-open'),stage=!cell&&!control&&e.target.closest('.exhibition-section.has-webgl:not(.is-reduced) .exhibition-sticky');
       const kind=cell?(cell.closest('.cell').dataset.category.includes('film')?'play':'view'):stage?'drag':null;
-      if(kind){const t=(words[html.lang]||words.en)[kind];if(label.textContent!==t)label.textContent=t;if(!active&&!bubble.classList.contains('is-on')){bx=x;by=y;vx=vy=0;}}
+      if(kind){const t=(words[html.lang]||words.en)[kind];if(labelText.textContent!==t)labelText.textContent=t;bubble.classList.toggle('is-play',kind==='play');if(!active&&!bubble.classList.contains('is-on')){bx=x;by=y;vx=vy=0;}}
       active=Boolean(kind)&&!$('viewer').open;bubble.classList.toggle('is-on',active);
+      const text=!kind&&!control&&!$('viewer').open&&html.dataset.motion!=='off'&&e.target.closest(textSelector);
+      const lit=Boolean(text)&&!text.closest('a,button,label,.cell,.viewer,.brief')&&overGlyphs(text,x,y);
+      if(lit){spotTarget=Math.max(46,Math.min(150,parseFloat(getComputedStyle(text).fontSize)*1.7));if(!spotOn&&spotSize<1){spx=x;spy=y;}}
+      spotOn=lit;
       if(!frame){last=performance.now();frame=requestAnimationFrame(follow);}
     },{passive:true});
     // Magnetic buttons: lean up to 6px toward the cursor, spring back on leave (CSS translate transition).
@@ -87,7 +101,9 @@
     });
     addEventListener('pointerdown',()=>bubble.classList.add('is-down'),{passive:true});
     addEventListener('pointerup',()=>bubble.classList.remove('is-down'),{passive:true});
-    document.documentElement.addEventListener('pointerleave',()=>{active=false;bubble.classList.remove('is-on');});
+    document.documentElement.addEventListener('pointerleave',()=>{active=false;spotOn=false;bubble.classList.remove('is-on');if(!frame){last=performance.now();frame=requestAnimationFrame(follow);}});
+    // Scrolling moves text away from a still pointer: drop the spotlight until the next move.
+    addEventListener('scroll',()=>{if(spotOn){spotOn=false;if(!frame){last=performance.now();frame=requestAnimationFrame(follow);}}},{passive:true,capture:true});
   }
   // Masked headings are fully clipped before they reveal, and a clipped element never "intersects",
   // so watch each heading's container and reveal the heading from there.
@@ -95,6 +111,9 @@
     entries.filter(e=>e.isIntersecting).forEach(e=>{e.target.querySelectorAll(':scope > h2[data-reveal]').forEach(h=>h.classList.add('in'));headingReveal.unobserve(e.target);});
   },{rootMargin:'0px 0px -10% 0px'});
   document.querySelectorAll('h2[data-reveal]').forEach(h=>headingReveal.observe(h.parentElement));
+  // Footer wordmark letters rise in once, staggered, when the footer comes into view.
+  const footerMark=document.querySelector('.footer-mark');
+  if(footerMark)new IntersectionObserver(([e],o)=>{if(e.isIntersecting){footerMark.classList.add('in');o.disconnect();}},{threshold:.25}).observe(footerMark);
   // Stagger cards that enter together (60ms apart, capped) so a screenful doesn't pop in at once.
   workGrid.classList.add('reveal-cells');
   const cellReveal=new IntersectionObserver(entries=>{
